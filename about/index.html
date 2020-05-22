@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>个人简介 | GuoShicheng's Blog</title><meta name="description" content="关于我2017.6 ~ 至今&amp;emsp;&amp;emsp;社会闲散人员2015.8 ~ 2017.6&amp;emsp;拓尔思 助理工程师2012.9 ~ 2016.6&amp;emsp;北信科大 本科 软件工程 联系我 qq ： 1850856662 微信： guoshicheng0224 邮箱： programmerguo@gmail.com github： https:&#x2F;&#x2F;github.com&#x2F;guoshiche"><meta name="author" content="Guo Shicheng"><meta name="copyright" content="Guo Shicheng"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://i.loli.net/2020/05/21/l12bpFRLvUxuJd9.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="个人简介"><meta name="twitter:description" content="关于我2017.6 ~ 至今&amp;emsp;&amp;emsp;社会闲散人员2015.8 ~ 2017.6&amp;emsp;拓尔思 助理工程师2012.9 ~ 2016.6&amp;emsp;北信科大 本科 软件工程 联系我 qq ： 1850856662 微信： guoshicheng0224 邮箱： programmerguo@gmail.com github： https:&#x2F;&#x2F;github.com&#x2F;guoshiche"><meta name="twitter:image" content="https://i.loli.net/2020/05/01/IuWi8QbHvzjlOPw.jpg"><meta property="og:type" content="website"><meta property="og:title" content="个人简介"><meta property="og:url" content="https://guoshicheng.com/about/"><meta property="og:site_name" content="GuoShicheng's Blog"><meta property="og:description" content="关于我2017.6 ~ 至今&amp;emsp;&amp;emsp;社会闲散人员2015.8 ~ 2017.6&amp;emsp;拓尔思 助理工程师2012.9 ~ 2016.6&amp;emsp;北信科大 本科 软件工程 联系我 qq ： 1850856662 微信： guoshicheng0224 邮箱： programmerguo@gmail.com github： https:&#x2F;&#x2F;github.com&#x2F;guoshiche"><meta property="og:image" content="https://i.loli.net/2020/05/01/IuWi8QbHvzjlOPw.jpg"><meta property="article:published_time" content="2017-06-17T13:55:26.000Z"><meta property="article:modified_time" content="2020-05-20T17:19:21.217Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="canonical" href="https://guoshicheng.com/about/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: true,
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: false,
+  isSidebar: false  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="GuoShicheng's Blog" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://i.loli.net/2020/05/21/MkNbyJhABVd4Uxz.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">25</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">10</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 文章分类</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/categories/%E6%97%A0%E4%BA%BA%E8%BD%A6/"><i class="fa-fw fa fa-car"></i><span> 无人车</span></a></li><li><a class="site-page" href="/categories/%E7%BC%96%E7%A8%8B/"><i class="fa-fw fa fa-code"></i><span> 编程</span></a></li><li><a class="site-page" href="/categories/%E5%81%A5%E8%BA%AB/"><i class="fa-fw fa fa-dumbbell"></i><span> 健身</span></a></li><li><a class="site-page" href="/categories/%E7%AF%AE%E7%90%83/"><i class="fa-fw fa fa-basketball-ball"></i><span> 篮球</span></a></li><li><a class="site-page" href="/categories/%E5%8F%8D%E6%80%9D/"><i class="fa-fw fa fa-brain"></i><span> 反思</span></a></li><li><a class="site-page" href="/categories/%E8%BD%AC%E8%BD%BD/"><i class="fa-fw fa fa-paper-plane"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw far fa-image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-coffee"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/atom.xml"><i class="fa-fw fa fa-rss"></i><span> Rss</span></a></div></div></div></div><div id="body-wrap"><div class="not-index-bg" id="nav" style="background-image: url(https://i.loli.net/2020/05/18/VS3eLoJtaPWrwIh.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">GuoShicheng's Blog</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 文章分类</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/categories/%E6%97%A0%E4%BA%BA%E8%BD%A6/"><i class="fa-fw fa fa-car"></i><span> 无人车</span></a></li><li><a class="site-page" href="/categories/%E7%BC%96%E7%A8%8B/"><i class="fa-fw fa fa-code"></i><span> 编程</span></a></li><li><a class="site-page" href="/categories/%E5%81%A5%E8%BA%AB/"><i class="fa-fw fa fa-dumbbell"></i><span> 健身</span></a></li><li><a class="site-page" href="/categories/%E7%AF%AE%E7%90%83/"><i class="fa-fw fa fa-basketball-ball"></i><span> 篮球</span></a></li><li><a class="site-page" href="/categories/%E5%8F%8D%E6%80%9D/"><i class="fa-fw fa fa-brain"></i><span> 反思</span></a></li><li><a class="site-page" href="/categories/%E8%BD%AC%E8%BD%BD/"><i class="fa-fw fa fa-paper-plane"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw far fa-image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-coffee"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/atom.xml"><i class="fa-fw fa fa-rss"></i><span> Rss</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="page_site-info"><h1 id="site_title">个人简介</h1></div></div><main class="layout_page" id="content-inner"><div id="page"><div id="article-container"><h2 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h2><p>2017.6 ~ 至今&emsp;&emsp;社会闲散人员<br>2015.8 ~ 2017.6&emsp;拓尔思 助理工程师<br>2012.9 ~ 2016.6&emsp;北信科大 本科 软件工程</p>
+<h2 id="联系我"><a href="#联系我" class="headerlink" title="联系我"></a>联系我</h2><p><i class="fab fa-fw fa-qq"></i> qq ： 1850856662<br><i class="fab fa-fw fa-weixin"></i> 微信： guoshicheng0224<br><i class="fas fa-fw fa-envelope"></i> 邮箱： <a href="Mailto:programmerguo@gmail.com">programmerguo@gmail.com</a><br><i class="fab fa-fw fa-github"></i> github： <a href="https://github.com/guoshicheng" target="_blank" rel="noopener">https://github.com/guoshicheng</a></p>
+<p>💑💍👶👦🎒🎓👮💏💍👨👩👴👵👼👼</p>
+<p><img src="https://i.loli.net/2020/05/19/QSKeEZT5JzCpIOv.jpg" alt="college-classmate-1.jpg"></p>
+</div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail','link'],'nick,mail')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: 'beVfEl7SwSIDDxYiDNGSlVfx-gzGzoHsz',
+  appKey: 'xcMwjxJsob4SNS2bGtzgVlgp',
+  notify: false,
+  verify: false,
+  placeholder: '请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。',
+  avatar: 'monste rid',
+  meta: guestInfo,
+  pageSize: '10',
+  lang: 'zh-CN',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: false,
+  requiredFields: requiredFields
+});</script></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://i.loli.net/2020/05/21/MkNbyJhABVd4Uxz.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Guo Shicheng</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives"><div class="headline">文章</div><div class="length_num">25</div></a></div><div class="card-info-data-item is-center">      <a href="/tags"><div class="headline">标签</div><div class="length_num">10</div></a></div><div class="card-info-data-item is-center">     <a href="/categories"><div class="headline">分类</div><div class="length_num">6</div></a></div></div><div class="card-info-bookmark is-center"><a class="bookmark button--primary button--animated" id="bookmark-it" href="javascript:;" title="加入书签" target="_self"><i class="fa fa-bookmark" aria-hidden="true"></i><span>加入书签</span></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/jerryc127" target="_blank" title="Github"><i class="fa fa-github" aria-hidden="true"></i></a><a class="social-icon" href="programmerguo@gmail.com" target="_blank" title="Email"><i class="fa fa-envelope" aria-hidden="true"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fa fa-rss" aria-hidden="true"></i></a></div></div></div><div class="card-widget card-categories"><div class="card-content"><div class="item-headline"><i class="fa fa-folder-open" aria-hidden="true"></i><span>分类</span></div><ul class="card-category-list">
+            <li class="card-category-list-item"><a class="card-category-list-link" href="/categories/%E5%81%A5%E8%BA%AB/"><span class="card-category-list-name">健身</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/%E5%8F%8D%E6%80%9D/"><span class="card-category-list-name">反思</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/%E6%97%A0%E4%BA%BA%E8%BD%A6/"><span class="card-category-list-name">无人车</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/%E7%AF%AE%E7%90%83/"><span class="card-category-list-name">篮球</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/%E7%BC%96%E7%A8%8B/"><span class="card-category-list-name">编程</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/%E8%BD%AC%E8%BD%BD/"><span class="card-category-list-name">转载</span><span class="card-category-list-count">4</span></a></li>
+                       
+            </ul></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fa fa-tags" aria-hidden="true"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/gif%E5%8A%A8%E6%80%81%E5%9B%BE/" style="font-size: 16px; color: #999">gif动态图</a> <a href="/tags/python/" style="font-size: 16px; color: #999">python</a> <a href="/tags/%E4%BD%93%E6%80%81%E7%9F%AB%E6%AD%A3/" style="font-size: 16px; color: #999">体态矫正</a> <a href="/tags/%E5%81%A5%E8%BA%AB/" style="font-size: 22px; color: #99a9bf">健身</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 18px; color: #999ea6">学习笔记</a> <a href="/tags/%E6%89%A3%E7%AF%AE/" style="font-size: 20px; color: #99a4b2">扣篮</a> <a href="/tags/%E6%96%B0%E5%9E%A3%E7%BB%93%E8%A1%A3/" style="font-size: 18px; color: #999ea6">新垣结衣</a> <a href="/tags/%E7%AF%AE%E7%90%83/" style="font-size: 16px; color: #999">篮球</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 20px; color: #99a4b2">考研</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/" style="font-size: 22px; color: #99a9bf">自动驾驶</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fa fa-archive" aria-hidden="true"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/03/"><span class="card-archive-list-date">三月 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/01/"><span class="card-archive-list-date">一月 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/11/"><span class="card-archive-list-date">十一月 2019</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/10/"><span class="card-archive-list-date">十月 2019</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/09/"><span class="card-archive-list-date">九月 2019</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/02/"><span class="card-archive-list-date">二月 2019</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/01/"><span class="card-archive-list-date">一月 2019</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/10/"><span class="card-archive-list-date">十月 2018</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item more is-center"><a class="card-archive-list-link-more" href="/archives">
+              <span>查看更多</span><i class="fa fa-angle-right" aria-hidden="true"></i></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line" aria-hidden="true"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="webinfo-article-name">文章数目 :</div><div class="webinfo-article-count">25</div></div><div class="webinfo-item"><div class="webinfo-runtime-name">已运行时间 :</div><div class="webinfo-runtime-count" id="webinfo-runtime-count" start_date="7/15/2017 11:45:26">     </div></div><div class="webinfo-item"><div class="webinfo-site-wordcount-name">本站总字数 :</div><div class="webinfo-site-wordcount">28.6k</div></div><div class="webinfo-item">      <div class="webinfo-site-uv-name">本站访客数 :</div><div class="webinfo-site-uv-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="webinfo-site-name">本站总访问量 :</div><div class="webinfo-site-pv-count" id="busuanzi_value_site_pv"></div></div></div></div></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2020 By Guo Shicheng</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">世界并不全然完美，但我们可以珍惜美好的那一部分。</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="darkmode far fa-moon" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script defer id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script></body></html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>python简单爬虫练习 - 梨泰院class漫画下载 | GuoShicheng's Blog</title><meta name="description" content="最近漫改的韩剧《梨泰院Class》还蛮火的，追了一下，最近更新的第11、12集剧情太扯了，支线黑人服务员和房东老太太根本就是剧情需要。所以想去看看原著漫画的剧情，古风漫画网可以免费观看，但是广告太多了，图片排版也很别扭，最后打算写个爬虫把图片下载到本地看。"><meta name="keywords" content="python"><meta name="author" content="Guo Shicheng"><meta name="copyright" content="Guo Shicheng"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://i.loli.net/2020/05/21/l12bpFRLvUxuJd9.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="python简单爬虫练习 - 梨泰院class漫画下载"><meta name="twitter:description" content="最近漫改的韩剧《梨泰院Class》还蛮火的，追了一下，最近更新的第11、12集剧情太扯了，支线黑人服务员和房东老太太根本就是剧情需要。所以想去看看原著漫画的剧情，古风漫画网可以免费观看，但是广告太多了，图片排版也很别扭，最后打算写个爬虫把图片下载到本地看。"><meta name="twitter:image" content="https://i.loli.net/2020/05/01/IuWi8QbHvzjlOPw.jpg"><meta property="og:type" content="article"><meta property="og:title" content="python简单爬虫练习 - 梨泰院class漫画下载"><meta property="og:url" content="https://guoshicheng.com/2020/03/09/python-spider/"><meta property="og:site_name" content="GuoShicheng's Blog"><meta property="og:description" content="最近漫改的韩剧《梨泰院Class》还蛮火的，追了一下，最近更新的第11、12集剧情太扯了，支线黑人服务员和房东老太太根本就是剧情需要。所以想去看看原著漫画的剧情，古风漫画网可以免费观看，但是广告太多了，图片排版也很别扭，最后打算写个爬虫把图片下载到本地看。"><meta property="og:image" content="https://i.loli.net/2020/05/01/IuWi8QbHvzjlOPw.jpg"><meta property="article:published_time" content="2020-03-09T02:21:17.000Z"><meta property="article:modified_time" content="2020-05-18T16:30:12.084Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="canonical" href="https://guoshicheng.com/2020/03/09/python-spider/"><link rel="next" title="健身计划（三） - 核心和爆发力" href="https://guoshicheng.com/2020/01/30/fitness-program-3/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: true,
+  fancybox: false,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: true,
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: false  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="GuoShicheng's Blog" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://i.loli.net/2020/05/21/MkNbyJhABVd4Uxz.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">25</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">10</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 文章分类</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/categories/%E6%97%A0%E4%BA%BA%E8%BD%A6/"><i class="fa-fw fa fa-car"></i><span> 无人车</span></a></li><li><a class="site-page" href="/categories/%E7%BC%96%E7%A8%8B/"><i class="fa-fw fa fa-code"></i><span> 编程</span></a></li><li><a class="site-page" href="/categories/%E5%81%A5%E8%BA%AB/"><i class="fa-fw fa fa-dumbbell"></i><span> 健身</span></a></li><li><a class="site-page" href="/categories/%E7%AF%AE%E7%90%83/"><i class="fa-fw fa fa-basketball-ball"></i><span> 篮球</span></a></li><li><a class="site-page" href="/categories/%E5%8F%8D%E6%80%9D/"><i class="fa-fw fa fa-brain"></i><span> 反思</span></a></li><li><a class="site-page" href="/categories/%E8%BD%AC%E8%BD%BD/"><i class="fa-fw fa fa-paper-plane"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw far fa-image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-coffee"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/atom.xml"><i class="fa-fw fa fa-rss"></i><span> Rss</span></a></div></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://i.loli.net/2020/05/01/IuWi8QbHvzjlOPw.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">GuoShicheng's Blog</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 文章分类</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/categories/%E6%97%A0%E4%BA%BA%E8%BD%A6/"><i class="fa-fw fa fa-car"></i><span> 无人车</span></a></li><li><a class="site-page" href="/categories/%E7%BC%96%E7%A8%8B/"><i class="fa-fw fa fa-code"></i><span> 编程</span></a></li><li><a class="site-page" href="/categories/%E5%81%A5%E8%BA%AB/"><i class="fa-fw fa fa-dumbbell"></i><span> 健身</span></a></li><li><a class="site-page" href="/categories/%E7%AF%AE%E7%90%83/"><i class="fa-fw fa fa-basketball-ball"></i><span> 篮球</span></a></li><li><a class="site-page" href="/categories/%E5%8F%8D%E6%80%9D/"><i class="fa-fw fa fa-brain"></i><span> 反思</span></a></li><li><a class="site-page" href="/categories/%E8%BD%AC%E8%BD%BD/"><i class="fa-fw fa fa-paper-plane"></i><span> 转载</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw far fa-image"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-coffee"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/atom.xml"><i class="fa-fw fa fa-rss"></i><span> Rss</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">python简单爬虫练习 - 梨泰院class漫画下载</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-03-09 10:21:17"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-03-09</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-19 00:30:12"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-19</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon far fa-file-word" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">897</span><span class="post-meta__separator">|</span><i class="post-meta__icon far fa-clock" aria-hidden="true"></i><span>阅读时长: 3 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p>&emsp;&emsp; 最近漫改的韩剧《梨泰院Class》还蛮火的，追了一下，最近更新的第11、12集剧情太扯了，支线黑人服务员和房东老太太根本就是剧情需要。所以想去看看原著漫画的剧情，古风漫画网可以免费观看，但是广告太多了，图片排版也很别扭，最后<strong>打算写个爬虫把图片下载到本地看。</strong></p>
+<p>&emsp;&emsp; 首先从整体看，我们需要这几个步骤：<br>&emsp;&emsp; &emsp;  -&gt; 1. 获取网页html源代码<br>&emsp;&emsp; &emsp;  -&gt; 2. 分析图片代码和图片地址<br>&emsp;&emsp; &emsp;  -&gt; 3. 下载图片到本地<br>&emsp;&emsp; &emsp;  -&gt; 4. 获取下一章节url<br>&emsp;&emsp; &emsp;  -&gt; 5. 回到第一步</p>
+<p>&emsp;&emsp; 接下来分别实现，第一步<strong>获取网页html源代码</strong>，使用python的requests库，因为网站会检测访问行为是爬虫还是浏览器，所以设置下请求头域——Header，模仿浏览器访问。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">'Host'</span>:</span><br><span class="line">    <span class="string">'www.gufengmh8.com'</span>,</span><br><span class="line">    <span class="string">'user-agent'</span>:</span><br><span class="line">    <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'</span></span><br><span class="line">&#125;</span><br><span class="line">url = <span class="string">'https://www.gufengmh8.com/manhua/litaiyuanCLASS/1176129.html'</span></span><br><span class="line">r = requests.get(url, headers=headers)</span><br><span class="line">r.encoding = r.apparent_encoding</span><br><span class="line">print(<span class="string">"网页html代码:&#123;&#125;"</span>.format(r.text))</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp; 第二步<strong>分析图片代码和图片地址</strong>,图片地址由三部分组成:<br>&emsp;&emsp; &emsp; 头部：<a href="###">https://res.xiaoqinre.com</a><br>&emsp;&emsp; &emsp; 中段：/images/comic/589/1176126<br>&emsp;&emsp; &emsp; 结尾：/157804675608omNrJSJJ8gmZZ3.jpg<br>&emsp;&emsp; 头部是固定的，中段和结尾都可以在源代码body的第一个script标签里找到，使用BeautifulSoup找到标签，再使用正则表达式匹配就可以了。（推荐一个正则表达式测试网站<a href="https://regex101.com/" target="_blank" rel="noopener">Regex101</a>）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getImgUrls</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    @param text : 古风动漫网html代码</span></span><br><span class="line"><span class="string">    @return ：漫画url地址列表</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># 头部</span></span><br><span class="line">    head = <span class="string">"https://res.xiaoqinre.com/"</span></span><br><span class="line">    <span class="comment"># re匹配中段代码</span></span><br><span class="line">    path_pattern = re.compile(<span class="string">r'chapterPath = \"(.*?)\";var'</span>)</span><br><span class="line">    path = path_pattern.findall(text)[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># re匹配结尾代码</span></span><br><span class="line">    images_pattern = re.compile(<span class="string">r'chapterImages = \[(.*?)\];var'</span>)</span><br><span class="line">    images = images_pattern.findall(text)[<span class="number">0</span>].strip(<span class="string">'"'</span>).split(<span class="string">'","'</span>)</span><br><span class="line">    <span class="comment"># 生成url列表</span></span><br><span class="line">    urls = [head + path + i <span class="keyword">for</span> i <span class="keyword">in</span> images]</span><br><span class="line">    <span class="keyword">return</span> urls</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp; 第三步<strong>下载图片到本地</strong>，章节名称也可以通过正则筛选出来，最后使用os库检查本地路径是否存在，二进制写入文件就可以保存图片了。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">downloadImg</span><span class="params">(img_url, img_path, img_name)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    @param img_url : 图片url地址</span></span><br><span class="line"><span class="string">    @param img_path ：图片本地存储路径</span></span><br><span class="line"><span class="string">    @param img_name ：图片存储名称</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    r = requests.get(img_url, verify=<span class="literal">False</span>)</span><br><span class="line">    <span class="comment"># 判断文件是否存在</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(img_path):</span><br><span class="line">        os.makedirs(img_path)</span><br><span class="line">    <span class="comment"># 二进制保存图片</span></span><br><span class="line">    <span class="keyword">with</span> open(img_path + img_name, <span class="string">"wb+"</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(r.content)</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp; 第四步<strong>获取下一章节链接</strong>，同第二步，用正则表达式匹配，也可以用beautifulSoup获取下一章按钮的链接。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getNextChapterUrl</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    @param text : 古风动漫网html代码</span></span><br><span class="line"><span class="string">    @return : 下一章动漫url 若没有下一章返回""</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    nextChapter_pattern = re.compile(<span class="string">r'nextChapterData = &#123;(.*?)&#125;;'</span>)</span><br><span class="line">    nid_pattern = re.compile(<span class="string">r'"id":(.*?),'</span>)</span><br><span class="line">    nextChapter = nextChapter_pattern.findall(text)[<span class="number">0</span>]</span><br><span class="line">    nid = nid_pattern.findall(nextChapter)</span><br><span class="line">    <span class="keyword">if</span> nid == <span class="string">"null"</span> <span class="keyword">or</span> nid == <span class="string">""</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"https://www.gufengmh8.com/manhua/litaiyuanCLASS/"</span> + nid[<span class="number">0</span>] + <span class="string">".html"</span></span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp; 第五步判断是否有下一章，有就循环下载，没有就退出。<br>&emsp;&emsp; 完整代码在这里 ： <a href="https://github.com/guoshicheng/python/blob/master/downloadItaewonClass.py" target="_blank" rel="noopener">github-downloadItaewonClass.py</a><br>&emsp;&emsp; 最后想说一下，这次下载的漫画是盗版的，梨泰院Class应该是腾讯买了版权做的翻译。在腾讯漫画网看是需要付费的，一个章节68点券，一共65章节，大概45Q币，经济上有能力又不想看盗版的，可以支持一下正版。还有就是大家下载漫画之后，自己看看无所谓，不要放到网上进行传播。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Guo Shicheng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://guoshicheng.com/2020/03/09/python-spider/">https://guoshicheng.com/2020/03/09/python-spider/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://guoshicheng.com" target="_blank">GuoShicheng's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"></div></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/01/30/fitness-program-3/"><img class="next_cover" src="https://i.loli.net/2020/05/01/IuWi8QbHvzjlOPw.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">健身计划（三） - 核心和爆发力</div></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail','link'],'nick,mail')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: 'beVfEl7SwSIDDxYiDNGSlVfx-gzGzoHsz',
+  appKey: 'xcMwjxJsob4SNS2bGtzgVlgp',
+  notify: false,
+  verify: false,
+  placeholder: '请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。',
+  avatar: 'monste rid',
+  meta: guestInfo,
+  pageSize: '10',
+  lang: 'zh-CN',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: false,
+  requiredFields: requiredFields
+});</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2020 By Guo Shicheng</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">世界并不全然完美，但我们可以珍惜美好的那一部分。</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><i class="darkmode far fa-moon" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script defer id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script></body></html>

@@ -1,18 +1,17 @@
+/* eslint-disable no-undef */
 (function () {
   const translate = GLOBAL_CONFIG.translate
   const snackbarData = GLOBAL_CONFIG.Snackbar
-
   const defaultEncoding = translate.defaultEncoding // 網站默認語言，1: 繁體中文, 2: 簡體中文
   const translateDelay = translate.translateDelay // 延遲時間,若不在前, 要設定延遲翻譯時間, 如100表示100ms,默認為0
   const msgToTraditionalChinese = translate.msgToTraditionalChinese // 此處可以更改為你想要顯示的文字
   const msgToSimplifiedChinese = translate.msgToSimplifiedChinese // 同上，但兩處均不建議更改
-  const translateButtonId = 'translateLink' // 默認互換id
   let currentEncoding = defaultEncoding
   const targetEncodingCookie = 'translate-chn-cht'
   let targetEncoding =
-  Cookies.get(targetEncodingCookie) === undefined
+  saveToLocal.get(targetEncodingCookie) === undefined
     ? defaultEncoding
-    : Number(Cookies.get(targetEncodingCookie))
+    : Number(saveToLocal.get('translate-chn-cht'))
   let translateButtonObject
   const isSnackbar = GLOBAL_CONFIG.Snackbar !== undefined
 
@@ -49,16 +48,16 @@
       currentEncoding = 1
       targetEncoding = 2
       translateButtonObject.innerHTML = msgToTraditionalChinese
-      Cookies.set(targetEncodingCookie, targetEncoding, 2)
+      saveToLocal.set(targetEncodingCookie, targetEncoding, 2)
       translateBody()
-      if (isSnackbar) snackbarShow(snackbarData.cht_to_chs)
+      if (isSnackbar) btf.snackbarShow(snackbarData.cht_to_chs)
     } else if (targetEncoding === 2) {
       currentEncoding = 2
       targetEncoding = 1
       translateButtonObject.innerHTML = msgToSimplifiedChinese
-      Cookies.set(targetEncodingCookie, targetEncoding, 2)
+      saveToLocal.set(targetEncodingCookie, targetEncoding, 2)
       translateBody()
-      if (isSnackbar) snackbarShow(snackbarData.chs_to_cht)
+      if (isSnackbar) btf.snackbarShow(snackbarData.chs_to_cht)
     }
   }
   function JTPYStr () {
@@ -85,8 +84,8 @@
     }
     return str
   }
-  function translateInitilization () {
-    translateButtonObject = document.getElementById(translateButtonId)
+  function translateInitialization () {
+    translateButtonObject = document.getElementById('translateLink')
     if (translateButtonObject) {
       if (currentEncoding !== targetEncoding) {
         setTimeout(function () { translateBody() }, translateDelay)
@@ -95,5 +94,6 @@
       translateButtonObject.addEventListener('click', translatePage, false)
     }
   }
-  translateInitilization()
+  translateInitialization()
+  document.addEventListener('pjax:complete', translateInitialization)
 })()

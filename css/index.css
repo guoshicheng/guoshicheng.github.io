@@ -2146,13 +2146,6 @@ blockquote footer cite:before {
     width: calc(100% - 15px) !important;
   }
 }
-.flink#article-container .flink-list > .flink-list-item:hover img {
-  -webkit-transform: rotate(360deg);
-  -moz-transform: rotate(360deg);
-  -o-transform: rotate(360deg);
-  -ms-transform: rotate(360deg);
-  transform: rotate(360deg);
-}
 .flink#article-container .flink-list > .flink-list-item:before {
   position: absolute;
   top: 0;
@@ -2477,13 +2470,6 @@ blockquote footer cite:before {
   -o-transition: all 0.5s;
   -ms-transition: all 0.5s;
   transition: all 0.5s;
-}
-#aside_content .card-info img:hover {
-  -webkit-transform: rotate(360deg);
-  -moz-transform: rotate(360deg);
-  -o-transform: rotate(360deg);
-  -ms-transform: rotate(360deg);
-  transform: rotate(360deg);
 }
 #aside_content .card-info .author-info__name {
   font-weight: 500;

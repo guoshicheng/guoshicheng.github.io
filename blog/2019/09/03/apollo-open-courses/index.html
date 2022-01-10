@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="&amp;emsp;&amp;emsp; 1. Udacity X Apollo 自动驾驶入门课程&amp;emsp;&amp;emsp; 2. 百度 Apollo 联合北京大学开设的自动驾驶进阶课程 Udacity X Apollo 自动驾驶入门课程视频链接： Udacity X Apollo 自动驾驶入门课程。文章链接：&amp;emsp;&amp;emsp; Apollo 自动驾驶入门课程第 ① 讲—无人驾驶概览&amp;emsp;&amp;emsp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apollo自动驾驶公开课汇总">
+<meta property="og:url" content="https://guoshicheng.com/2019/09/03/apollo-open-courses/index.html">
+<meta property="og:site_name" content="GuoShicheng&#39;s Blog">
+<meta property="og:description" content="&amp;emsp;&amp;emsp; 1. Udacity X Apollo 自动驾驶入门课程&amp;emsp;&amp;emsp; 2. 百度 Apollo 联合北京大学开设的自动驾驶进阶课程 Udacity X Apollo 自动驾驶入门课程视频链接： Udacity X Apollo 自动驾驶入门课程。文章链接：&amp;emsp;&amp;emsp; Apollo 自动驾驶入门课程第 ① 讲—无人驾驶概览&amp;emsp;&amp;emsp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-09-03T03:27:21.000Z">
+<meta property="article:modified_time" content="2020-09-16T06:18:31.692Z">
+<meta property="article:author" content="Guo Shicheng">
+<meta property="article:tag" content="无人车">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/guoshicheng/cdn/blog-img/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/guoshicheng/cdn/blog-img/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/guoshicheng/cdn/blog-img/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Apollo自动驾驶公开课汇总</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/blog/css/style.css">
+
+    <!-- rss -->
+    
+    
+    
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/guoshicheng/cdn/lib/Valine/valine.css">
+
+    
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="max-width mx-auto px3">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/blog/">首页</a></li>
+         
+          <li><a href="/blog/archives/">归档</a></li>
+         
+          <li><a href="/blog/lagou-fed-e-task/">培训班</a></li>
+         
+          <li><a href="/blog/messageboard/">留言</a></li>
+         
+          <li><a href="/blog/about/">关于</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/blog/2020/03/09/python-spider/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/blog/2019/02/10/apollo-open-source-module/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+    </span>
+    <br/>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Udacity-X-Apollo-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E5%85%A5%E9%97%A8%E8%AF%BE%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">Udacity X Apollo 自动驾驶入门课程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BE%E5%BA%A6-Apollo-%E8%81%94%E5%90%88%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%A6%E5%BC%80%E8%AE%BE%E7%9A%84%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E8%BF%9B%E9%98%B6%E8%AF%BE%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">百度 Apollo 联合北京大学开设的自动驾驶进阶课程</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Apollo自动驾驶公开课汇总
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">GuoShicheng's Blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-09-03T03:27:21.000Z" itemprop="datePublished">2019-09-03</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/blog/categories/note/">note</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/blog/tags/%E6%97%A0%E4%BA%BA%E8%BD%A6/" rel="tag">无人车</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>&emsp;&emsp; 1. Udacity X Apollo 自动驾驶入门课程<br>&emsp;&emsp; 2. 百度 Apollo 联合北京大学开设的自动驾驶进阶课程</p>
+<h2 id="Udacity-X-Apollo-自动驾驶入门课程"><a href="#Udacity-X-Apollo-自动驾驶入门课程" class="headerlink" title="Udacity X Apollo 自动驾驶入门课程"></a>Udacity X Apollo 自动驾驶入门课程</h2><p>视频链接： <a target="_blank" rel="noopener" href="http://apollo.auto/devcenter/devcenter_cn.html">Udacity X Apollo 自动驾驶入门课程</a>。<br>文章链接：<br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485181&idx=1&sn=6350617d842b7959fbbec829e713c65d">Apollo 自动驾驶入门课程第 ① 讲—无人驾驶概览</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485212&idx=1&sn=b7dac5461b3cf101b14c81e0f05efe39">Apollo 自动驾驶入门课程第 ② 讲 — 高精地图</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485279&idx=1&sn=0c68c0442b6316930e033ef7d71ee166">Apollo 自动驾驶入门课程第 ③ 讲 — 定位</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485321&idx=1&sn=6644ab23e2a733d3ea25f6c4e6052478">Apollo 自动驾驶入门课程第 ④ 讲 — 感知（上）</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485341&idx=1&sn=ddbb5805bfc6842f9d05e4cbf9aa43bb">Apollo 自动驾驶入门课程第 ⑤ 讲 — 感知（下）</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485361&idx=1&sn=a9d4e10b0ae01530944784afe6825fe2">Apollo 自动驾驶入门课程第 ⑥ 讲 — 预测</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485382&idx=1&sn=de753eebdf4a49158524a34e0951ff80">Apollo 自动驾驶入门课程第 ⑦ 讲 — 规划（上）</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485402&idx=1&sn=fd499d156ba2aae44503d8295fb8a428">Apollo 自动驾驶入门课程第 ⑧ 讲 — 规划（下）</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485424&idx=1&sn=6a6d6ece4f5055e381b07eddc877d199">Apollo 自动驾驶入门课程第 ⑨ 讲 — 控制（上）</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485595&idx=1&sn=4cccbfcb1f898468c60a8a6f418c912d">Apollo 自动驾驶入门课程第 ⑩ 讲 — 控制（下）</a></p>
+<h2 id="百度-Apollo-联合北京大学开设的自动驾驶进阶课程"><a href="#百度-Apollo-联合北京大学开设的自动驾驶进阶课程" class="headerlink" title="百度 Apollo 联合北京大学开设的自动驾驶进阶课程"></a>百度 Apollo 联合北京大学开设的自动驾驶进阶课程</h2><p>视频链接：<br>&emsp;&emsp; <a target="_blank" rel="noopener" href="http://bit.baidu.com/productsBuy?id=77&buyStatus=true">Apollo 自动驾驶 - 概述</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="http://bit.baidu.com/productsBuy?id=78&buyStatus=true">Apollo 自动驾驶 - 硬件平台</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="http://bit.baidu.com/productsBuy?id=79&buyStatus=true">Apollo 自动驾驶 - 高精地图</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="http://bit.baidu.com/productsBuy?id=80&buyStatus=true">Apollo 自动驾驶 - 定位</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="http://bit.baidu.com/productsBuy?id=81&buyStatus=true">Apollo 自动驾驶 - 感知</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="http://bit.baidu.com/productsBuy?id=82&buyStatus=true">Apollo 自动驾驶 - 规划</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="http://bit.baidu.com/productsBuy?id=83&buyStatus=true">Apollo 自动驾驶 - 控制</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="http://bit.baidu.com/productsBuy?id=84&buyStatus=true">Apollo 自动驾驶 - 仿真平台</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="http://bit.baidu.com/productsBuy?id=854&buyStatus=true">Apollo 自动驾驶 - 其他</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="http://bit.baidu.com/productsBuy?id=86&buyStatus=true">Apollo 自动驾驶 - 实战</a><br>文章链接：<br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485810&idx=1&sn=842afccf209937f5fc27e7d598ee0300">Apollo 进阶课程 ① | 带你纵览无人车</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485887&idx=1&sn=8fa417fb7a26c8e1d403f239512f2d2e">Apollo 进阶课程 ② | 开源模块讲解（上）</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485920&idx=1&sn=b3276735aa2c55b4b206aff1ab8c97ed">Apollo 进阶课程 ③ | 开源模块讲解（中）</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247485963&idx=1&sn=2c90dfaa28b116ef4a171ce3d632b226">​Apollo 进阶课程 ④ | 开源模块讲解（下）</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486032&idx=1&sn=3ddc44038aaaa703977f486829bd1189">Apollo 进阶课程 ⑤ | Apollo 硬件开发平台介绍</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486105&idx=1&sn=0821822049986216921cfa9c9c8d20d0">Apollo 进阶课程 ⑥ | 高精地图与自动驾驶的关系</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486279&idx=1&sn=25e37e63cd94e0d0028ca20276302e67">Apollo 进阶课程 ⑦ | 高精地图的采集与生产</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486305&idx=1&sn=eb53cb79ac2dc77d5029037ee29da87d">Apollo 进阶课程 ⑧ | 高精地图的格式规范</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486362&idx=1&sn=ba30da37109143505008275b3527a19a">Apollo 进阶课程 ⑨ | 业界的高精地图产品</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486437&idx=1&sn=52692e9c12dc65c3432de3df2e07a60d">Apollo 进阶课程 ⑩ | Apollo 地图采集方案</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486473&idx=1&sn=14078ce761e8074dd49fb855ce2ef025">Apollo 进阶课程 ⑪ | Apollo 地图生产技术</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486502&idx=1&sn=fa2bdbb04d8589581c698425a7a0e8e0">Apollo 进阶课程 ⑫ | Apollo 高精地图</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486558&idx=1&sn=efcdcbbdd792da2fa9c6522266d8a000">Apollo 进阶课程 ⑬ | Apollo 无人车自定位技术入门</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486644&idx=1&sn=231743e5edf42e4fea818a041ac9f4fb">Apollo 进阶课程 ⑭ | Apollo 自动定位技术——三维几何变换和坐标系介绍</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486760&idx=1&sn=4298eb50b6ad860bb503285df04ca29f">Apollo 进阶课程 ⑮ 丨 Apollo 自动定位技术详解—百度无人车定位技术</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486844&idx=1&sn=e23ef2277f80fae8564e8ad65bec1663">Apollo 进阶课程 ⑯ 丨 Apollo 感知之旅——感知概貌</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486895&idx=1&sn=bc3cae27282cf03ceb5926e3acba7188">Apollo 进阶课程 ⑰ 丨 Apollo 感知之旅——传感器选择和安装</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247486935&idx=1&sn=2d6cc0de4ddd08f5ab3d11117a75641d">Apollo 进阶课程 ⑱ 丨 Apollo 感知之旅——传感器标定</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247487101&idx=1&sn=47d3ce944f14cc492c7b520b05df2deb">Apollo 进阶课程 ⑲ 丨 Apollo 感知之旅——感知算法</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247487255&idx=1&sn=a12f2bc6341b43134fed2c6026f7614f">Apollo 进阶课程 ⑳ 丨 Apollo 感知之旅——机器学习与感知的未来</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247487357&idx=1&sn=f6106231f18f60c8851468a83d8a48af">Apollo 进阶课程 ㉑ 丨 Apollo 规划技术详解——Basic Motion Planning and Overview</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247487447&idx=1&sn=96db48113f9e0db101b7291eaa2c4aaa">Apollo 进阶课程 ㉒ 丨 Apollo 规划技术详解——Motion Planning with Autonomous Driving</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247487609&idx=1&sn=36fdb497fef44ae875fd8ddeb814750d">Apollo 进阶课程 ㉓ 丨 Apollo 规划技术详解——Motion Planning with Environment</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247487860&idx=1&sn=db59d10437dbcc5ce944f49e7a3213e6">Apollo 进阶课程 ㉔ 丨 Apollo 规划技术详解——Motion Planning Environment</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247487912&idx=1&sn=221ae85bd8e3c221867189d194b9acdb">Apollo 进阶课程 ㉕ 丨 Apollo 规划技术详解——Optimization Inside Motion Planning</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247487937&idx=1&sn=4336e804042a4f38c9bf6a44cf22d91b">Apollo 进阶课程 ㉖ 丨 Apollo 规划技术详解——Understand More on the MP Difficulty</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247487987&idx=1&sn=a0178e0253336a7d422198b9e0538609">Apollo 进阶课程 ㉗ 丨 Apollo 控制技术详解——控制理论</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488027&idx=1&sn=ab6a987e8be54added29187a0f03e882">Apollo 进阶课程 ㉘ 丨 Apollo 控制技术详解——基于模型的控制方法</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488068&idx=1&sn=8a510367cfea66e7dee547cbc05163b7">Apollo 进阶课程 ㉙ 丨 Apollo 控制技术详解——控制器的类型</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488082&idx=1&sn=07c0e976b2e323ae79516913ec464a92">Apollo 进阶课程 ㉚ 丨 Apollo ROS 背景介绍</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488167&idx=1&sn=c62b1ba62d42fd61cc1a32d7dfce1acc">Apollo 进阶课程 ㉛ 丨 Apollo ROS 概述</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488196&idx=1&sn=cf682eb4e32354e55e90f02bc6a2cd80">Apollo 进阶课程 ㉜ 丨 Apollo ROS 原理—1</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488211&idx=1&sn=393536b5e51f7c36cf3375743e936297">Apollo 进阶课程 ㉝ 丨 Apollo ROS 原理—2</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488284&idx=1&sn=d7232cae1d87c3bf7d4217a164e81ebc">Apollo 进阶课程 ㉞ 丨 Apollo ROS 原理—3</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488309&idx=1&sn=79aacf39365fe20856e88ebb7e9dfdf2">Apollo 进阶课程 ㉟ 丨 Apollo ROS 原理—3</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488356&idx=1&sn=97a1ddc4d86b018b0a01fceef007f315">Apollo 进阶课程 ㊱ 丨 Apollo ROS 深入介绍</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488363&idx=1&sn=38b05ed68ef1bf26758188125b913590">Apollo 进阶课程 ㊲ 丨 Apollo 自动驾驶架构介绍</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488405&idx=1&sn=c4630b9f8cdc0bd0dc222506691de3f8">Apollo 进阶课程 ㊳ 丨 Apollo 平台的快速入门</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488476&idx=1&sn=79cbd8c8374b7b39912ccc1342f23a55">Apollo 进阶课程 ㊴ 丨 Apollo 安装过程概述</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488564&idx=1&sn=31ddc1f7f66c7fdd30d8108f494ea541">Apollo 进阶课程 ㊵ 丨 Azure 仿真平台使用</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488768&idx=1&sn=cc50c6d62130253075a6ee449d501e3e">Apollo 进阶课程 ㊶ 丨 Apollo 实战——本机演示实战</a><br>&emsp;&emsp; <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI1NjkxOTMyNQ==&mid=2247488816&idx=1&sn=83f3dabe7a6cb2d1186d452473998c9d">Apollo 进阶课程 ㊷ 丨 Apollo 实战——车辆与循迹驾驶能力实战</a></p>
+
+  </div>
+</article>
+
+  
+<div class="blog-post-comments">
+  <div id="vcomments">
+    <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+  </div>
+</div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/blog/">首页</a></li>
+         
+          <li><a href="/blog/archives/">归档</a></li>
+         
+          <li><a href="/blog/lagou-fed-e-task/">培训班</a></li>
+         
+          <li><a href="/blog/messageboard/">留言</a></li>
+         
+          <li><a href="/blog/about/">关于</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Udacity-X-Apollo-%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E5%85%A5%E9%97%A8%E8%AF%BE%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">Udacity X Apollo 自动驾驶入门课程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BE%E5%BA%A6-Apollo-%E8%81%94%E5%90%88%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%A6%E5%BC%80%E8%AE%BE%E7%9A%84%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E8%BF%9B%E9%98%B6%E8%AF%BE%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">百度 Apollo 联合北京大学开设的自动驾驶进阶课程</span></a></li></ol>
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2017-2022
+    Guo Shicheng
+  </div>
+  <div class="footer-right">
+    <div>框架 <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> | 主题 </span><a target="_blank"
+        rel="noopener" href="https://github.com/probberechts/hexo-theme-cactus">cactus</a></div>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="https://cdn.jsdelivr.net/gh/guoshicheng/cdn/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/blog/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Valine Comments -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.Pure.min.js"></script>
+
+  <script type="text/javascript">
+    new Valine({
+      el: "#vcomments",
+      appId: "beVfEl7SwSIDDxYiDNGSlVfx-gzGzoHsz",
+      appKey: "xcMwjxJsob4SNS2bGtzgVlgp",
+      placeholder: "Just go go ！",
+      avatar: "retro",
+      pageSize: "10",
+    });
+</script>
+
+
+</body>
+</html>

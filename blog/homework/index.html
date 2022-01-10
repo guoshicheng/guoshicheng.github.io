@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="目录Part 1：JavaScript 深度剖析 模块一：函数式编程与 JS 异步编程 模块二：ES 新特性与 TypeScript、JS 性能优化  Part 2：前端工程化实战 模块一：开发脚手架及封装自动化构建工作流 模块二：模块化开发与规范化标准  Part 3：Vue.js 框架源码与进阶 模块一：手写 Vue Router、手写响应式实现、虚拟 DOM 和 Diff 算法 模块二：Vu">
+<meta property="og:type" content="website">
+<meta property="og:title" content="训练营笔记">
+<meta property="og:url" content="https://guoshicheng.com/homework/index.html">
+<meta property="og:site_name" content="GuoShicheng&#39;s Blog">
+<meta property="og:description" content="目录Part 1：JavaScript 深度剖析 模块一：函数式编程与 JS 异步编程 模块二：ES 新特性与 TypeScript、JS 性能优化  Part 2：前端工程化实战 模块一：开发脚手架及封装自动化构建工作流 模块二：模块化开发与规范化标准  Part 3：Vue.js 框架源码与进阶 模块一：手写 Vue Router、手写响应式实现、虚拟 DOM 和 Diff 算法 模块二：Vu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-14T06:07:07.000Z">
+<meta property="article:modified_time" content="2021-06-14T06:07:05.440Z">
+<meta property="article:author" content="Guo Shicheng">
+<meta property="article:tag" content="扣篮">
+<meta property="article:tag" content="弹跳">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/guoshicheng/cdn/blog-img/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/guoshicheng/cdn/blog-img/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/guoshicheng/cdn/blog-img/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>训练营笔记</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/blog/css/style.css">
+
+    <!-- rss -->
+    
+    
+    
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/guoshicheng/cdn/lib/Valine/valine.css">
+
+    
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="max-width mx-auto px3">
+    
+    <div class="content index py4">
+        
+          <header id="header">
+  <a href="/blog/">
+  
+    
+      <div id="logo" style="background-image: url(https://cdn.jsdelivr.net/gh/guoshicheng/cdn/blog-img/logo.png);"></div>
+    
+  
+    <div id="title">
+      <h1>GuoShicheng&#39;s Blog</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+       
+        <li><a href="/blog/">首页</a></li>
+       
+        <li><a href="/blog/archives/">归档</a></li>
+       
+        <li><a href="/blog/lagou-fed-e-task/">培训班</a></li>
+       
+        <li><a href="/blog/messageboard/">留言</a></li>
+       
+        <li><a href="/blog/about/">关于</a></li>
+      
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+
+  <h1>训练营笔记</h1>
+  <div class="content" itemprop="articleBody">
+      
+        <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="Part-1：JavaScript-深度剖析"><a href="#Part-1：JavaScript-深度剖析" class="headerlink" title="Part 1：JavaScript 深度剖析"></a>Part 1：JavaScript 深度剖析</h3><ul>
+<li>模块一：<a href="/fed-e-task-01-01">函数式编程与 JS 异步编程</a></li>
+<li>模块二：<a href="/fed-e-task-01-02">ES 新特性与 TypeScript、JS 性能优化</a></li>
+</ul>
+<h3 id="Part-2：前端工程化实战"><a href="#Part-2：前端工程化实战" class="headerlink" title="Part 2：前端工程化实战"></a>Part 2：前端工程化实战</h3><ul>
+<li>模块一：<a href="/fed-e-task-02-01">开发脚手架及封装自动化构建工作流</a></li>
+<li>模块二：<a href="/fed-e-task-02-02">模块化开发与规范化标准</a></li>
+</ul>
+<h3 id="Part-3：Vue-js-框架源码与进阶"><a href="#Part-3：Vue-js-框架源码与进阶" class="headerlink" title="Part 3：Vue.js 框架源码与进阶"></a>Part 3：Vue.js 框架源码与进阶</h3><ul>
+<li>模块一：<a href="/fed-e-task-03-01">手写 Vue Router、手写响应式实现、虚拟 DOM 和 Diff 算法</a></li>
+<li>模块二：<a href="/fed-e-task-03-02">Vue.js 源码分析（响应式、虚拟 DOM、模板编译和组件化）</a></li>
+<li>模块三：<a href="/fed-e-task-03-03">Vuex 数据流管理及 Vue.js 服务端渲染（SSR）</a></li>
+<li>模块四：<a href="/fed-e-task-03-04">搭建自己的 SSR、静态站点生成（SSG）及封装 Vue.js 组件库</a></li>
+<li>模块五：<a href="/fed-e-task-03-05">Vue.js 3.0 Composition APIs 及 3.0 原理剖析</a></li>
+<li>模块六：<a href="/fed-e-task-03-06">Vue.js + Vuex + TypeScript 实战项目开发与项目优化</a></li>
+</ul>
+<h3 id="Part-4：React-框架原理与实战"><a href="#Part-4：React-框架原理与实战" class="headerlink" title="Part 4：React 框架原理与实战"></a>Part 4：React 框架原理与实战</h3><ul>
+<li>模块一：<a href="/fed-e-task-04-01">React 设计原理解密及核心源码解读</a></li>
+<li>模块二：<a href="/fed-e-task-04-02">React 数据流方案专题（Redux、MobX）</a></li>
+<li>模块三：<a href="/fed-e-task-04-03">React Hooks、Chakra-UI、组件性能优化、封装组件库</a></li>
+<li>模块四：<a href="/fed-e-task-04-04">React 服务端渲染专题（原生实现、Next.js 集成框架、Gatsby）</a></li>
+<li>模块五：<a href="/fed-e-task-04-05">React + Redux + Ant Design + TypeScript 实战</a></li>
+<li>模块六：<a href="/fed-e-task-04-06">Angular 企业实战开发</a></li>
+</ul>
+<h3 id="Part-5：Node-js-全栈开发"><a href="#Part-5：Node-js-全栈开发" class="headerlink" title="Part 5：Node.js 全栈开发"></a>Part 5：Node.js 全栈开发</h3><ul>
+<li>模块一：<a href="/fed-e-task-05-01">Node.js 高级编程（核心模块、模块加载机制）</a></li>
+<li>模块二：<a href="/fed-e-task-05-02">NoSQL 数据库（MongoDB、Redis）</a></li>
+<li>模块三：<a href="/fed-e-task-05-03">Web 开发框架（Express 与 Koa）</a></li>
+<li>模块四：<a href="/fed-e-task-05-04">GraphQL API 开发</a></li>
+<li>模块五：<a href="/fed-e-task-05-05">Egg.js 企业级框架实战</a></li>
+</ul>
+<h3 id="Part-6：泛客户端开发"><a href="#Part-6：泛客户端开发" class="headerlink" title="Part 6：泛客户端开发"></a>Part 6：泛客户端开发</h3><ul>
+<li>模块一：<a href="/fed-e-task-06-01">小程序与快应用</a></li>
+<li>模块二：<a href="/fed-e-task-06-02">React Native</a></li>
+<li>模块三：<a href="/fed-e-task-06-03">Flutter 原生 App 开发</a></li>
+<li>模块四：<a href="/fed-e-task-06-04">Electron 桌面应用开发</a></li>
+<li>模块五：<a href="/fed-e-task-06-05">Hybrid App 开发</a></li>
+</ul>
+<h3 id="Part-7：商业技术解决方案与高阶技术专题"><a href="#Part-7：商业技术解决方案与高阶技术专题" class="headerlink" title="Part 7：商业技术解决方案与高阶技术专题"></a>Part 7：商业技术解决方案与高阶技术专题</h3><ul>
+<li>模块一：<a href="/fed-e-task-07-01">微前端解决方案</a></li>
+<li>模块二：<a href="/fed-e-task-07-02">前端自动化测试专题</a></li>
+<li>模块三：<a href="/fed-e-task-07-03">前端数据可视化专题</a></li>
+<li>模块四：<a href="/fed-e-task-07-04">前端性能优化专题</a></li>
+<li>模块五：<a href="/fed-e-task-07-05">Serverless 无服务架构专题</a></li>
+<li>模块六：<a href="/fed-e-task-07-06">Web Components</a></li>
+</ul>
+
+      
+  </div>
+</article>
+
+  
+<div class="blog-post-comments">
+  <div id="vcomments">
+    <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+  </div>
+</div>
+
+
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2017-2022
+    Guo Shicheng
+  </div>
+  <div class="footer-right">
+    <div>框架 <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> | 主题 </span><a target="_blank"
+        rel="noopener" href="https://github.com/probberechts/hexo-theme-cactus">cactus</a></div>
+  </div>
+</footer>
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+
+<script src="/blog/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Valine Comments -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.Pure.min.js"></script>
+
+  <script type="text/javascript">
+    new Valine({
+      el: "#vcomments",
+      appId: "beVfEl7SwSIDDxYiDNGSlVfx-gzGzoHsz",
+      appKey: "xcMwjxJsob4SNS2bGtzgVlgp",
+      placeholder: "Just go go ！",
+      avatar: "retro",
+      pageSize: "10",
+    });
+</script>
+
+
+</body>
+</html>

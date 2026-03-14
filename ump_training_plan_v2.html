@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>垂直弹跳周期训练计划 V2 | 运动表现提升系统</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06090c;--s1:#0c1117;--s2:#121921;--s3:#1a2535;--s4:#1f2d3d;
+  --border:#243040;--border2:#2e3f55;
+  --accent:#f97316;--accent-dim:#c2540a;
+  --blue:#38bdf8;--green:#4ade80;--red:#f87171;--yellow:#facc15;--purple:#c084fc;--teal:#2dd4bf;
+  --text:#e2e8f0;--dim:#64748b;--label:#94a3b8;
+  --font-display:'Bebas Neue',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --font-body:'Outfit',sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden}
+.site-header{background:linear-gradient(to bottom,#0a1018,var(--bg));border-bottom:1px solid var(--border);padding:20px 28px 0;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-top{display:flex;align-items:center;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+.badge{background:var(--accent);color:#000;font-family:var(--font-mono);font-size:10px;font-weight:600;padding:3px 8px;letter-spacing:1px}
+.badge-v2{background:var(--teal);color:#000}
+.site-title{font-family:var(--font-display);font-size:26px;letter-spacing:2px;color:var(--text)}
+.athlete-chips{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.chip{background:var(--s3);border:1px solid var(--border2);padding:4px 10px;font-family:var(--font-mono);font-size:10px;color:var(--label);letter-spacing:.5px}
+.chip span{color:var(--accent);font-weight:600}
+.chip.new span{color:var(--teal)}
+.tabs{display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:10px 18px;font-size:12px;font-weight:600;color:var(--dim);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;letter-spacing:.5px}
+.tab:hover{color:var(--label)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.page{display:none;padding:28px;max-width:1400px;margin:0 auto}
+.page.active{display:block}
+.section-label{font-family:var(--font-mono);font-size:10px;color:var(--accent);letter-spacing:3px;margin-bottom:6px}
+.section-title{font-family:var(--font-display);font-size:34px;letter-spacing:2px;margin-bottom:4px}
+.section-sub{color:var(--label);font-size:13px;font-weight:300;margin-bottom:24px}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-bottom:20px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;margin-bottom:20px}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:16px;margin-bottom:20px}
+.stat-card{background:var(--s1);border:1px solid var(--border);padding:16px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
+.stat-card.blue::before{background:var(--blue)}
+.stat-card.green::before{background:var(--green)}
+.stat-card.red::before{background:var(--red)}
+.stat-card.yellow::before{background:var(--yellow)}
+.stat-card.teal::before{background:var(--teal)}
+.stat-card.purple::before{background:var(--purple)}
+.stat-label{font-family:var(--font-mono);font-size:10px;color:var(--dim);letter-spacing:2px;margin-bottom:6px}
+.stat-val{font-family:var(--font-display);font-size:30px;letter-spacing:1px;line-height:1}
+.stat-val .unit{font-size:13px;color:var(--label);font-family:var(--font-body)}
+.stat-sub{font-size:11px;color:var(--label);margin-top:4px}
+.stat-rating{display:inline-block;margin-top:6px;font-family:var(--font-mono);font-size:10px;padding:2px 6px}
+.r-elite{background:rgba(74,222,128,.15);color:var(--green);border:1px solid rgba(74,222,128,.3)}
+.r-good{background:rgba(56,189,248,.15);color:var(--blue);border:1px solid rgba(56,189,248,.3)}
+.r-warn{background:rgba(250,204,21,.15);color:var(--yellow);border:1px solid rgba(250,204,21,.3)}
+.r-crit{background:rgba(248,113,113,.15);color:var(--red);border:1px solid rgba(248,113,113,.3)}
+.r-new{background:rgba(45,212,191,.15);color:var(--teal);border:1px solid rgba(45,212,191,.3)}
+.meso-header{background:var(--s2);border:1px solid var(--border2);border-left:4px solid var(--accent);padding:16px 20px;margin-bottom:20px}
+.meso-header.blue{border-left-color:var(--blue)}
+.meso-header.green{border-left-color:var(--green)}
+.meso-header.teal{border-left-color:var(--teal)}
+.meso-tag{font-family:var(--font-mono);font-size:10px;color:var(--accent);letter-spacing:2px}
+.meso-header.blue .meso-tag{color:var(--blue)}
+.meso-header.green .meso-tag{color:var(--green)}
+.meso-header.teal .meso-tag{color:var(--teal)}
+.meso-title{font-family:var(--font-display);font-size:26px;letter-spacing:2px;margin:2px 0}
+.meso-meta{display:flex;gap:20px;margin-top:8px;flex-wrap:wrap}
+.meta-item{font-size:12px;color:var(--label)}
+.meta-item strong{color:var(--text);font-weight:600}
+.day-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.day-tab{padding:8px 16px;background:var(--s2);border:1px solid var(--border);font-size:12px;font-weight:600;cursor:pointer;color:var(--dim);transition:all .2s}
+.day-tab.active{background:var(--accent);color:#000;border-color:var(--accent)}
+.day-content{display:none}
+.day-content.active{display:block}
+.ex-group{background:var(--s1);border:1px solid var(--border);margin-bottom:10px;overflow:hidden}
+.ex-group-header{background:var(--s3);padding:8px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.ex-group-label{font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--accent);letter-spacing:1px}
+.ex-group-note{font-size:11px;color:var(--dim)}
+.ex-group-tag{margin-left:auto;font-family:var(--font-mono);font-size:9px;padding:2px 6px}
+.tag-str{background:rgba(56,189,248,.1);color:var(--blue);border:1px solid rgba(56,189,248,.2)}
+.tag-pow{background:rgba(249,115,22,.1);color:var(--accent);border:1px solid rgba(249,115,22,.2)}
+.tag-rea{background:rgba(74,222,128,.1);color:var(--green);border:1px solid rgba(74,222,128,.2)}
+.tag-uni{background:rgba(250,204,21,.1);color:var(--yellow);border:1px solid rgba(250,204,21,.2)}
+.tag-reh{background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.tag-oli{background:rgba(192,132,252,.1);color:#c084fc;border:1px solid rgba(192,132,252,.2)}
+.tag-core{background:rgba(45,212,191,.1);color:var(--teal);border:1px solid rgba(45,212,191,.2)}
+.tag-warm{background:rgba(148,163,184,.1);color:var(--label);border:1px solid rgba(148,163,184,.2)}
+.ex-table{width:100%;border-collapse:collapse}
+.ex-table th{background:var(--s2);font-family:var(--font-mono);font-size:9px;color:var(--dim);letter-spacing:1.5px;padding:6px 14px;text-align:left;font-weight:500}
+.ex-table td{padding:9px 14px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:top}
+.ex-table tr:last-child td{border-bottom:none}
+.ex-table tr:hover td{background:var(--s2)}
+.ex-name{font-weight:600;color:var(--text)}
+.ex-name-en{font-family:var(--font-mono);font-size:10px;color:var(--dim);display:block;margin-top:1px}
+.ex-load{font-family:var(--font-mono);font-size:12px;color:var(--blue)}
+.ex-sets{font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--accent)}
+.ex-tempo{font-family:var(--font-mono);font-size:11px;color:var(--label)}
+.ex-rest{font-family:var(--font-mono);font-size:11px;color:var(--green)}
+.ex-cue{font-size:11px;color:var(--dim);line-height:1.6}
+.ex-cue strong{color:var(--label)}
+.prog-bar{display:flex;gap:3px;margin-top:3px;flex-wrap:wrap}
+.prog-w{font-family:var(--font-mono);font-size:9px;padding:1px 4px;background:var(--s3)}
+.prog-w.w1{color:var(--blue)}
+.prog-w.w2{color:var(--label)}
+.prog-w.w3{color:var(--accent)}
+.alert{display:flex;gap:12px;padding:12px 16px;margin-bottom:14px;border-left:3px solid}
+.alert-warn{background:rgba(250,204,21,.06);border-color:var(--yellow)}
+.alert-info{background:rgba(56,189,248,.06);border-color:var(--blue)}
+.alert-danger{background:rgba(248,113,113,.06);border-color:var(--red)}
+.alert-teal{background:rgba(45,212,191,.06);border-color:var(--teal)}
+.alert-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.alert-text{font-size:13px;color:var(--label);line-height:1.6}
+.alert-text strong{color:var(--text)}
+.prog-table{width:100%;border-collapse:collapse;background:var(--s1);border:1px solid var(--border);margin-bottom:16px}
+.prog-table th{background:var(--s3);font-family:var(--font-mono);font-size:9px;color:var(--dim);letter-spacing:1.5px;padding:8px 12px;text-align:center}
+.prog-table td{padding:8px 12px;font-family:var(--font-mono);font-size:11px;text-align:center;border-bottom:1px solid var(--border);color:var(--label)}
+.prog-table td:first-child{text-align:left;color:var(--text);font-weight:500;font-size:12px}
+.prog-table .hi{color:var(--accent)}
+.prog-table .lo{color:var(--blue)}
+.targets{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:24px}
+.target-card{background:var(--s2);border:1px solid var(--border);padding:14px}
+.target-label{font-family:var(--font-mono);font-size:9px;color:var(--dim);letter-spacing:2px;margin-bottom:6px}
+.target-from{font-size:12px;color:var(--dim);margin-bottom:2px}
+.target-to{font-family:var(--font-display);font-size:22px;color:var(--green)}
+.timeline{background:var(--s1);border:1px solid var(--border);padding:20px;margin-bottom:24px}
+.timeline-grid{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;margin-top:12px}
+.week-block{height:32px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:8px;color:#000;font-weight:700}
+.w-m1{background:var(--blue)}
+.w-m2{background:var(--accent)}
+.w-m3{background:var(--green)}
+.w-deload{background:var(--s4);color:var(--label)!important;border:1px solid var(--border2)}
+.w-test{background:var(--yellow)}
+.timeline-legend{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--label)}
+.leg-dot{width:12px;height:12px}
+.divider{height:1px;background:var(--border);margin:20px 0}
+.sub-header{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;margin-bottom:8px;margin-top:16px}
+.sub-header.blue{color:var(--blue)}
+.sub-header.accent{color:var(--accent)}
+.sub-header.teal{color:var(--teal)}
+.sub-header.green{color:var(--green)}
+.sub-header.yellow{color:var(--yellow)}
+.time-badge{display:inline-block;background:var(--s3);border:1px solid var(--border2);font-family:var(--font-mono);font-size:10px;color:var(--label);padding:3px 8px;margin-left:8px}
+.session-timeline{display:flex;gap:0;margin-bottom:16px;overflow-x:auto}
+.sess-block{flex:1;min-width:80px;padding:8px 4px;text-align:center;border-right:1px solid var(--border)}
+.sess-block:last-child{border-right:none}
+.sess-block .s-name{font-size:10px;font-weight:600;color:var(--text);margin-bottom:2px}
+.sess-block .s-time{font-family:var(--font-mono);font-size:9px;color:var(--dim)}
+.sess-block.s-warm{background:rgba(148,163,184,.08)}
+.sess-block.s-core{background:rgba(45,212,191,.08)}
+.sess-block.s-reh{background:rgba(248,113,113,.08)}
+.sess-block.s-main{background:rgba(249,115,22,.08)}
+.sess-block.s-pow{background:rgba(56,189,248,.08)}
+.sess-block.s-acc{background:rgba(74,222,128,.08)}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--s4)}
+@media(max-width:768px){.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}.page{padding:16px}.site-header{padding:14px 16px 0}.athlete-chips{display:none}.timeline-grid{grid-template-columns:repeat(12,1fr)}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <span class="badge">NSCA-CSCS</span>
+    <span class="badge badge-v2">V2.0</span>
+    <div class="site-title">VERTICAL PERFORMANCE SYSTEM</div>
+    <div class="athlete-chips">
+      <div class="chip">78kg</div>
+      <div class="chip">CMJ <span>65.2cm</span></div>
+      <div class="chip">深蹲 <span>155kg</span></div>
+      <div class="chip">伐木CW <span>998W</span></div>
+      <div class="chip new">伐木CCW <span>1099W</span></div>
+      <div class="chip">周期 <span>24W</span></div>
+    </div>
+  </div>
+  <div class="tabs" id="mainTabs">
+    <div class="tab active" onclick="switchTab('overview')">总览 &amp; 分析</div>
+    <div class="tab" onclick="switchTab('warmup')">热身系统</div>
+    <div class="tab" onclick="switchTab('core')">核心训练系统</div>
+    <div class="tab" onclick="switchTab('meso1')">M1 积累期</div>
+    <div class="tab" onclick="switchTab('meso2')">M2 转化期</div>
+    <div class="tab" onclick="switchTab('meso3')">M3 实现期</div>
+    <div class="tab" onclick="switchTab('rehab')">伤病管理</div>
+    <div class="tab" onclick="switchTab('testing')">测试评估</div>
+  </div>
+</header>
+
+<!-- ===================== OVERVIEW ===================== -->
+<div class="page active" id="page-overview">
+  <div class="section-label">V2.0 UPDATE LOG</div>
+  <div class="section-title">计划升级总览</div>
+  <div class="section-sub">基于新增数据重新校准 | 移除六角杠铃/药球依赖 | 新增热身系统、核心训练系统、旋转功率纠正</div>
+
+  <div class="alert alert-teal">
+    <span class="alert-icon">🔄</span>
+    <div class="alert-text">
+      <strong>V2.0 主要更新：</strong>① 六角杠硬拉 → 罗马尼亚硬拉 + 臀推组合；② 药球动作 → 杠铃地雷区旋转 + 绳索砍伐；③ 新增15分钟分级热身系统；④ 新增独立核心训练模块（每日20-25分钟）；⑤ 整合Keiser伐木旋转不对称数据（CW < CCW，顺时针偏弱），加入旋转功率纠正训练；⑥ 移除篮球专项内容；⑦ 训练时长扩展至100-120分钟。
+    </div>
+  </div>
+
+  <!-- NEW DATA: LUMBER CHOP ANALYSIS -->
+  <div class="sub-header accent">KEISER LUMBER CHOP — NEW DATA ANALYSIS</div>
+  <div class="grid-4" style="margin-bottom:20px">
+    <div class="stat-card teal">
+      <div class="stat-label">伐木 顺时针 CW</div>
+      <div class="stat-val">998<span class="unit"> W</span></div>
+      <div class="stat-sub">相对较弱方向</div>
+      <span class="stat-rating r-warn">较弱 −9.2%</span>
+    </div>
+    <div class="stat-card teal">
+      <div class="stat-label">伐木 逆时针 CCW</div>
+      <div class="stat-val">1099<span class="unit"> W</span></div>
+      <div class="stat-sub">相对较强方向</div>
+      <span class="stat-rating r-good">较强</span>
+    </div>
+    <div class="stat-card yellow">
+      <div class="stat-label">旋转功率不对称</div>
+      <div class="stat-val">9.2<span class="unit"> %</span></div>
+      <div class="stat-sub">CW/CCW差值，需纠正</div>
+      <span class="stat-rating r-warn">ASYMMETRY</span>
+    </div>
+    <div class="stat-card purple">
+      <div class="stat-label">CCW相对体重功率</div>
+      <div class="stat-val">14.1<span class="unit"> W/kg</span></div>
+      <div class="stat-sub">旋转爆发力绝对值优秀</div>
+      <span class="stat-rating r-good">GOOD</span>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">🔄</span>
+    <div class="alert-text">
+      <strong>旋转功率不对称解读：</strong>
+      逆时针（CCW）强于顺时针（CW）9.2%。在起跳动作中，顺时针旋转链（右髋→左肩方向）参与躯干稳定与旋转推进，CW偏弱意味着这一链条存在相对不足。结合左腿RSI偏低，提示<strong>左侧髋-核心-肩旋转链存在系统性不足</strong>。训练重点：增加CW方向旋转功率训练（右肩高→左髋低的对角线模式），同时配合左腿单侧训练协同纠正。
+    </div>
+  </div>
+
+  <!-- UPDATED DIAGNOSTICS -->
+  <div class="sub-header accent">COMPLETE PERFORMANCE DIAGNOSTICS</div>
+  <div class="grid-4">
+    <div class="stat-card green"><div class="stat-label">深蹲/BW</div><div class="stat-val">1.99<span class="unit">×</span></div><div class="stat-sub">155kg | 最大力量天花板</div><span class="stat-rating r-elite">ELITE</span></div>
+    <div class="stat-card green"><div class="stat-label">IMTP峰值力</div><div class="stat-val">3.58<span class="unit">×BW</span></div><div class="stat-sub">力量储备极其充足</div><span class="stat-rating r-elite">ELITE</span></div>
+    <div class="stat-card"><div class="stat-label">CMJ 摆臂</div><div class="stat-val">65.2<span class="unit">cm</span></div><div class="stat-sub">优秀水平</div><span class="stat-rating r-good">GOOD</span></div>
+    <div class="stat-card yellow"><div class="stat-label">RFD @100ms</div><div class="stat-val">778<span class="unit">N/s</span></div><div class="stat-sub">⚠ 与力量严重不匹配</div><span class="stat-rating r-warn">SHORT BOARD</span></div>
+    <div class="stat-card yellow"><div class="stat-label">CMJ−SJ差值</div><div class="stat-val">6.6<span class="unit">%</span></div><div class="stat-sub">SSC弹性利用率偏低</div><span class="stat-rating r-warn">SHORT BOARD</span></div>
+    <div class="stat-card yellow"><div class="stat-label">DJ RSI 双腿</div><div class="stat-val">1.30</div><div class="stat-sub">触地494ms，过长</div><span class="stat-rating r-warn">DEVELOP</span></div>
+    <div class="stat-card red"><div class="stat-label">左右RSI不对称</div><div class="stat-val">18.2<span class="unit">%</span></div><div class="stat-sub">左0.45 / 右0.55</div><span class="stat-rating r-crit">PRIORITY</span></div>
+    <div class="stat-card yellow"><div class="stat-label">旋转功率不对称</div><div class="stat-val">9.2<span class="unit">%</span></div><div class="stat-sub">CW偏弱，左旋转链不足</div><span class="stat-rating r-warn">NEW FINDING</span></div>
+  </div>
+
+  <!-- EQUIPMENT SUBSTITUTIONS -->
+  <div class="sub-header accent">EQUIPMENT SUBSTITUTIONS</div>
+  <table class="prog-table" style="margin-bottom:20px">
+    <tr><th>原动作</th><th>移除原因</th><th>V2替代方案</th><th>差异说明</th></tr>
+    <tr>
+      <td>六角杠硬拉 Hex Bar DL</td>
+      <td style="color:var(--dim)">无该设备</td>
+      <td style="color:var(--teal)">罗马尼亚硬拉 (RDL) + 臀推</td>
+      <td style="color:var(--label);text-align:left">RDL强调后链离心控制；臀推补充臀肌最大等张力输出。组合效果≈六角杠</td>
+    </tr>
+    <tr>
+      <td>药球过头前投</td>
+      <td style="color:var(--dim)">无该设备</td>
+      <td style="color:var(--teal)">杠铃地雷区旋转推举</td>
+      <td style="color:var(--label);text-align:left">地雷区旋转爆发力更强，同时纠正旋转不对称。仅需杠铃+墙角</td>
+    </tr>
+    <tr>
+      <td>药球侧抛</td>
+      <td style="color:var(--dim)">无该设备</td>
+      <td style="color:var(--teal)">绳索/弹力带砍伐（CW优先）</td>
+      <td style="color:var(--label);text-align:left">针对CW方向弱侧定向补强，同时发展旋转爆发力</td>
+    </tr>
+  </table>
+
+  <!-- WEEKLY STRUCTURE V2 -->
+  <div class="sub-header accent">WEEKLY STRUCTURE V2 — 每日训练结构</div>
+  <div class="grid-3">
+    <div class="stat-card" style="padding:18px">
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--blue);letter-spacing:2px;margin-bottom:8px">DAY A｜周一 ≈105-115min</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:10px">双侧力量 + 功率 + 核心I</div>
+      <div style="font-size:12px;color:var(--label);line-height:2">
+        🟡 热身系统A（15min）<br>
+        🔴 髌腱等长协议（10min）<br>
+        🔵 核心激活（5min）<br>
+        🟠 后深蹲主力量（20min）<br>
+        🟠 箱跳爆发（15min）<br>
+        🟠 RDL后链力量（15min）<br>
+        🟢 核心训练模块I（20min）<br>
+        ⚪ 辅助+收尾（10min）
+      </div>
+    </div>
+    <div class="stat-card" style="padding:18px">
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--yellow);letter-spacing:2px;margin-bottom:8px">DAY B｜周三 ≈100-110min</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:10px">单侧反应 + 核心II</div>
+      <div style="font-size:12px;color:var(--label);line-height:2">
+        🟡 热身系统B（15min）<br>
+        🟢 核心训练模块II（25min）<br>
+        🟡 保加利亚深蹲（左优先）<br>
+        🟡 单腿箱跳（左优先）<br>
+        🟡 单腿RDL<br>
+        🟡 侧向跨跳稳定<br>
+        🟡 踝关节刚度训练
+      </div>
+    </div>
+    <div class="stat-card" style="padding:18px">
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:8px">DAY C｜周五 ≈100-115min</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:10px">奥举爆发 + 核心III</div>
+      <div style="font-size:12px;color:var(--label);line-height:2">
+        🟡 热身系统C（15min）<br>
+        🟠 高翻主奥举（20min）<br>
+        🟠 悬挂高翻（15min）<br>
+        🟠 CMJ技术精练（10min）<br>
+        🟢 核心训练模块III（25min）<br>
+        ⚪ 地雷区旋转+臀推（15min）
+      </div>
+    </div>
+  </div>
+
+  <!-- MACROCYCLE TIMELINE -->
+  <div class="timeline">
+    <div style="font-family:var(--font-mono);font-size:11px;color:var(--label);letter-spacing:1px;margin-bottom:4px">24-WEEK MACROCYCLE — UNCHANGED</div>
+    <div class="timeline-grid">
+      <div class="week-block w-m1">W1</div><div class="week-block w-m1">W2</div><div class="week-block w-m1">W3</div><div class="week-block w-deload">减量</div>
+      <div class="week-block w-m1">W5</div><div class="week-block w-m1">W6</div><div class="week-block w-m1">W7</div><div class="week-block w-test">测试</div>
+      <div class="week-block w-m2">W9</div><div class="week-block w-m2">W10</div><div class="week-block w-m2">W11</div><div class="week-block w-deload">减量</div>
+      <div class="week-block w-m2">W13</div><div class="week-block w-m2">W14</div><div class="week-block w-m2">W15</div><div class="week-block w-test">测试</div>
+      <div class="week-block w-m3">W17</div><div class="week-block w-m3">W18</div><div class="week-block w-m3">W19</div><div class="week-block w-deload">减量</div>
+      <div class="week-block w-m3">W21</div><div class="week-block w-m3">W22</div><div class="week-block w-m3">W23</div><div class="week-block w-test">测试</div>
+    </div>
+    <div class="timeline-legend">
+      <div class="leg-item"><div class="leg-dot" style="background:var(--blue)"></div>M1 积累期</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--accent)"></div>M2 转化期</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div>M3 实现期</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--s4);border:1px solid var(--border2)"></div>减量周</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--yellow)"></div>测试周</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== WARM-UP SYSTEM ===================== -->
+<div class="page" id="page-warmup">
+  <div class="section-label">WARM-UP SYSTEM V2</div>
+  <div class="section-title">分级热身系统</div>
+  <div class="section-sub">三个版本（A/B/C）针对当日训练内容定制 | 每版15分钟 | 4层结构：组织松动→动态激活→神经激活→神经肌肉准备</div>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">ℹ️</span>
+    <div class="alert-text">
+      <strong>热身设计原则：</strong>热身不是走流程，是为主要训练建立最佳神经肌肉状态。4层递进结构确保每次训练前体温、动作质量和神经激活都达到峰值。<strong>髌腱注意：</strong>热身中的低强度跳跃动作若VAS&gt;3则替换为等长保持。
+    </div>
+  </div>
+
+  <div class="day-tabs" id="warmup-tabs">
+    <div class="day-tab active" onclick="switchDay('warmup','a')">热身A｜Day A 力量日</div>
+    <div class="day-tab" onclick="switchDay('warmup','b')">热身B｜Day B 单侧日</div>
+    <div class="day-tab" onclick="switchDay('warmup','c')">热身C｜Day C 奥举日</div>
+  </div>
+
+  <!-- WARMUP A -->
+  <div class="day-content active" id="warmup-day-a">
+    <div class="sub-header blue">LAYER 1 — 组织松动 SOFT TISSUE（3min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">泡沫轴 + 筋膜放松</span><span class="ex-group-tag tag-warm">TISSUE</span></div>
+      <table class="ex-table">
+        <tr><th>部位</th><th>时间/次数</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">股四头肌（双腿）</span></td><td class="ex-sets">45s</td><td class="ex-cue">寻找紧绷点停顿10s，髌腱区域避免直接压迫</td></tr>
+        <tr><td><span class="ex-name">髂胫束（ITB）</span></td><td class="ex-sets">30s/侧</td><td class="ex-cue">侧卧，从膝上5cm滚至髋侧，遇痛点停顿</td></tr>
+        <tr><td><span class="ex-name">小腿+跟腱</span></td><td class="ex-sets">30s/侧</td><td class="ex-cue">对侧脚踩压以增加压力，足背屈/跖屈交替</td></tr>
+      </table>
+    </div>
+
+    <div class="sub-header blue">LAYER 2 — 关节活动度 MOBILITY（4min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">髋踝动态活动</span><span class="ex-group-tag tag-warm">MOBILITY</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">90/90髋关节活动</span><span class="ex-name-en">90/90 Hip Mobility</span></td><td class="ex-sets">2×8/侧</td><td class="ex-cue">前后腿均90°，主动前倾后仰，不用手辅助支撑</td></tr>
+        <tr><td><span class="ex-name">踝背屈触墙活动</span><span class="ex-name-en">Ankle Wall Mobilization</span></td><td class="ex-sets">2×10/侧</td><td class="ex-cue">脚趾距墙10cm，膝越过脚尖方向，逐渐增加距离</td></tr>
+        <tr><td><span class="ex-name">世界最伟大伸展</span><span class="ex-name-en">World's Greatest Stretch</span></td><td class="ex-sets">1×5/侧</td><td class="ex-cue">前弓步+同侧手触地+胸椎旋转，每个位置保持2s</td></tr>
+      </table>
+    </div>
+
+    <div class="sub-header blue">LAYER 3 — 肌肉激活 ACTIVATION（4min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">臀肌 + 核心激活</span><span class="ex-group-tag tag-warm">ACTIVATION</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">侧卧蚌式（弹力带）</span><span class="ex-name-en">Banded Clamshell</span></td><td class="ex-sets">2×15/侧</td><td class="ex-cue">弹力带绕膝上，骨盆不旋转，感受臀中肌燃烧感</td></tr>
+        <tr><td><span class="ex-name">单腿臀桥（等长顶峰）</span><span class="ex-name-en">Single Leg Glute Bridge</span></td><td class="ex-sets">2×10/侧，顶2s</td><td class="ex-cue">顶点时臀部充分收缩，骨盆水平，腰椎中立</td></tr>
+        <tr><td><span class="ex-name">腹式呼吸 + 内压建立</span></td><td class="ex-sets">5次深呼吸</td><td class="ex-cue">吸气时腹部360°扩张，呼气末保留30%张力，为深蹲建立腔内压模式</td></tr>
+      </table>
+    </div>
+
+    <div class="sub-header blue">LAYER 4 — 神经肌肉准备 NEURAL PRIMING（4min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">动作模式 + 爆发力预激活</span><span class="ex-group-tag tag-warm">NEURAL</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">高脚杯深蹲（轻重量，爆发起立）</span><span class="ex-name-en">Goblet Squat — Explosive Concentric</span></td><td class="ex-sets">2×8 @ 20kg</td><td class="ex-cue">3s慢降，底部暂停，<strong>爆发性起立</strong>。训练深蹲模式+神经系统预激活</td></tr>
+        <tr><td><span class="ex-name">原地轻跳（足踝刚度）</span><span class="ex-name-en">Ankle Bounce — Stiff Knee</span></td><td class="ex-sets">2×10s</td><td class="ex-cue">最小膝屈，感受踝弹性，提高神经传导速度</td></tr>
+        <tr><td><span class="ex-name">空手深蹲跳（专注意图）</span><span class="ex-name-en">BW Squat Jump × 5</span></td><td class="ex-sets">1×5次</td><td class="ex-cue">最后5次全力跳，完全激活神经系统，告诉肌肉今天要爆发</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- WARMUP B -->
+  <div class="day-content" id="warmup-day-b">
+    <div class="sub-header yellow">LAYER 1 — 组织松动（3min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">单侧日重点松动</span><span class="ex-group-tag tag-warm">TISSUE</span></div>
+      <table class="ex-table">
+        <tr><th>部位</th><th>时间</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">梨状肌（坐姿球压）</span></td><td class="ex-sets">40s/侧，左侧优先</td><td class="ex-cue">坐在网球/按摩球上，找到梨状肌触痛点停留，深呼吸放松</td></tr>
+        <tr><td><span class="ex-name">内收肌（侧卧滚动）</span></td><td class="ex-sets">30s/侧</td><td class="ex-cue">侧向跳跃需要内收肌离心缓冲，提前松动</td></tr>
+        <tr><td><span class="ex-name">胸椎泡沫轴伸展</span></td><td class="ex-sets">1min</td><td class="ex-cue">椎节逐节伸展，改善旋转活动度（与核心训练协同）</td></tr>
+      </table>
+    </div>
+
+    <div class="sub-header yellow">LAYER 2 — 单腿稳定性激活（5min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">单侧日专项激活（左腿优先）</span><span class="ex-group-tag tag-warm">ACTIVATION</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">弓步步行（膝追脚尖）</span><span class="ex-name-en">Walking Lunge</span></td><td class="ex-sets">2×10m</td><td class="ex-cue">每步骨盆保持水平，强调左侧稳定控制</td></tr>
+        <tr><td><span class="ex-name">侧向弓步（内收肌拉伸激活）</span></td><td class="ex-sets">2×8/侧</td><td class="ex-cue">重心转移时髋向后坐，躯干直立</td></tr>
+        <tr><td><span class="ex-name">单腿站立 + 骨盆控制</span></td><td class="ex-sets">左3×20s / 右2×20s</td><td class="ex-cue">左腿多一组。轻微弯曲支撑腿，感受臀中肌张力，骨盆不倾斜</td></tr>
+        <tr><td><span class="ex-name">Y平衡测试热身（3方向）</span><span class="ex-name-en">Y-Balance Warm-up</span></td><td class="ex-sets">1×3方向/侧</td><td class="ex-cue">前向/后内/后外，记录左右差异，直观感知不对称</td></tr>
+      </table>
+    </div>
+
+    <div class="sub-header yellow">LAYER 3 — 动态热身（4min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">旋转激活 + 跳跃准备</span><span class="ex-group-tag tag-warm">NEURAL</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">弓步旋转（胸椎）</span></td><td class="ex-sets">2×8/侧</td><td class="ex-cue">前弓步，同侧手触地，对侧手指天，旋转时眼跟手走</td></tr>
+        <tr><td><span class="ex-name">侧向交叉步</span><span class="ex-name-en">Lateral Shuffle + Crossover</span></td><td class="ex-sets">2×10m/方向</td><td class="ex-cue">激活侧向移动肌群，为侧向跳跃做准备</td></tr>
+        <tr><td><span class="ex-name">单腿轻跳（左腿2组/右1组）</span></td><td class="ex-sets">左2×8次 / 右1×8次</td><td class="ex-cue">轻度神经激活，关注左腿踝刚度感觉</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- WARMUP C -->
+  <div class="day-content" id="warmup-day-c">
+    <div class="sub-header accent">LAYER 1 — 组织松动（3min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">奥举日重点：肩 + 胸椎 + 后链</span><span class="ex-group-tag tag-warm">TISSUE</span></div>
+      <table class="ex-table">
+        <tr><th>部位</th><th>时间</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">胸椎泡沫轴（重点）</span></td><td class="ex-sets">90s，逐节</td><td class="ex-cue">奥举需要充分胸椎伸展，每节停顿2-3次呼吸</td></tr>
+        <tr><td><span class="ex-name">肩关节后侧（对侧手交叉）</span></td><td class="ex-sets">30s/侧</td><td class="ex-cue">接杠位置需要肩关节内旋灵活性</td></tr>
+      </table>
+    </div>
+
+    <div class="sub-header accent">LAYER 2 — 肩与胸椎活动（4min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">奥举专项活动度</span><span class="ex-group-tag tag-warm">MOBILITY</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">肩袖外旋（弹力带）</span></td><td class="ex-sets">2×15</td><td class="ex-cue">肘贴体侧，前臂外旋，保护肩关节</td></tr>
+        <tr><td><span class="ex-name">空杠上翻握 + 胸椎伸展组合</span></td><td class="ex-sets">2×8</td><td class="ex-cue">空杠高翻接杠位置练习，感受胸椎伸展辅助接杠</td></tr>
+        <tr><td><span class="ex-name">弓步旋转（双臂举棍）</span></td><td class="ex-sets">2×6/侧</td><td class="ex-cue">手持棍/空杠，旋转时保持棍水平，激活旋转链</td></tr>
+      </table>
+    </div>
+
+    <div class="sub-header accent">LAYER 3 — 奥举专项热身（5min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">递进式奥举热身（不可省略）</span><span class="ex-group-tag tag-oli">OLYMPIC PREP</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>重量</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">空杠高翻（技术确认）</span></td><td class="ex-sets">3×5</td><td class="ex-load">空杠 20kg</td><td class="ex-cue">专注每一个环节：起始位、第一拉、发力点、接杠</td></tr>
+        <tr><td><span class="ex-name">50% 高翻</span></td><td class="ex-sets">2×3</td><td class="ex-load">约43kg</td><td class="ex-cue">开始感受重量，速度逐步增加</td></tr>
+        <tr><td><span class="ex-name">65% 高翻</span></td><td class="ex-sets">1×3</td><td class="ex-load">约55kg</td><td class="ex-cue">接近工作重量，动作定型确认</td></tr>
+        <tr><td><span class="ex-name">5次踝跳（神经最终激活）</span></td><td class="ex-sets">1×5</td><td class="ex-load">体重</td><td class="ex-cue">起跳前最后的神经激活，提升反应速度</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CORE SYSTEM ===================== -->
+<div class="page" id="page-core">
+  <div class="section-label">CORE TRAINING SYSTEM</div>
+  <div class="section-title">核心训练系统</div>
+  <div class="section-sub">三个独立模块 × 20-25分钟 | 整合Keiser伐木旋转不对称纠正 | 涵盖五大核心能力维度</div>
+
+  <div class="alert alert-teal">
+    <span class="alert-icon">🎯</span>
+    <div class="alert-text">
+      <strong>核心训练五大维度（基于McGill核心稳定理论）：</strong>
+      ① 抗屈（Anti-Flexion）② 抗伸（Anti-Extension）③ 抗旋转（Anti-Rotation）④ 旋转功率（Rotational Power）⑤ 侧向稳定（Lateral Stability）<br>
+      针对你的Keiser伐木数据：顺时针CW 998W &lt; 逆时针CCW 1099W，在旋转功率训练中CW方向<strong>每次多1组</strong>。
+    </div>
+  </div>
+
+  <div class="day-tabs" id="core-tabs">
+    <div class="day-tab active" onclick="switchDay('core','1')">模块I｜抗屈 + 抗旋（Day A后）</div>
+    <div class="day-tab" onclick="switchDay('core','2')">模块II｜旋转功率（Day B前）</div>
+    <div class="day-tab" onclick="switchDay('core','3')">模块III｜综合功率核心（Day C后）</div>
+    <div class="day-tab" onclick="switchDay('core','prog')">24周进阶方案</div>
+  </div>
+
+  <!-- CORE MODULE I -->
+  <div class="day-content active" id="core-day-1">
+    <div class="alert alert-info">
+      <span class="alert-icon">ℹ️</span>
+      <div class="alert-text"><strong>模块I执行时机：</strong>放在Day A主训练之后，作为收尾训练块。此时力量训练已完成，核心进入高疲劳状态，强迫稳定肌参与工作，提升核心肌耐力和抗疲劳稳定能力。</div>
+    </div>
+
+    <div class="sub-header teal">A — 抗屈曲 ANTI-FLEXION（6min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">腰椎保护核心 — 直接对应腰椎间盘预防</span><span class="ex-group-tag tag-core">ANTI-FLEX</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×时间/次</th><th>节奏</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">腹轮 / Ab Wheel（膝跪）</span><span class="ex-name-en">Ab Wheel Rollout — Kneeling</span></td>
+          <td class="ex-sets">
+            <div class="prog-bar">
+              <span class="prog-w w1">W1-4: 3×8</span>
+              <span class="prog-w w2">W5-12: 3×10</span>
+              <span class="prog-w w3">W13+: 3×6站姿</span>
+            </div>
+          </td>
+          <td class="ex-tempo">2s出/控制回</td>
+          <td class="ex-cue">腰椎全程保持中立，不允许腰部塌陷。感受腹直肌拉长受力。<strong>腰部有任何异常停止。</strong></td>
+        </tr>
+        <tr>
+          <td><span class="ex-name">死虫 Dead Bug（负重进阶）</span><span class="ex-name-en">Dead Bug with Dumbbell</span></td>
+          <td class="ex-sets">3×8/侧</td>
+          <td class="ex-tempo">4s对侧伸展</td>
+          <td class="ex-cue">W1-8: 无负重。W9+: 单手持5-8kg哑铃。腰椎贴地，对侧手脚缓慢延伸4秒，不允许腰弓起</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="sub-header teal">B — 抗旋转 ANTI-ROTATION（7min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">Pallof Press系列 — 核心旋转稳定</span><span class="ex-group-tag tag-core">ANTI-ROT</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次/时间</th><th>负荷</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">绳索 Pallof Press（站姿）</span><span class="ex-name-en">Pallof Press Standing</span></td>
+          <td class="ex-sets">3×10/侧</td>
+          <td class="ex-load">W1-4: 轻重量 | W5+: 中等阻力</td>
+          <td class="ex-cue">绳索在胸前，推出时保持躯干不旋转，感受对侧腹斜肌张力。两侧均等训练。</td>
+        </tr>
+        <tr>
+          <td><span class="ex-name">Pallof Press（弓步变式）</span><span class="ex-name-en">Pallof Press — Split Stance</span></td>
+          <td class="ex-sets">W9+ 加入：3×8/侧</td>
+          <td class="ex-load">中等阻力</td>
+          <td class="ex-cue">弓步站立，更接近起跳时的单侧受力模式，增加核心稳定挑战</td>
+        </tr>
+        <tr>
+          <td><span class="ex-name">单腿Pallof Press（左腿支撑优先）</span><span class="ex-name-en">Single Leg Pallof — Left Priority</span></td>
+          <td class="ex-sets">W13+ 加入：左3×8 / 右2×8</td>
+          <td class="ex-load">轻阻力</td>
+          <td class="ex-cue">最高难度变式，直接模拟起跳时单腿支撑核心稳定需求</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="sub-header teal">C — 侧向稳定 LATERAL STABILITY（6min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">侧向核心 — 对应左右不对称纠正</span><span class="ex-group-tag tag-core">LATERAL</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×时间</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">侧平板支撑（进阶版）</span><span class="ex-name-en">Side Plank — Progressive</span></td>
+          <td class="ex-sets">
+            <div class="prog-bar">
+              <span class="prog-w w1">W1-4: 3×25s/侧</span>
+              <span class="prog-w w2">W5-12: 3×35s/侧</span>
+              <span class="prog-w w3">W13+: 加髋外展</span>
+            </div>
+          </td>
+          <td class="ex-cue">身体完全侧位，髋不下沉，强调腰方肌和臀中肌协同发力</td>
+        </tr>
+        <tr>
+          <td><span class="ex-name">侧平板 + 上腿外展（弹力带）</span><span class="ex-name-en">Side Plank Hip Abduction</span></td>
+          <td class="ex-sets">W9+: 3×12/侧</td>
+          <td class="ex-cue">侧平板保持同时上腿向上抬，极度挑战腰方肌+臀中肌协调</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- CORE MODULE II -->
+  <div class="day-content" id="core-day-2">
+    <div class="alert alert-teal">
+      <span class="alert-icon">🔄</span>
+      <div class="alert-text"><strong>模块II执行时机：</strong>放在Day B主训练<strong>之前</strong>（热身完成后），作为旋转功率预激活。神经肌肉系统处于新鲜状态时进行旋转爆发力训练，效果最佳。<strong>关键：CW（顺时针）方向每次比CCW多1组，逐步消除旋转不对称。</strong></div>
+    </div>
+
+    <div class="sub-header teal">A — 旋转爆发力 ROTATIONAL POWER（12min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">绳索 / 弹力带砍伐 — 纠正CW不对称</span><span class="ex-group-tag tag-core">ROT POWER</span></div>
+      <table class="ex-table">
+        <tr><th>方向</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">⭐ 高→低砍伐（CW顺时针，弱侧优先）</span><span class="ex-name-en">High-to-Low Chop — CW Direction</span></td>
+          <td class="ex-sets">
+            <div class="prog-bar">
+              <span class="prog-w w1">W1-8: 4组×8次</span>
+              <span class="prog-w w3">W9+: 4组×6次爆发</span>
+            </div>
+          </td>
+          <td class="ex-load">W1: 绳索15kg → W24: 绳索25kg</td>
+          <td class="ex-rest">90s</td>
+          <td class="ex-cue">绳索固定在高位（右肩高度），从右肩对角线向左髋爆发性砍下。<strong>这是顺时针CW方向，弱侧，每次比CCW多1组。</strong>髋关节主导发力，躯干旋转跟随</td>
+        </tr>
+        <tr>
+          <td><span class="ex-name">低→高举升（CCW逆时针，强侧维持）</span><span class="ex-name-en">Low-to-High Lift — CCW Direction</span></td>
+          <td class="ex-sets">
+            <div class="prog-bar">
+              <span class="prog-w w1">W1-8: 3组×8次</span>
+              <span class="prog-w w3">W9+: 3组×6次爆发</span>
+            </div>
+          </td>
+          <td class="ex-load">W1: 绳索15kg → W24: 绳索25kg</td>
+          <td class="ex-rest">90s</td>
+          <td class="ex-cue">从左髋低位向右肩高位爆发性推举。CCW方向（强侧）维持3组，CW侧4组，逐渐平衡</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="sub-header teal">B — 地雷区旋转（替代药球）LANDMINE ROTATION（8min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">杠铃地雷区旋转推举 — 核心旋转功率</span><span class="ex-group-note">仅需杠铃插入墙角，无需特殊设备</span><span class="ex-group-tag tag-core">LANDMINE</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">地雷区旋转推举（站姿）</span><span class="ex-name-en">Landmine Rotational Press</span></td>
+          <td class="ex-sets">3×8/侧</td>
+          <td class="ex-load">W1: 杠铃+5kg/侧 → W24: +20kg/侧</td>
+          <td class="ex-rest">90s</td>
+          <td class="ex-cue">站于杠铃固定端前方，双手握杠铃自由端，从胸前爆发性推向对角线高位。全程髋关节参与旋转，不是纯手臂推</td>
+        </tr>
+        <tr>
+          <td><span class="ex-name">地雷区单腿旋转推举（W9起）</span><span class="ex-name-en">Single Leg Landmine Press</span></td>
+          <td class="ex-sets">W9+: 左3×6 / 右2×6</td>
+          <td class="ex-load">减轻10%重量</td>
+          <td class="ex-rest">2min</td>
+          <td class="ex-cue">左腿支撑优先。将单侧稳定挑战与旋转爆发力结合，直接对应起跳动作</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="sub-header teal">C — 抗伸展 ANTI-EXTENSION（5min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">脊柱抗过伸 — 腰椎保护</span><span class="ex-group-tag tag-core">ANTI-EXT</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×时间/次</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">俯卧支撑（RKC变式）</span><span class="ex-name-en">RKC Plank</span></td>
+          <td class="ex-sets">3×20s</td>
+          <td class="ex-cue">双手握拳，手臂向脚方向用力"拖地"，臀部最大限度收紧，此变式比标准平板腹肌激活提升30%+</td>
+        </tr>
+        <tr>
+          <td><span class="ex-name">鸟犬式（负重进阶）</span><span class="ex-name-en">Bird Dog — Weighted</span></td>
+          <td class="ex-sets">3×10/侧</td>
+          <td class="ex-cue">W9+手持1-3kg哑铃。对侧手脚慢速伸出4s，收回2s，腰椎不旋转</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- CORE MODULE III -->
+  <div class="day-content" id="core-day-3">
+    <div class="alert alert-info">
+      <span class="alert-icon">ℹ️</span>
+      <div class="alert-text"><strong>模块III执行时机：</strong>Day C奥举训练之后。奥举对核心有高度激活，此时接续功率核心训练形成超负荷刺激。重点放在提高核心功率输出和爆发性旋转能力。</div>
+    </div>
+
+    <div class="sub-header accent">A — 爆发性核心 POWER CORE（10min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">爆发性髋屈 + 核心功率训练</span><span class="ex-group-tag tag-core">POWER CORE</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">悬垂举腿（全速提膝）</span><span class="ex-name-en">Hanging Leg Raise — Explosive</span></td>
+          <td class="ex-sets">
+            <div class="prog-bar">
+              <span class="prog-w w1">W1-4: 3×8膝屈</span>
+              <span class="prog-w w2">W5-12: 3×8直腿</span>
+              <span class="prog-w w3">W13+: 3×6+负重</span>
+            </div>
+          </td>
+          <td class="ex-load">W13+: 踝部绑1-3kg</td>
+          <td class="ex-rest">90s</td>
+          <td class="ex-cue">爆发性上提，控制离心下降。此动作直接训练起跳时的摆腿功率——起跳时大腿快速提起是垂直跳的重要辅助力</td>
+        </tr>
+        <tr>
+          <td><span class="ex-name">绳索跪姿卷腹（爆发向心）</span><span class="ex-name-en">Cable Kneeling Crunch — Explosive</span></td>
+          <td class="ex-sets">3×12</td>
+          <td class="ex-load">中等阻力</td>
+          <td class="ex-rest">90s</td>
+          <td class="ex-cue">向心阶段爆发性卷腹，离心阶段4s控制回。训练腹直肌爆发性收缩</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="sub-header accent">B — 整合旋转收尾（10min）</div>
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">综合旋转稳定 — 整合全周训练</span><span class="ex-group-tag tag-core">INTEGRATION</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">绳索旋转砍伐（复习CW弱侧）</span></td>
+          <td class="ex-sets">CW 2×8 / CCW 1×8（本日减量维持）</td>
+          <td class="ex-cue">本日为收尾版，量减少。保持本周CW侧总组数比CCW多3组</td>
+        </tr>
+        <tr>
+          <td><span class="ex-name">平板支撑 + 肩触对侧（抗旋）</span><span class="ex-name-en">Plank Shoulder Tap</span></td>
+          <td class="ex-sets">3×20次（10/侧）</td>
+          <td class="ex-cue">双手支撑平板，交替用手触对侧肩，骨盆不旋转，髋不左右摇摆</td>
+        </tr>
+        <tr>
+          <td><span class="ex-name">农夫行走（单侧负重）</span><span class="ex-name-en">Suitcase Carry — Left First</span></td>
+          <td class="ex-sets">左手20m×3 / 右手20m×2</td>
+          <td class="ex-cue">单侧持重哑铃行走，激活对侧腰方肌抗侧弯。左手优先（纠正左侧链不足）。躯干保持绝对直立</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- CORE PROGRESSION -->
+  <div class="day-content" id="core-day-prog">
+    <div class="sub-header teal">24周核心训练进阶逻辑</div>
+    <table class="prog-table" style="margin-bottom:16px">
+      <tr><th>阶段</th><th>周次</th><th>核心训练重点</th><th>旋转纠正策略</th><th>与跳跃整合</th></tr>
+      <tr>
+        <td style="color:var(--blue)">M1 积累</td>
+        <td class="lo">W1–8</td>
+        <td style="text-align:left;color:var(--label)">建立基础稳定，等长抗力为主，动作控制</td>
+        <td style="text-align:left;color:var(--label)">CW砍伐4组 vs CCW 3组</td>
+        <td style="text-align:left;color:var(--label)">核心先于跳跃，独立训练</td>
+      </tr>
+      <tr>
+        <td style="color:var(--accent)">M2 转化</td>
+        <td>W9–16</td>
+        <td style="text-align:left;color:var(--label)">动态稳定+旋转功率，负荷递增</td>
+        <td style="text-align:left;color:var(--label)">CW爆发性砍伐，测试功率差值</td>
+        <td style="text-align:left;color:var(--label)">Pallof Press与单腿跳整合训练</td>
+      </tr>
+      <tr>
+        <td style="color:var(--green)">M3 实现</td>
+        <td class="hi">W17–24</td>
+        <td style="text-align:left;color:var(--label)">峰值旋转功率，单腿核心整合</td>
+        <td style="text-align:left;color:var(--label)">W24重测Keiser伐木，目标差值&lt;5%</td>
+        <td style="text-align:left;color:var(--label)">单腿Pallof Press + 单腿起跳组合</td>
+      </tr>
+    </table>
+    <div class="alert alert-teal">
+      <span class="alert-icon">📊</span>
+      <div class="alert-text"><strong>旋转不对称纠正目标：</strong>W24重测Keiser伐木数据，目标CW/CCW不对称从9.2%降至&lt;5%（CW功率从998W提升至约1045W+）。每8周测试一次，根据结果调整CW/CCW组数比例。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MESO 1 ===================== -->
+<div class="page" id="page-meso1">
+  <div class="meso-header blue">
+    <div class="meso-tag">MESOCYCLE 01 | WEEKS 1–8 | V2.0</div>
+    <div class="meso-title">积累期 · 力量-速度基础</div>
+    <div class="meso-meta">
+      <div class="meta-item">目标：<strong>RFD神经基础、髌腱康复、SSC准备、旋转功率基础</strong></div>
+      <div class="meta-item">力量强度：<strong>75–85% 1RM</strong></div>
+      <div class="meta-item">跳跃量：<strong>60–100次/周</strong></div>
+      <div class="meta-item">训练时长：<strong>≈105–115min</strong></div>
+    </div>
+  </div>
+
+  <div style="font-family:var(--font-mono);font-size:10px;color:var(--blue);letter-spacing:2px;margin-bottom:8px">LOADING PROGRESSION</div>
+  <table class="prog-table" style="margin-bottom:20px">
+    <tr><th>动作</th><th>W1</th><th>W2</th><th>W3</th><th>W4减量</th><th>W5</th><th>W6</th><th>W7</th><th>W8测试</th></tr>
+    <tr><td>后深蹲</td><td class="lo">124kg</td><td>128kg</td><td class="hi">132kg</td><td style="color:var(--dim)">100kg</td><td class="lo">132kg</td><td>136kg</td><td class="hi">140kg</td><td style="color:var(--yellow)">测试</td></tr>
+    <tr><td>高翻</td><td class="lo">64kg</td><td>66kg</td><td class="hi">68kg</td><td style="color:var(--dim)">55kg</td><td class="lo">68kg</td><td>70kg</td><td class="hi">72kg</td><td style="color:var(--yellow)">测试</td></tr>
+    <tr><td>RDL（替代六角杠）</td><td class="lo">95kg</td><td>100kg</td><td class="hi">105kg</td><td style="color:var(--dim)">80kg</td><td class="lo">105kg</td><td>110kg</td><td class="hi">115kg</td><td style="color:var(--yellow)">维持</td></tr>
+    <tr><td>臀推</td><td class="lo">100kg</td><td>110kg</td><td class="hi">120kg</td><td style="color:var(--dim)">80kg</td><td class="lo">120kg</td><td>130kg</td><td class="hi">140kg</td><td style="color:var(--yellow)">维持</td></tr>
+    <tr><td>保加利亚深蹲/侧</td><td class="lo">20kg×2</td><td>22kg×2</td><td class="hi">24kg×2</td><td style="color:var(--dim)">16kg×2</td><td class="lo">24kg×2</td><td>28kg×2</td><td class="hi">30kg×2</td><td style="color:var(--yellow)">维持</td></tr>
+    <tr><td>绳索砍伐CW</td><td class="lo">15kg</td><td>17kg</td><td class="hi">18kg</td><td style="color:var(--dim)">12kg</td><td class="lo">18kg</td><td>20kg</td><td class="hi">21kg</td><td style="color:var(--yellow)">测试</td></tr>
+  </table>
+
+  <div class="day-tabs" id="m1-day-tabs">
+    <div class="day-tab active" onclick="switchDay('m1','a')">DAY A｜双侧力量+核心I</div>
+    <div class="day-tab" onclick="switchDay('m1','b')">DAY B｜单侧+旋转功率</div>
+    <div class="day-tab" onclick="switchDay('m1','c')">DAY C｜奥举+核心III</div>
+    <div class="day-tab" onclick="switchDay('m1','deload')">减量周</div>
+  </div>
+
+  <div class="day-content active" id="m1-day-a">
+    <!-- Session Timeline -->
+    <div class="session-timeline">
+      <div class="sess-block s-warm"><div class="s-name">热身A</div><div class="s-time">0–15min</div></div>
+      <div class="sess-block s-reh"><div class="s-name">髌腱等长</div><div class="s-time">15–25min</div></div>
+      <div class="sess-block s-main"><div class="s-name">后深蹲</div><div class="s-time">25–45min</div></div>
+      <div class="sess-block s-pow"><div class="s-name">箱跳爆发</div><div class="s-time">45–55min</div></div>
+      <div class="sess-block s-main"><div class="s-name">RDL+臀推</div><div class="s-time">55–75min</div></div>
+      <div class="sess-block s-acc"><div class="s-name">核心模块I</div><div class="s-time">75–95min</div></div>
+      <div class="sess-block s-acc"><div class="s-name">辅助收尾</div><div class="s-time">95–110min</div></div>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">⓪ 热身 + 髌腱协议</span><span class="ex-group-note">执行「热身系统A」后进行等长协议</span><span class="ex-group-tag tag-reh">REHAB</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×时间</th><th>负荷</th><th>间歇</th><th>要点</th></tr>
+        <tr><td><span class="ex-name">腿举机等长保持（膝70°）</span></td><td class="ex-sets">5×45s</td><td class="ex-load">~98kg (1.25×BW)</td><td class="ex-rest">2min</td><td class="ex-cue">VAS训练前:___ 训练后:___ | VAS≥5降低负荷</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">A — 后深蹲（主力量）</span><span class="ex-group-tag tag-str">STRENGTH</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>节奏</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">后深蹲 High Bar</span></td>
+          <td class="ex-sets">4×5</td>
+          <td class="ex-load"><div class="prog-bar"><span class="prog-w w1">W1: 124kg</span><span class="prog-w w2">W2: 128kg</span><span class="prog-w w3">W3: 132kg</span></div></td>
+          <td class="ex-tempo">3-1-X-0</td>
+          <td class="ex-rest">3min</td>
+          <td class="ex-cue">全深度，3s离心，底部短停，爆发性起立。脊柱中立，核心全程紧绷。⚠腰部：腔内压充分建立再下蹲</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">B — 箱式跳跃（功率表达）</span><span class="ex-group-note">W1-4 独立 | W5+ 深蹲后PAP窗口8min执行</span><span class="ex-group-tag tag-pow">POWER</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>高度</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">箱式跳（落地静止）</span><span class="ex-name-en">Box Jump — Stick Landing</span></td>
+          <td class="ex-sets">4×4</td>
+          <td class="ex-load">W1-4: 40cm | W5-8: 50cm</td>
+          <td class="ex-rest">90s</td>
+          <td class="ex-cue">最大意图起跳，安静落地稳定2s。每次独立起跳，非连续弹跳</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">C — 罗马尼亚硬拉（替代六角杠）</span><span class="ex-group-tag tag-str">STRENGTH</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>节奏</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">罗马尼亚硬拉</span><span class="ex-name-en">Romanian Deadlift (RDL)</span></td>
+          <td class="ex-sets">3×8</td>
+          <td class="ex-load"><div class="prog-bar"><span class="prog-w w1">W1: 95kg</span><span class="prog-w w2">W2: 100kg</span><span class="prog-w w3">W3: 105kg</span></div></td>
+          <td class="ex-tempo">3-0-2-0</td>
+          <td class="ex-rest">2.5min</td>
+          <td class="ex-cue">与六角杠不同：膝微屈，髋铰链主导，杠铃贴腿下滑至小腿中段。<strong>⚠ 腰椎：脊柱全程中立，绝不弓腰，使用腰带。感觉腰椎不适立即停止。</strong></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">D — 臀推（补充臀肌最大力量）</span><span class="ex-group-note">六角杠硬拉等长收缩最大力在髋伸末端，臀推完美补充</span><span class="ex-group-tag tag-str">STRENGTH</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>节奏</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">杠铃臀推</span><span class="ex-name-en">Barbell Hip Thrust</span></td>
+          <td class="ex-sets">3×8</td>
+          <td class="ex-load"><div class="prog-bar"><span class="prog-w w1">W1: 100kg</span><span class="prog-w w2">W2: 110kg</span><span class="prog-w w3">W3: 120kg</span></div></td>
+          <td class="ex-tempo">2-2-X-0</td>
+          <td class="ex-rest">2min</td>
+          <td class="ex-cue">肩胛上缘靠长凳，杠铃置髋关节上方（垫泡沫垫）。顶点时臀部充分收缩保持2s，腰椎不过伸，核心稳定</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">E — 核心训练模块I</span><span class="ex-group-note">详见「核心训练系统」标签页</span><span class="ex-group-tag tag-core">CORE I</span></div>
+      <table class="ex-table">
+        <tr><th>内容</th><th>时间</th><th>备注</th></tr>
+        <tr><td><span class="ex-name">抗屈曲：Ab Wheel + Dead Bug</span></td><td class="ex-sets">~7min</td><td class="ex-cue">见核心系统 模块I — A区</td></tr>
+        <tr><td><span class="ex-name">抗旋转：Pallof Press系列</span></td><td class="ex-sets">~7min</td><td class="ex-cue">见核心系统 模块I — B区</td></tr>
+        <tr><td><span class="ex-name">侧向稳定：侧平板系列</span></td><td class="ex-sets">~6min</td><td class="ex-cue">见核心系统 模块I — C区</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">F — 辅助收尾</span><span class="ex-group-tag tag-str">ACCESSORY</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>节奏</th><th>间歇</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">北欧腿弯举（离心）</span></td><td class="ex-sets">3×5</td><td class="ex-tempo">5s离心</td><td class="ex-rest">2min</td><td class="ex-cue">仅执行离心阶段，向心阶段用手撑地回位</td></tr>
+        <tr><td><span class="ex-name">小腿提踵 HSR（双腿→单腿进阶）</span></td><td class="ex-sets">3×15</td><td class="ex-tempo">3-1-3-1</td><td class="ex-rest">90s</td><td class="ex-cue">W1-4: 双腿+20kg | W5+: 单腿无负重 | W9+: 单腿+10kg</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-content" id="m1-day-b">
+    <div class="session-timeline">
+      <div class="sess-block s-warm"><div class="s-name">热身B</div><div class="s-time">0–15min</div></div>
+      <div class="sess-block s-core"><div class="s-name">核心模块II</div><div class="s-time">15–40min</div></div>
+      <div class="sess-block s-main"><div class="s-name">保加利亚深蹲</div><div class="s-time">40–60min</div></div>
+      <div class="sess-block s-pow"><div class="s-name">单腿箱跳</div><div class="s-time">60–75min</div></div>
+      <div class="sess-block s-acc"><div class="s-name">单腿RDL+侧跳</div><div class="s-time">75–95min</div></div>
+      <div class="sess-block s-acc"><div class="s-name">踝刚度训练</div><div class="s-time">95–108min</div></div>
+    </div>
+    <div class="alert alert-teal">
+      <span class="alert-icon">🔄</span>
+      <div class="alert-text"><strong>Day B特别安排：</strong>核心旋转功率模块（模块II）<strong>放在主训练前</strong>，神经新鲜状态训练旋转爆发力效果最佳。左腿所有动作比右腿多1组。CW砍伐比CCW多1组。</div>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">A — 核心训练模块II（旋转功率）</span><span class="ex-group-note">详见「核心训练系统」标签页 模块II</span><span class="ex-group-tag tag-core">CORE II</span></div>
+      <table class="ex-table">
+        <tr><th>内容</th><th>时间</th><th>关键</th></tr>
+        <tr><td><span class="ex-name">绳索砍伐：CW 4组 / CCW 3组</span></td><td class="ex-sets">~12min</td><td class="ex-cue">⭐ CW（顺时针）永远比CCW多1组，纠正不对称</td></tr>
+        <tr><td><span class="ex-name">地雷区旋转推举：3×8/侧</span></td><td class="ex-sets">~8min</td><td class="ex-cue">髋主导，爆发性推出</td></tr>
+        <tr><td><span class="ex-name">RKC平板 + 鸟犬式</span></td><td class="ex-sets">~5min</td><td class="ex-cue">抗伸展收尾</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">B — 保加利亚深蹲（左腿优先）</span><span class="ex-group-tag tag-uni">UNILATERAL</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>节奏</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">保加利亚分腿蹲</span><span class="ex-name-en">Bulgarian Split Squat</span></td>
+          <td class="ex-sets"><strong style="color:var(--yellow)">左5×6 / 右4×6</strong></td>
+          <td class="ex-load"><div class="prog-bar"><span class="prog-w w1">W1: 20kg×2</span><span class="prog-w w2">W2: 22kg×2</span><span class="prog-w w3">W3: 24kg×2</span></div></td>
+          <td class="ex-tempo">3-0-X-0</td>
+          <td class="ex-rest">2min</td>
+          <td class="ex-cue">左腿比右腿多1组。前腿垂直支撑，膝不内扣，躯干直立。左右每周重量相同，逐步缩小力量差距</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">C — 单腿箱跳（左优先）</span><span class="ex-group-tag tag-pow">POWER</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>高度</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">单腿跳上跳台</span><span class="ex-name-en">Single Leg Box Jump</span></td>
+          <td class="ex-sets"><strong style="color:var(--yellow)">左4×3 / 右3×3</strong></td>
+          <td class="ex-load">W1-4: 20cm | W5-8: 30cm</td>
+          <td class="ex-rest">2min（充分恢复）</td>
+          <td class="ex-cue">单腿落稳后2s再跳下。VAS&gt;3时高度降低10cm或改为双腿落地</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">D — 单腿RDL + 侧向跨跳</span><span class="ex-group-tag tag-uni">UNILATERAL</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">单腿RDL</span><span class="ex-name-en">Single Leg RDL</span></td><td class="ex-sets">3×8/侧</td><td class="ex-load">对侧单手壶铃 20kg</td><td class="ex-rest">90s</td><td class="ex-cue">支撑腿微屈，脊柱中立，骨盆水平，慢速3s下降</td></tr>
+        <tr>
+          <td><span class="ex-name">侧向单腿跨跳→稳定</span><span class="ex-name-en">Lateral Bound → Stick</span></td>
+          <td class="ex-sets"><strong style="color:var(--yellow)">左3×4次 / 右3×4次</strong></td>
+          <td class="ex-load">W1-4: 80cm | W5-8: 100cm</td>
+          <td class="ex-rest">2min</td>
+          <td class="ex-cue">单腿起跳对侧单腿落地稳定3s。记录左腿落地质量（0失衡/1轻微/2稳定）。左右组数相同，但左腿质量是优先监控对象</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">E — 踝刚度训练</span><span class="ex-group-tag tag-rea">STIFFNESS</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×时长/次</th><th>间歇</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">双脚踝跳（最小膝屈）</span></td><td class="ex-sets">3×10s</td><td class="ex-rest">60s</td><td class="ex-cue">频率&gt;3次/s，感受踝弹性</td></tr>
+        <tr><td><span class="ex-name">左腿单腿踝跳</span></td><td class="ex-sets"><strong style="color:var(--yellow)">左3×8 / 右2×8</strong></td><td class="ex-rest">90s</td><td class="ex-cue">左腿多一组，关注节奏和回弹速度</td></tr>
+        <tr><td><span class="ex-name">单腿小腿提踵（左优先）</span></td><td class="ex-sets"><strong style="color:var(--yellow)">左3×12 / 右3×10</strong></td><td class="ex-rest">90s</td><td class="ex-cue">节奏2-1-2-1，全活动范围</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-content" id="m1-day-c">
+    <div class="session-timeline">
+      <div class="sess-block s-warm"><div class="s-name">热身C</div><div class="s-time">0–15min</div></div>
+      <div class="sess-block s-main"><div class="s-name">高翻</div><div class="s-time">15–40min</div></div>
+      <div class="sess-block s-main"><div class="s-name">悬挂高翻</div><div class="s-time">40–55min</div></div>
+      <div class="sess-block s-pow"><div class="s-name">CMJ技术</div><div class="s-time">55–65min</div></div>
+      <div class="sess-block s-main"><div class="s-name">高拉+推举</div><div class="s-time">65–80min</div></div>
+      <div class="sess-block s-core"><div class="s-name">核心模块III</div><div class="s-time">80–105min</div></div>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">A — 高翻（主要奥举 / RFD核心）</span><span class="ex-group-tag tag-oli">OLYMPIC</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">高翻</span><span class="ex-name-en">Power Clean from Floor</span></td>
+          <td class="ex-sets">5×3</td>
+          <td class="ex-load"><div class="prog-bar"><span class="prog-w w1">W1: 64kg</span><span class="prog-w w2">W2: 66kg</span><span class="prog-w w3">W3: 68kg</span></div></td>
+          <td class="ex-rest">3min（完全恢复）</td>
+          <td class="ex-cue">第一拉保持后链张力，第二拉膝前推爆发延伸提踵，肘快速穿过接杠。W5+: 3×3 @ 82-85%</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">B — 悬挂高翻</span><span class="ex-group-tag tag-oli">OLYMPIC</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th></tr>
+        <tr><td><span class="ex-name">悬挂高翻</span><span class="ex-name-en">Hang Power Clean</span></td><td class="ex-sets">3×4</td><td class="ex-load">W1: 60kg | W2: 62kg | W3: 64kg</td><td class="ex-rest">2.5min</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">C — CMJ技术精练</span><span class="ex-group-tag tag-pow">TECHNICAL</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>间歇</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">CMJ摆臂（技术焦点）</span></td><td class="ex-sets">3×3</td><td class="ex-rest">2min</td><td class="ex-cue">专注：①预蹲深度一致；②摆臂与预蹲同步；③起跳时踝膝髋完全伸展。建议每次录像</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">D — 翻举高拉 + 推举（替代药球上投）</span><span class="ex-group-tag tag-pow">POWER</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">翻举高拉</span><span class="ex-name-en">Clean High Pull</span></td><td class="ex-sets">3×5</td><td class="ex-load">77kg (≈90%高翻)</td><td class="ex-rest">2.5min</td><td class="ex-cue">最大速度延伸，拉至胸部，不接杠。强化第二拉爆发</td></tr>
+        <tr><td><span class="ex-name">推举（借力）</span><span class="ex-name-en">Push Press</span></td><td class="ex-sets">3×5</td><td class="ex-load">55kg</td><td class="ex-rest">2min</td><td class="ex-cue">快速膝屈借力，全链爆发，辅助上肢推力链</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">E — 核心训练模块III</span><span class="ex-group-note">详见「核心训练系统」标签页 模块III</span><span class="ex-group-tag tag-core">CORE III</span></div>
+      <table class="ex-table">
+        <tr><th>内容</th><th>时间</th><th>备注</th></tr>
+        <tr><td><span class="ex-name">悬垂举腿 + 绳索卷腹（爆发性核心）</span></td><td class="ex-sets">~10min</td><td class="ex-cue">见核心系统 模块III — A区</td></tr>
+        <tr><td><span class="ex-name">砍伐复习 + 平板肩触 + 农夫行走</span></td><td class="ex-sets">~10-15min</td><td class="ex-cue">见核心系统 模块III — B区 | 农夫行走左手优先</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-content" id="m1-day-deload">
+    <div class="alert alert-warn">
+      <span class="alert-icon">⚠️</span>
+      <div class="alert-text"><strong>减量周原则（W4, W8）：</strong>重量不降，训练量减40-50%。跳跃量减70%。核心训练维持但减少到1轮。髌腱协议维持不减。</div>
+    </div>
+    <table class="prog-table">
+      <tr><th>参数</th><th>正常周</th><th>减量周</th></tr>
+      <tr><td>深蹲</td><td>4×5</td><td class="lo">2×4（重量不变）</td></tr>
+      <tr><td>RDL</td><td>3×8</td><td class="lo">2×5</td></tr>
+      <tr><td>臀推</td><td>3×8</td><td class="lo">2×6</td></tr>
+      <tr><td>高翻</td><td>5×3</td><td class="lo">3×2</td></tr>
+      <tr><td>跳跃总量</td><td>60-80次</td><td class="lo">15-20次</td></tr>
+      <tr><td>核心训练</td><td>全3模块</td><td class="lo">仅模块II旋转纠正1轮</td></tr>
+      <tr><td>髌腱协议</td><td>5×45s</td><td class="lo">维持不变</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===================== MESO 2 ===================== -->
+<div class="page" id="page-meso2">
+  <div class="meso-header">
+    <div class="meso-tag">MESOCYCLE 02 | WEEKS 9–16 | V2.0</div>
+    <div class="meso-title">转化期 · PAP复合对比 &amp; SSC强化</div>
+    <div class="meso-meta">
+      <div class="meta-item">目标：<strong>PAP后激活、跳深引入、SSC弹性提升、旋转功率差值收窄至&lt;7%</strong></div>
+      <div class="meta-item">力量强度：<strong>80–92.5% 1RM</strong></div>
+      <div class="meta-item">跳跃量：<strong>100–160次/周</strong></div>
+      <div class="meta-item">训练时长：<strong>≈110–120min</strong></div>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <span class="alert-icon">⏱️</span>
+    <div class="alert-text"><strong>PAP复合对比执行规则：</strong>重量训练完成最后一次→<strong>精确等待4分钟</strong>→执行爆发动作。4分钟内不做任何动作。5-8分钟为最佳效果窗口。超过10分钟效果消失。</div>
+  </div>
+
+  <div style="font-family:var(--font-mono);font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:8px">LOADING PROGRESSION M2</div>
+  <table class="prog-table" style="margin-bottom:20px">
+    <tr><th>动作</th><th>W9</th><th>W10</th><th>W11</th><th>W12减量</th><th>W13</th><th>W14</th><th>W15</th><th>W16测试</th></tr>
+    <tr><td>后深蹲</td><td class="lo">132kg</td><td>136kg</td><td class="hi">140kg</td><td style="color:var(--dim)">112kg</td><td class="lo">136kg</td><td>140kg</td><td class="hi">143kg</td><td style="color:var(--yellow)">测试CMJ</td></tr>
+    <tr><td>高翻</td><td class="lo">70kg</td><td>72kg</td><td class="hi">74kg</td><td style="color:var(--dim)">60kg</td><td class="lo">72kg</td><td>74kg</td><td class="hi">76kg</td><td style="color:var(--yellow)">测试</td></tr>
+    <tr><td>RDL</td><td class="lo">115kg</td><td>119kg</td><td class="hi">123kg</td><td style="color:var(--dim)">95kg</td><td class="lo">119kg</td><td>123kg</td><td class="hi">126kg</td><td>维持</td></tr>
+    <tr><td>臀推（PAP组）</td><td class="lo">140kg</td><td>150kg</td><td class="hi">155kg</td><td style="color:var(--dim)">120kg</td><td class="lo">150kg</td><td>155kg</td><td class="hi">160kg</td><td>维持</td></tr>
+    <tr><td>跳深高度</td><td class="lo">30cm</td><td>30cm</td><td>35cm</td><td style="color:var(--dim)">停止</td><td class="lo">35cm</td><td>40cm</td><td class="hi">40cm</td><td style="color:var(--yellow)">DJ RSI测试</td></tr>
+    <tr><td>绳索砍伐CW</td><td class="lo">20kg</td><td>21kg</td><td class="hi">22kg</td><td style="color:var(--dim)">15kg</td><td class="lo">22kg</td><td>23kg</td><td class="hi">24kg</td><td style="color:var(--yellow)">Keiser测试</td></tr>
+  </table>
+
+  <div class="day-tabs" id="m2-day-tabs">
+    <div class="day-tab active" onclick="switchDay('m2','a')">DAY A｜PAP力量-功率+核心I进阶</div>
+    <div class="day-tab" onclick="switchDay('m2','b')">DAY B｜单侧PAP+旋转功率强化</div>
+    <div class="day-tab" onclick="switchDay('m2','c')">DAY C｜奥举高强度+核心III进阶</div>
+    <div class="day-tab" onclick="switchDay('m2','deload')">减量周</div>
+  </div>
+
+  <div class="day-content active" id="m2-day-a">
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">A1/A2 — PAP复合组 I：深蹲 + CMJ</span><span class="ex-group-tag tag-pow">PAP COMPLEX</span></div>
+      <table class="ex-table">
+        <tr><th>#</th><th>动作</th><th>组×次</th><th>负荷</th><th>节奏</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td style="font-family:var(--font-mono);color:var(--blue);font-weight:700">A1</td>
+          <td><span class="ex-name">后深蹲</span></td>
+          <td class="ex-sets">4×4</td>
+          <td class="ex-load">W9: 132kg | W11: 140kg</td>
+          <td class="ex-tempo">3-1-X-0</td>
+          <td class="ex-rest">→ 等待精确4min</td>
+          <td class="ex-cue">最后一次起立即开始计时</td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--font-mono);color:var(--accent);font-weight:700">A2</td>
+          <td><span class="ex-name">CMJ最大力（PAP窗口内）</span></td>
+          <td class="ex-sets">3×3</td>
+          <td class="ex-load">体重</td>
+          <td class="ex-tempo">最大意图</td>
+          <td class="ex-rest">2min → 返回A1</td>
+          <td class="ex-cue">全力跳，记录主观爆发感（1-10）。感受PAP增强效果</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">B1/B2 — PAP复合组 II：臀推 + 跳深</span><span class="ex-group-note">M2新增：臀推代替六角杠作为PAP激活源</span><span class="ex-group-tag tag-pow">PAP COMPLEX</span></div>
+      <table class="ex-table">
+        <tr><th>#</th><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td style="font-family:var(--font-mono);color:var(--blue);font-weight:700">B1</td>
+          <td><span class="ex-name">杠铃臀推（高强度）</span></td>
+          <td class="ex-sets">3×6</td>
+          <td class="ex-load">W9: 140kg | W11: 155kg</td>
+          <td class="ex-rest">→ 等待4min</td>
+          <td class="ex-cue">顶点收缩2s，爆发性起，全力发力</td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--font-mono);color:var(--accent);font-weight:700">B2</td>
+          <td><span class="ex-name">跳深→最大CMJ（Depth Jump）</span><span class="ex-name-en">Depth Jump in PAP Window</span></td>
+          <td class="ex-sets">3×5</td>
+          <td class="ex-load">W9-11: 30cm台 | W13-15: 35-40cm台</td>
+          <td class="ex-rest">3min → 返回B1</td>
+          <td class="ex-cue">走下台（不跳下），双脚同时触地<strong>立即</strong>弹跳。目标触地时间&lt;400ms。超过450ms降低台高</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">C — RDL（维持后链）</span><span class="ex-group-tag tag-str">STRENGTH</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>节奏</th><th>间歇</th></tr>
+        <tr><td><span class="ex-name">罗马尼亚硬拉</span></td><td class="ex-sets">3×6</td><td class="ex-load">W9: 115kg | W11: 123kg</td><td class="ex-tempo">3-0-2-0</td><td class="ex-rest">2.5min</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">D — 深蹲跳（速度-力量训练）</span><span class="ex-group-tag tag-pow">VELOCITY</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">深蹲跳（最大向心速度意图）</span><span class="ex-name-en">Squat Jump @ 30% 1RM</span></td>
+          <td class="ex-sets">3×6</td>
+          <td class="ex-load">47kg（30% 1RM）— Keiser或杠铃Smith</td>
+          <td class="ex-rest">2.5min</td>
+          <td class="ex-cue">每次100%速度意图，记录Keiser峰值功率。目标超越基础2252W</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">E — 核心模块I（进阶版）</span><span class="ex-group-tag tag-core">CORE I ADV</span></div>
+      <table class="ex-table">
+        <tr><th>进阶内容</th><th>时间</th></tr>
+        <tr><td><span class="ex-name">Ab Wheel站姿进阶 + Dead Bug负重 + Pallof弓步变式 + 侧平板髋外展</span></td><td class="ex-sets">~20min</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-content" id="m2-day-b">
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">A — 核心模块II（爆发旋转功率强化）</span><span class="ex-group-tag tag-core">CORE II ADV</span></div>
+      <table class="ex-table">
+        <tr><th>重点升级</th><th>时间</th><th>目标</th></tr>
+        <tr><td><span class="ex-name">CW砍伐：4×6爆发 / CCW: 3×6 | 地雷区单腿旋转推举（左腿）进阶</span></td><td class="ex-sets">~25min</td><td class="ex-cue">W16目标：Keiser CW/CCW不对称 &lt;7%</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">B1/B2 — 单侧PAP复合组</span><span class="ex-group-tag tag-uni">UNILATERAL PAP</span></div>
+      <table class="ex-table">
+        <tr><th>#</th><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td style="font-family:var(--font-mono);color:var(--blue);font-weight:700">B1</td>
+          <td><span class="ex-name">保加利亚深蹲（左优先）</span></td>
+          <td class="ex-sets">左5×5 / 右4×5</td>
+          <td class="ex-load">W9: 28kg×2 → W15: 36kg×2</td>
+          <td class="ex-rest">→ 4min PAP</td>
+          <td class="ex-cue">最后一次后计时</td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--font-mono);color:var(--accent);font-weight:700">B2</td>
+          <td><span class="ex-name">单腿跳深→垂直跳（左优先）</span></td>
+          <td class="ex-sets">左4×3 / 右3×3</td>
+          <td class="ex-load">30→35cm（W13起）</td>
+          <td class="ex-rest">2.5min → 返回</td>
+          <td class="ex-cue">左腿触地时间目标：&lt;500ms(W9)→&lt;450ms(W15)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">C — 侧跳→垂直跳组合 + 三级跳</span><span class="ex-group-tag tag-rea">REACTIVE</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>间歇</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">侧向单腿跳→立即垂直跳</span></td><td class="ex-sets">3×4/侧</td><td class="ex-rest">2min</td><td class="ex-cue">侧跳落地不停顿立即起跳，训练方向变换SSC效率</td></tr>
+        <tr><td><span class="ex-name">单腿三级跳（左右均等）</span><span class="ex-name-en">Triple Hop for Distance</span></td><td class="ex-sets">左3×3 / 右3×3</td><td class="ex-rest">3min</td><td class="ex-cue">记录总距离，每周监控左右差值是否收窄</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-content" id="m2-day-c">
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">A — 高翻（高强度）</span><span class="ex-group-tag tag-oli">OLYMPIC</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th></tr>
+        <tr><td><span class="ex-name">高翻</span></td><td class="ex-sets">4×3</td><td class="ex-load">W9: 70kg | W11: 74kg | W15: 76kg</td><td class="ex-rest">3min</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">B — 悬挂高抓</span><span class="ex-group-tag tag-oli">OLYMPIC</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th></tr>
+        <tr><td><span class="ex-name">悬挂高抓</span></td><td class="ex-sets">3×3</td><td class="ex-load">W9: 49kg | W11: 52kg</td><td class="ex-rest">3min</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">C1/C2 — PAP：高拉 + 反应CMJ</span><span class="ex-group-tag tag-pow">PAP COMPLEX</span></div>
+      <table class="ex-table">
+        <tr><th>#</th><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th></tr>
+        <tr><td style="font-family:var(--font-mono);color:var(--blue);font-weight:700">C1</td><td><span class="ex-name">翻举高拉</span></td><td class="ex-sets">4×4</td><td class="ex-load">≈95%高翻重量</td><td class="ex-rest">→ 4min PAP</td></tr>
+        <tr><td style="font-family:var(--font-mono);color:var(--accent);font-weight:700">C2</td><td><span class="ex-name">反应型CMJ（最小触地）</span></td><td class="ex-sets">3×4</td><td class="ex-load">体重</td><td class="ex-rest">2min → 返回</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">D — 地雷区旋转推举（替代药球）</span><span class="ex-group-note">此处是功率表达，有别于Day B的纠正训练</span><span class="ex-group-tag tag-pow">POWER</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">地雷区旋转推举（爆发性）</span><span class="ex-name-en">Landmine Rotational Press — Max Power</span></td>
+          <td class="ex-sets">3×6/侧</td>
+          <td class="ex-load">最快速度，轻-中重量</td>
+          <td class="ex-rest">90s</td>
+          <td class="ex-cue">此处追求最大旋转速度，而非大重量。模拟起跳时躯干旋转发力模式</td>
+        </tr>
+        <tr><td><span class="ex-name">剪刀跳（交替腿）</span><span class="ex-name-en">Scissor Jump</span></td><td class="ex-sets">3×10（5/侧）</td><td class="ex-load">体重</td><td class="ex-rest">90s</td><td class="ex-cue">最大频率，双腿交替，核心稳定</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">E — 核心模块III（进阶）</span><span class="ex-group-tag tag-core">CORE III ADV</span></div>
+      <table class="ex-table">
+        <tr><th>进阶内容</th><th>时间</th></tr>
+        <tr><td><span class="ex-name">悬垂举腿直腿版 + 绳索卷腹 + 砍伐复习 + 单侧农夫行走进阶</span></td><td class="ex-sets">~20-25min</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-content" id="m2-day-deload">
+    <div class="alert alert-warn">
+      <span class="alert-icon">⚠️</span>
+      <div class="alert-text"><strong>M2减量周（W12, W16）：</strong>完全停止跳深。保留PAP组但组数减半。旋转纠正训练维持不减（神经适应需持续刺激）。</div>
+    </div>
+    <table class="prog-table">
+      <tr><th>参数</th><th>正常周</th><th>减量周</th></tr>
+      <tr><td>深蹲（PAP）</td><td>4×4</td><td class="lo">2×3（重量不变）</td></tr>
+      <tr><td>臀推（PAP）</td><td>3×6</td><td class="lo">2×4</td></tr>
+      <tr><td>跳深</td><td>3×5</td><td class="lo">取消</td></tr>
+      <tr><td>高翻</td><td>4×3</td><td class="lo">2×2</td></tr>
+      <tr><td>砍伐旋转纠正</td><td>CW4 / CCW3</td><td class="lo">CW3 / CCW2（维持比例）</td></tr>
+      <tr><td>核心总量</td><td>全3模块</td><td class="lo">仅旋转纠正+Pallof维持</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===================== MESO 3 ===================== -->
+<div class="page" id="page-meso3">
+  <div class="meso-header green">
+    <div class="meso-tag">MESOCYCLE 03 | WEEKS 17–24 | V2.0</div>
+    <div class="meso-title">实现期 · 反应力量峰值 &amp; 最大功率输出</div>
+    <div class="meso-meta">
+      <div class="meta-item">目标：<strong>峰值RFD、DJ RSI峰值、旋转不对称&lt;5%（W24 Keiser验证）</strong></div>
+      <div class="meta-item">力量强度：<strong>90–95%低量维持</strong></div>
+      <div class="meta-item">跳跃量：<strong>80–120次/周（高质量）</strong></div>
+      <div class="meta-item">训练时长：<strong>≈100–115min</strong></div>
+    </div>
+  </div>
+
+  <div style="font-family:var(--font-mono);font-size:10px;color:var(--green);letter-spacing:2px;margin-bottom:8px">LOADING PROGRESSION M3</div>
+  <table class="prog-table" style="margin-bottom:20px">
+    <tr><th>动作</th><th>W17</th><th>W18</th><th>W19</th><th>W20减量</th><th>W21</th><th>W22</th><th>W23</th><th>W24测试</th></tr>
+    <tr><td>后深蹲（维持）</td><td class="lo">140kg</td><td>143kg</td><td class="hi">147kg</td><td style="color:var(--dim)">116kg</td><td class="lo">140kg</td><td>143kg</td><td class="hi">147kg</td><td style="color:var(--yellow)">最终测试</td></tr>
+    <tr><td>深蹲（组×次）</td><td>3×3</td><td>3×3</td><td>3×3</td><td style="color:var(--dim)">2×2</td><td>3×2</td><td>3×2</td><td>3×2</td><td>—</td></tr>
+    <tr><td>高翻（峰值）</td><td class="lo">72kg</td><td>74kg</td><td class="hi">76kg</td><td style="color:var(--dim)">60kg</td><td class="lo">76kg</td><td>78kg</td><td class="hi">80kg</td><td style="color:var(--yellow)">测试1RM</td></tr>
+    <tr><td>跳深高度</td><td class="lo">40cm</td><td>45cm</td><td class="hi">50cm</td><td style="color:var(--dim)">停止</td><td class="lo">45cm</td><td>50cm</td><td class="hi">50cm</td><td style="color:var(--yellow)">DJ RSI</td></tr>
+    <tr><td>绳索砍伐CW</td><td class="lo">24kg爆发</td><td>25kg</td><td class="hi">25kg</td><td style="color:var(--dim)">18kg</td><td class="lo">25kg</td><td>26kg</td><td class="hi">26kg</td><td style="color:var(--yellow)">Keiser最终测</td></tr>
+  </table>
+
+  <div class="day-tabs" id="m3-day-tabs">
+    <div class="day-tab active" onclick="switchDay('m3','a')">DAY A｜高强度力量+反应</div>
+    <div class="day-tab" onclick="switchDay('m3','b')">DAY B｜单侧峰值+旋转整合</div>
+    <div class="day-tab" onclick="switchDay('m3','c')">DAY C｜最大功率+核心收尾</div>
+    <div class="day-tab" onclick="switchDay('m3','deload')">减量/测试周</div>
+  </div>
+
+  <div class="day-content active" id="m3-day-a">
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">A — 后深蹲（高强度低量维持）</span><span class="ex-group-tag tag-str">STRENGTH PEAK</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>节奏</th><th>间歇</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">后深蹲</span></td><td class="ex-sets">3×3</td><td class="ex-load">W17: 140kg | W19: 147kg</td><td class="ex-tempo">2-1-X-0</td><td class="ex-rest">4min</td><td class="ex-cue">少量高强度维持，不追加重量。保持神经激活峰值</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">B — 深蹲后PAP + 最高强度跳深</span><span class="ex-group-tag tag-rea">DEPTH JUMP PEAK</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>高度</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">跳深→最大CMJ（PAP窗口）</span></td>
+          <td class="ex-sets">4×4</td>
+          <td class="ex-load">W17: 40cm | W19: 50cm</td>
+          <td class="ex-rest">3min（充分恢复）</td>
+          <td class="ex-cue"><strong>触地时间目标&lt;320ms。</strong>单次超过360ms该组结束。这是整个周期中强度最高的跳跃训练，优先质量</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">C — RDL维持 + 臀推</span><span class="ex-group-tag tag-str">MAINTAIN</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th></tr>
+        <tr><td><span class="ex-name">罗马尼亚硬拉</span></td><td class="ex-sets">3×4</td><td class="ex-load">W17: 119kg</td><td class="ex-rest">3min</td></tr>
+        <tr><td><span class="ex-name">杠铃臀推</span></td><td class="ex-sets">3×6</td><td class="ex-load">W17: 155kg</td><td class="ex-rest">2.5min</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">D — 多方向连续跳（整合表达）</span><span class="ex-group-tag tag-rea">MULTI-DIR</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>间歇</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">前→侧→后→侧连续跳序列</span></td><td class="ex-sets">3×4序列</td><td class="ex-rest">3min</td><td class="ex-cue">4方向各跳一次为1序列，每次触地即弹，训练全方向反应力量</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">E — 核心模块I（最终峰值版）</span><span class="ex-group-tag tag-core">CORE I PEAK</span></div>
+      <table class="ex-table">
+        <tr><th>内容</th><th>时间</th></tr>
+        <tr><td><span class="ex-name">Ab Wheel站姿 + Dead Bug 3kg负重 + 单腿Pallof（左3组/右2组）+ 侧平板髋外展进阶</span></td><td class="ex-sets">~20min</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-content" id="m3-day-b">
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">A — 核心模块II（旋转功率峰值+最终纠正）</span><span class="ex-group-tag tag-core">CORE II PEAK</span></div>
+      <table class="ex-table">
+        <tr><th>最终阶段目标</th><th>时间</th><th>备注</th></tr>
+        <tr>
+          <td><span class="ex-name">CW爆发砍伐 4×6 @ 24-26kg / CCW 3×6<br>单腿地雷区旋转推举（左腿峰值）<br>W24: Keiser重测目标CW/CCW差值&lt;5%</span></td>
+          <td class="ex-sets">~25min</td>
+          <td class="ex-cue">旋转纠正的最终验证周。如W24 Keiser数据CW已接近CCW，可转为双侧等量维持</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">B — 单腿蹲进阶（接近Pistol）</span><span class="ex-group-tag tag-uni">UNILATERAL PEAK</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">单腿蹲（辅助递减）</span></td><td class="ex-sets">左4×5 / 右3×5</td><td class="ex-load">W17: TRX辅助 | W23: 自由+5kg</td><td class="ex-rest">2.5min</td><td class="ex-cue">每周减少辅助，全深度骨盆水平，左腿终极单侧力量考验</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">C — 单腿跳深峰值</span><span class="ex-group-tag tag-rea">SL DEPTH PEAK</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>高度</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">单腿跳深→垂直跳</span></td>
+          <td class="ex-sets"><strong style="color:var(--yellow)">左5×3 / 右3×3</strong></td>
+          <td class="ex-load">W17-23: 35-40cm台</td>
+          <td class="ex-rest">3min</td>
+          <td class="ex-cue">左腿多2组。记录左腿触地时间目标&lt;430ms（W24目标）。W24左RSI目标≥0.62</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">D — 起跳模式精练（单步助跑）</span><span class="ex-group-note">聚焦你的实际起跳模式：1步助跑</span><span class="ex-group-tag tag-pow">JUMP PATTERN</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">单步助跑起跳（最大高度）</span><span class="ex-name-en">1-Step Approach — Max Jump</span></td>
+          <td class="ex-sets">4×3次</td>
+          <td class="ex-rest">3min（充分恢复）</td>
+          <td class="ex-cue">专注左脚踏地的刚度（更快更浅的预蹲），感受RFD训练带来的预蹲深度自然减小。每次测量摸高高度并记录</td>
+        </tr>
+        <tr>
+          <td><span class="ex-name">全速助跑起跳（最终验证）</span><span class="ex-name-en">Full Approach — Max Vertical</span></td>
+          <td class="ex-sets">4×2次</td>
+          <td class="ex-rest">3min</td>
+          <td class="ex-cue">完全恢复后执行。目标超越3.17m基础成绩。每次测量记录。W24最终测试用此动作</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-content" id="m3-day-c">
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">A — 高翻峰值重量</span><span class="ex-group-tag tag-oli">OLYMPIC PEAK</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr><td><span class="ex-name">高翻</span></td><td class="ex-sets">4×2</td><td class="ex-load">W17: 72kg | W23: 80kg | W24目标: 90kg+</td><td class="ex-rest">4min</td><td class="ex-cue">双次每次100%全力。24周目标突破90kg（+5.9%），最大限度提升RFD</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">B — 悬挂高抓（速度敏感峰值）</span><span class="ex-group-tag tag-oli">OLYMPIC</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th></tr>
+        <tr><td><span class="ex-name">悬挂高抓</span></td><td class="ex-sets">3×2</td><td class="ex-load">W17: 52kg | W23: 58kg</td><td class="ex-rest">3.5min</td></tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">C — Keiser深蹲跳（峰值功率测定）</span><span class="ex-group-tag tag-pow">PEAK POWER</span></div>
+      <table class="ex-table">
+        <tr><th>动作</th><th>组×次</th><th>负荷</th><th>间歇</th><th>执行要点</th></tr>
+        <tr>
+          <td><span class="ex-name">Keiser深蹲跳</span><span class="ex-name-en">Keiser Squat Jump @ Optimal Load</span></td>
+          <td class="ex-sets">3×5</td>
+          <td class="ex-load">30% 1RM ≈ 47kg（测试最优负荷）</td>
+          <td class="ex-rest">3min</td>
+          <td class="ex-cue">记录每次功率输出。目标：超越基础2252W，达到2700W+。功率下降&gt;5%停止该组</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ex-group">
+      <div class="ex-group-header"><span class="ex-group-label">D — 核心模块III（最终综合版）</span><span class="ex-group-tag tag-core">CORE III PEAK</span></div>
+      <table class="ex-table">
+        <tr><th>内容</th><th>时间</th><th>W24特别安排</th></tr>
+        <tr>
+          <td><span class="ex-name">悬垂举腿（踝绑重）+ 绳索卷腹爆发 + 旋转砍伐复习（CW多1组）+ 农夫行走峰值</span></td>
+          <td class="ex-sets">~20min</td>
+          <td class="ex-cue">W24额外：完整Keiser测试套餐（伐木CW/CCW对比，验证旋转不对称是否达标&lt;5%）</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-content" id="m3-day-deload">
+    <div class="alert alert-warn">
+      <span class="alert-icon">⚠️</span>
+      <div class="alert-text"><strong>W24最终测试周安排：</strong>减量训练 + 完整测试套餐。测试包括：CMJ/SJ/DJ套餐、Keiser伐木CW vs CCW、高翻1RM、单步助跑摸高。</div>
+    </div>
+    <table class="prog-table">
+      <tr><th>参数</th><th>W23正常周</th><th>W24测试周</th></tr>
+      <tr><td>深蹲</td><td>3×2 @ 95%</td><td class="lo">2×1 @ 85%（激活只）</td></tr>
+      <tr><td>高翻</td><td>4×2 @ 90%+</td><td class="lo">1RM测试（W24）</td></tr>
+      <tr><td>跳深</td><td>4×4</td><td class="lo">取消</td></tr>
+      <tr><td>Keiser测试</td><td>功率记录</td><td class="lo" style="color:var(--yellow)">完整伐木+深蹲跳套餐</td></tr>
+      <tr><td>弹跳测试</td><td>—</td><td class="lo" style="color:var(--yellow)">CMJ/SJ/DJ/单步助跑全套</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===================== REHAB ===================== -->
+<div class="page" id="page-rehab">
+  <div class="section-label">INJURY MANAGEMENT</div>
+  <div class="section-title">伤病管理协议</div>
+  <div class="section-sub">髌腱炎分阶段管理 | 腰椎间盘保护（六角杠已替换为RDL，额外增加核心稳定保护）| VAS监控系统</div>
+
+  <div class="grid-2">
+    <div>
+      <div class="sub-header" style="color:var(--red)">PATELLAR TENDINOPATHY</div>
+      <div class="ex-group">
+        <div class="ex-group-header"><span class="ex-group-label">W1-4：等长阶段</span><span class="ex-group-tag tag-reh">ISO</span></div>
+        <table class="ex-table">
+          <tr><th>动作</th><th>处方</th><th>负荷</th></tr>
+          <tr><td><span class="ex-name">腿举机等长（膝70°）</span></td><td class="ex-sets">5×45s</td><td class="ex-load">~98kg | 每训练日执行</td></tr>
+        </table>
+      </div>
+      <div class="ex-group">
+        <div class="ex-group-header"><span class="ex-group-label">W5-12：HSR等张阶段</span><span class="ex-group-tag tag-reh">HSR</span></div>
+        <table class="ex-table">
+          <tr><th>动作</th><th>处方</th><th>节奏</th></tr>
+          <tr><td><span class="ex-name">腿举机慢速（全范围）</span></td><td class="ex-sets">3×15</td><td class="ex-tempo">3-1-3-1</td></tr>
+        </table>
+      </div>
+      <div class="sub-header" style="color:var(--red);margin-top:12px">VAS红绿灯系统</div>
+      <table class="prog-table">
+        <tr><th>VAS</th><th>策略</th><th>跳跃量</th></tr>
+        <tr><td style="color:var(--green)">0–3</td><td style="color:var(--green)">正常</td><td>全量</td></tr>
+        <tr><td style="color:var(--yellow)">4–5</td><td style="color:var(--yellow)">降强度</td><td>减50%</td></tr>
+        <tr><td style="color:var(--red)">6–7</td><td style="color:var(--red)">停止跳跃</td><td>取消</td></tr>
+        <tr><td style="color:var(--red)">≥8</td><td style="color:var(--red)">停止训练</td><td>就医</td></tr>
+      </table>
+    </div>
+
+    <div>
+      <div class="sub-header" style="color:var(--yellow)">LUMBAR DISC PROTECTION — V2更新</div>
+      <div class="alert alert-teal" style="margin-bottom:12px">
+        <span class="alert-icon">✅</span>
+        <div class="alert-text"><strong>V2腰椎保护升级：</strong>六角杠已替换为RDL（更易控制脊柱中立位），同时每日核心训练模块显著强化腰椎稳定性，长期腰椎风险已进一步降低。</div>
+      </div>
+      <div class="ex-group">
+        <div class="ex-group-header"><span class="ex-group-label">全24周腰椎保护原则</span><span class="ex-group-tag tag-reh">LUMBAR</span></div>
+        <table class="ex-table">
+          <tr><th>类别</th><th>规则</th></tr>
+          <tr><td style="color:var(--green)">✅ 执行</td><td class="ex-cue">RDL代替传统直杠硬拉 | 每次训练前Dead Bug+Bird Dog激活 | 腹式呼吸建立腔内压 | 跳跃落地充分缓冲 | 使用腰带执行RDL&gt;100kg</td></tr>
+          <tr><td style="color:var(--red)">❌ 禁止</td><td class="ex-cue">弓腰状态下任何负重 | RDL时腰椎过屈 | 出现腰痛放射至腿立即停止并就医</td></tr>
+        </table>
+      </div>
+      <div class="sub-header" style="color:var(--blue);margin-top:12px">每日核心激活（训练前5min，每次必做）</div>
+      <div class="ex-group">
+        <table class="ex-table">
+          <tr><th>动作</th><th>处方</th><th>目的</th></tr>
+          <tr><td><span class="ex-name">腹式呼吸+腔内压建立</span></td><td class="ex-sets">5次</td><td class="ex-cue">建立脊柱保护压力</td></tr>
+          <tr><td><span class="ex-name">Dead Bug</span></td><td class="ex-sets">2×8/侧</td><td class="ex-cue">核心稳定，脊柱中立</td></tr>
+          <tr><td><span class="ex-name">Bird Dog</span></td><td class="ex-sets">2×10/侧</td><td class="ex-cue">腰椎稳定肌激活</td></tr>
+          <tr><td><span class="ex-name">侧平板支撑</span></td><td class="ex-sets">2×20s/侧</td><td class="ex-cue">腰方肌侧向稳定</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TESTING ===================== -->
+<div class="page" id="page-testing">
+  <div class="section-label">TESTING & EVALUATION</div>
+  <div class="section-title">测试评估 &amp; 目标追踪</div>
+  <div class="section-sub">测试节点：W0基础 | W8 M1结束 | W16 M2结束 | W24最终 | 新增：Keiser旋转功率对比验证</div>
+
+  <div class="ex-group" style="margin-bottom:20px">
+    <div class="ex-group-header"><span class="ex-group-label">完整测试套餐（约50分钟）— V2新增旋转测试</span></div>
+    <table class="ex-table">
+      <tr><th>#</th><th>测试项目</th><th>次数</th><th>取值</th><th>关键指标</th></tr>
+      <tr><td style="font-family:var(--font-mono);color:var(--accent)">01</td><td><span class="ex-name">CMJ无摆臂</span></td><td>3次</td><td>最佳</td><td class="ex-load">高度, RFD, 峰值力</td></tr>
+      <tr><td style="font-family:var(--font-mono);color:var(--accent)">02</td><td><span class="ex-name">CMJ摆臂</span></td><td>3次</td><td>最佳</td><td class="ex-load">高度，CMJ-SJ差值</td></tr>
+      <tr><td style="font-family:var(--font-mono);color:var(--accent)">03</td><td><span class="ex-name">SJ蹲跳</span></td><td>3次</td><td>最佳</td><td class="ex-load">高度（与CMJ对比）</td></tr>
+      <tr><td style="font-family:var(--font-mono);color:var(--accent)">04</td><td><span class="ex-name">DJ 30cm 双腿</span></td><td>5次</td><td>平均RSI</td><td class="ex-load">RSI, 触地时间</td></tr>
+      <tr><td style="font-family:var(--font-mono);color:var(--accent)">05</td><td><span class="ex-name">单腿DJ 左/右各</span></td><td>各3次</td><td>最佳RSI</td><td class="ex-load">左右不对称%</td></tr>
+      <tr><td style="font-family:var(--font-mono);color:var(--teal)">06</td><td><span class="ex-name">⭐ Keiser伐木CW（顺时针）</span></td><td>3次</td><td>峰值功率</td><td class="ex-load">CW功率W，与CCW对比差值%</td></tr>
+      <tr><td style="font-family:var(--font-mono);color:var(--teal)">07</td><td><span class="ex-name">⭐ Keiser伐木CCW（逆时针）</span></td><td>3次</td><td>峰值功率</td><td class="ex-load">CCW功率W，不对称纠正进度</td></tr>
+      <tr><td style="font-family:var(--font-mono);color:var(--accent)">08</td><td><span class="ex-name">Keiser深蹲跳峰值功率</span></td><td>5次</td><td>峰值功率</td><td class="ex-load">峰值W</td></tr>
+      <tr><td style="font-family:var(--font-mono);color:var(--accent)">09</td><td><span class="ex-name">高翻1RM</span></td><td>测试</td><td>1RM</td><td class="ex-load">高翻/深蹲比值</td></tr>
+      <tr><td style="font-family:var(--font-mono);color:var(--accent)">10</td><td><span class="ex-name">单步助跑起跳摸高</span></td><td>3次</td><td>最佳</td><td class="ex-load">实际弹跳高度</td></tr>
+    </table>
+  </div>
+
+  <div class="sub-header teal">PROGRESSIVE TARGETS — 含旋转功率目标</div>
+  <table class="prog-table">
+    <tr><th>指标</th><th>W0 基础</th><th>W8</th><th>W16</th><th>W24 目标</th></tr>
+    <tr><td>CMJ摆臂</td><td style="color:var(--label)">65.2 cm</td><td class="lo">67–68cm</td><td>70–71cm</td><td class="hi" style="color:var(--green)">72–74cm</td></tr>
+    <tr><td>CMJ−SJ差值</td><td style="color:var(--label)">6.6%</td><td class="lo">8%</td><td>11%</td><td class="hi" style="color:var(--green)">13%+</td></tr>
+    <tr><td>双腿DJ RSI</td><td style="color:var(--label)">1.30</td><td class="lo">1.42</td><td>1.58</td><td class="hi" style="color:var(--green)">1.70+</td></tr>
+    <tr><td>DJ触地时间</td><td style="color:var(--label)">494ms</td><td class="lo">&lt;450ms</td><td>&lt;380ms</td><td class="hi" style="color:var(--green)">&lt;320ms</td></tr>
+    <tr><td>左腿RSI</td><td style="color:var(--red)">0.45</td><td class="lo">0.50</td><td>0.56</td><td class="hi" style="color:var(--green)">0.62+</td></tr>
+    <tr><td>左右不对称</td><td style="color:var(--red)">18.2%</td><td class="lo">&lt;15%</td><td>&lt;10%</td><td class="hi" style="color:var(--green)">&lt;8%</td></tr>
+    <tr><td>RFD @100ms</td><td style="color:var(--yellow)">778 N/s</td><td class="lo">870 N/s</td><td>1000 N/s</td><td class="hi" style="color:var(--green)">1100+ N/s</td></tr>
+    <tr><td style="color:var(--teal)">⭐ Keiser CW功率</td><td style="color:var(--yellow)">998W</td><td class="lo">1030W</td><td>1060W</td><td class="hi" style="color:var(--green)">1045W+（差值&lt;5%）</td></tr>
+    <tr><td style="color:var(--teal)">⭐ CW/CCW不对称</td><td style="color:var(--yellow)">9.2%</td><td class="lo">&lt;7.5%</td><td>&lt;6%</td><td class="hi" style="color:var(--green)">&lt;5%</td></tr>
+    <tr><td>高翻1RM</td><td style="color:var(--label)">85kg</td><td class="lo">88kg</td><td>93kg</td><td class="hi" style="color:var(--green)">90-95kg+</td></tr>
+    <tr><td>Keiser峰值功率</td><td style="color:var(--label)">2252W</td><td class="lo">2400W</td><td>2550W</td><td class="hi" style="color:var(--green)">2700W+</td></tr>
+    <tr><td>单步助跑摸高</td><td style="color:var(--label)">3.17m</td><td class="lo">3.21m</td><td>3.26m</td><td class="hi" style="color:var(--green)">3.30m+</td></tr>
+  </table>
+
+  <div style="background:var(--s1);border:1px solid var(--border);padding:16px;font-size:12px;color:var(--dim);line-height:2;margin-top:16px">
+    <strong style="color:var(--label)">V2.0 理论框架参考：</strong><br>
+    · NSCA-CSCS — 周期化原则 | · Bompa &amp; Haff — 大/中/小周期结构 | · Verkhoshansky — 跳深/反应力量/RSI
+    · McGill — 核心稳定五大维度，腰椎保护 | · Comfort et al. — IMTP &amp; 早期RFD解读
+    · Rønnestad — PAP复合对比训练 | · Alfredson — 髌腱HSR循证方案 | · McGuigan — 速度-力量曲线优化
+  </div>
+</div>
+
+<script>
+function switchTab(tabId){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+tabId).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function switchDay(meso,day){
+  const container=document.getElementById('page-'+document.querySelector('.tab.active').getAttribute('onclick').match(/'([^']+)'/)[1]);
+  const allTabs=document.querySelectorAll('#'+meso+'-day-tabs .day-tab');
+  const allContents=document.querySelectorAll('[id^="'+meso+'-day-"]');
+  allTabs.forEach(t=>t.classList.remove('active'));
+  allContents.forEach(c=>c.classList.remove('active'));
+  event.target.classList.add('active');
+  const target=document.getElementById(meso+'-day-'+day);
+  if(target) target.classList.add('active');
+}
+</script>
+</body>
+</html>

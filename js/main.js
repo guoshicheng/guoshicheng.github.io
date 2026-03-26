@@ -255,8 +255,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (detectJgJsLoad) btf.initJustifiedGallery($justifiedGallery)
     else {
       $('head').append(`<link rel="stylesheet" type="text/css" href="${GLOBAL_CONFIG.source.justifiedGallery.css}">`)
-if (typeof $.type === 'undefined') {$.type = function(obj) {if (obj == null) return String(obj);return 	Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();};}
-
       $.getScript(`${GLOBAL_CONFIG.source.justifiedGallery.js}`, function () {
         btf.initJustifiedGallery($justifiedGallery)
       })

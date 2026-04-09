@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>VPS v5 · 弹跳+活动度</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#08090c;--c1:#0f1318;--c2:#161c24;--c3:#1c2530;--c4:#242f3d;
+  --bd:#2a3848;--bd2:#344659;
+  --acc:#f97316;--blue:#38bdf8;--grn:#4ade80;--red:#f87171;
+  --ylw:#facc15;--teal:#2dd4bf;--pur:#c084fc;--pink:#f472b6;
+  --tx:#dde4ed;--tx2:#94a3b8;--tx3:#5a6a7e;
+  --nav-h:64px;
+}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif}
+#app{display:flex;flex-direction:column;height:100%;height:100dvh}
+#hdr{flex-shrink:0;height:52px;background:var(--c1);border-bottom:1px solid var(--bd);display:flex;align-items:center;padding:0 14px;gap:7px}
+#sa{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#nav{flex-shrink:0;height:var(--nav-h);background:var(--c1);border-top:1px solid var(--bd);display:flex}
+
+.hb{background:var(--acc);color:#000;font-size:9px;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:.5px;flex-shrink:0}
+.hb2{background:var(--c3);border:1px solid var(--red);color:var(--red);font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;flex-shrink:0}
+.hb3{background:var(--c3);border:1px solid var(--pink);color:var(--pink);font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;flex-shrink:0}
+.ht{font-size:15px;font-weight:800;flex:1}
+.hm{text-align:right;font-size:10px;color:var(--tx3);line-height:1.4}
+
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:var(--tx3);border:none;background:none;padding:4px 2px;position:relative}
+.ni.on{color:var(--acc)}
+.ni.on::before{content:"";position:absolute;top:0;left:15%;right:15%;height:2px;background:var(--acc);border-radius:0 0 2px 2px}
+.ni-ic{font-size:19px;line-height:1}
+.ni-lb{font-size:9px;font-weight:500}
+
+.pg{display:none;padding:12px 12px 20px}.pg.on{display:block}
+
+.slb{font-size:9px;font-weight:700;color:var(--acc);letter-spacing:2px;margin-bottom:3px}
+.stl{font-size:21px;font-weight:800;margin-bottom:2px;letter-spacing:-.3px}
+.ssb{font-size:12px;color:var(--tx2);margin-bottom:14px;line-height:1.5}
+
+.al{border-radius:8px;padding:10px 12px;margin-bottom:10px;border-left:3px solid;font-size:12px;color:var(--tx2);line-height:1.55}
+.al strong{color:var(--tx);font-weight:600}
+.a-w{background:rgba(250,204,21,.05);border-color:var(--ylw)}
+.a-i{background:rgba(56,189,248,.05);border-color:var(--blue)}
+.a-d{background:rgba(248,113,113,.05);border-color:var(--red)}
+.a-g{background:rgba(74,222,128,.05);border-color:var(--grn)}
+.a-t{background:rgba(45,212,191,.05);border-color:var(--teal)}
+.a-p{background:rgba(244,114,182,.05);border-color:var(--pink)}
+
+/* day selector */
+.ds{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.dc{background:var(--c2);border:1px solid var(--bd);border-radius:10px;padding:13px;text-align:center;cursor:pointer}
+.dc-wk{font-size:9px;font-weight:700;letter-spacing:1px;margin-bottom:3px}
+.dc-day{font-size:16px;font-weight:800;margin-bottom:2px}
+.dc-name{font-size:11px;color:var(--tx3)}
+.msp{display:flex;gap:5px;margin-bottom:12px}
+.mp{flex:1;border-radius:7px;padding:7px;text-align:center;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--bd);background:var(--c3);color:var(--tx2)}
+.mp.on{color:#000;border:none}
+#tc{margin-top:2px}
+
+/* exercise blocks */
+.eb{background:var(--c2);border:1px solid var(--bd);border-radius:10px;margin-bottom:8px;overflow:hidden}
+.eh{background:var(--c3);padding:9px 12px;display:flex;align-items:center;gap:7px;cursor:pointer}
+.et{font-size:13px;font-weight:700;flex:1}
+.etg{font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;flex-shrink:0}
+.tstr{background:rgba(56,189,248,.12);color:var(--blue)}
+.tpow{background:rgba(249,115,22,.12);color:var(--acc)}
+.trea{background:rgba(74,222,128,.12);color:var(--grn)}
+.tuni{background:rgba(250,204,21,.12);color:var(--ylw)}
+.treh{background:rgba(248,113,113,.12);color:var(--red)}
+.toli{background:rgba(192,132,252,.12);color:var(--pur)}
+.tcor{background:rgba(45,212,191,.12);color:var(--teal)}
+.twrm{background:rgba(148,163,184,.12);color:var(--tx2)}
+.tsld{background:rgba(74,222,128,.12);color:var(--grn)}
+.tmob{background:rgba(244,114,182,.12);color:var(--pink)}
+.chv{font-size:13px;color:var(--tx3);transition:transform .2s;flex-shrink:0}
+.eb-body{padding:0 11px 11px;display:none}
+.eb.op .eb-body{display:block}
+.eb.op .chv{transform:rotate(180deg)}
+
+.ec{background:var(--c3);border:1px solid var(--bd);border-radius:7px;padding:11px;margin-top:7px}
+.en{font-size:14px;font-weight:700;margin-bottom:1px}
+.ens{font-size:11px;color:var(--tx3);margin-bottom:7px}
+.ep{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px}
+.epp{background:var(--c4);border-radius:5px;padding:6px 8px}
+.epw{grid-column:1/-1}
+.epl{font-size:9px;color:var(--tx3);letter-spacing:1px;margin-bottom:1px;font-weight:600}
+.epv{font-size:14px;font-weight:700;color:var(--acc)}
+.epv.bl{color:var(--blue)}.epv.gr{color:var(--grn)}.epv.pk{color:var(--pink)}.epv.sm{font-size:12px}
+.ecue{font-size:12px;color:var(--tx2);line-height:1.55;border-left:2px solid var(--bd2);padding-left:8px;margin-top:3px}
+.lw{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);border-radius:7px;padding:9px 11px;margin-top:7px;font-size:12px;color:var(--red);line-height:1.55}
+.lw strong{color:#ff9999}
+.pap-tag{display:inline-flex;align-items:center;background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.3);border-radius:4px;padding:2px 7px;font-size:10px;font-weight:700;color:var(--acc);margin-bottom:5px}
+
+/* ---- MOBILITY SPECIFIC ---- */
+.mob-area{background:var(--c2);border:1px solid var(--bd);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.mob-area-hdr{background:var(--c3);padding:10px 13px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px}
+.mob-area-title{font-size:14px;font-weight:700;flex:1}
+.mob-score{font-size:11px;font-weight:700;padding:3px 8px;border-radius:12px}
+.score-low{background:rgba(248,113,113,.2);color:var(--red)}
+.score-mid{background:rgba(250,204,21,.2);color:var(--ylw)}
+.score-ok{background:rgba(74,222,128,.2);color:var(--grn)}
+.mob-body{padding:11px}
+.mob-why{font-size:12px;color:var(--tx2);line-height:1.55;margin-bottom:10px;border-left:2px solid var(--pink);padding-left:8px}
+.mob-ex{background:var(--c3);border:1px solid var(--bd);border-radius:7px;padding:10px 11px;margin-bottom:7px}
+.mob-ex:last-child{margin-bottom:0}
+.mob-ex-name{font-size:13px;font-weight:700;margin-bottom:3px}
+.mob-ex-params{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:5px}
+.mob-param{background:var(--c4);border-radius:4px;padding:3px 7px;font-size:11px}
+.mob-param .lbl{color:var(--tx3);font-size:9px;display:block;margin-bottom:1px;letter-spacing:.5px}
+.mob-param .val{font-weight:700;color:var(--pink)}
+.mob-cue{font-size:12px;color:var(--tx2);line-height:1.55}
+.mob-prog{font-size:11px;color:var(--teal);margin-top:4px;font-style:italic}
+
+/* daily schedule */
+.sched-row{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start}
+.sched-time{background:var(--c3);border:1px solid var(--bd);border-radius:6px;padding:5px 8px;font-size:11px;font-weight:700;color:var(--acc);flex-shrink:0;min-width:56px;text-align:center}
+.sched-content{background:var(--c2);border:1px solid var(--bd);border-radius:8px;padding:8px 11px;flex:1}
+.sched-title{font-size:13px;font-weight:700;margin-bottom:2px}
+.sched-detail{font-size:11px;color:var(--tx2);line-height:1.5}
+
+/* assessment data */
+.assess-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.assess-card{background:var(--c2);border:1px solid var(--bd);border-radius:8px;padding:10px}
+.assess-name{font-size:11px;color:var(--tx3);margin-bottom:4px}
+.assess-val{font-size:18px;font-weight:800;margin-bottom:2px}
+.assess-bar{height:4px;background:var(--c4);border-radius:2px;margin-bottom:4px;overflow:hidden}
+.assess-fill{height:100%;border-radius:2px}
+.assess-note{font-size:10px;color:var(--tx3)}
+
+/* progress table */
+.psc{overflow-x:auto;margin-bottom:10px;border-radius:8px;border:1px solid var(--bd)}
+.psc::-webkit-scrollbar{height:3px}
+.ptb{width:100%;border-collapse:collapse;min-width:480px;background:var(--c2)}
+.ptb th{background:var(--c3);font-size:9px;color:var(--tx3);letter-spacing:1px;padding:6px 8px;text-align:center;font-weight:600;white-space:nowrap}
+.ptb th:first-child{text-align:left}
+.ptb td{font-size:11px;padding:6px 8px;text-align:center;border-top:1px solid var(--bd);color:var(--tx2);white-space:nowrap}
+.ptb td:first-child{text-align:left;color:var(--tx);font-weight:600}
+.ptb .hi{color:var(--acc)}.ptb .lo{color:var(--blue)}.ptb .dm{color:var(--tx3)}
+
+/* meso header */
+.mh{background:var(--c2);border:1px solid var(--bd2);border-left:3px solid var(--acc);border-radius:10px;padding:11px 13px;margin-bottom:10px}
+.mh.bl{border-left-color:var(--blue)}.mh.gr{border-left-color:var(--grn)}
+.mhg{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--acc)}
+.mh.bl .mhg{color:var(--blue)}.mh.gr .mhg{color:var(--grn)}
+.mhti{font-size:18px;font-weight:800;margin:2px 0}
+.mhps{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.mhp{background:var(--c3);border:1px solid var(--bd);border-radius:20px;padding:3px 8px;font-size:10px;color:var(--tx2)}
+.mhp strong{color:var(--tx)}
+
+/* warmup phases */
+.wp{background:var(--c2);border:1px solid var(--bd);border-radius:10px;margin-bottom:8px;overflow:hidden}
+.wph{background:var(--c3);padding:9px 12px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.wpn{background:var(--acc);color:#000;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.wpi{flex:1}.wpt{font-size:13px;font-weight:700}.wps{font-size:11px;color:var(--tx2)}
+.wpb{padding:8px 11px;display:none}
+.wp.op .wpb{display:block}.wp.op .chv{transform:rotate(180deg)}
+.wi{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--bd)}
+.wi:last-child{border-bottom:none}
+.win{font-size:13px;font-weight:600;flex:1}.win2{font-size:11px;color:var(--tx3);margin-top:1px}
+.wir{text-align:right;margin-left:8px;font-size:13px;font-weight:700;color:var(--acc);flex-shrink:0;white-space:nowrap}
+
+/* timeline */
+.tl{background:var(--c2);border:1px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:14px;overflow-x:auto}
+.tlg{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;min-width:460px}
+.wk{height:22px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#000;border-radius:2px}
+.wm1{background:var(--blue)}.wm2{background:var(--acc)}.wm3{background:var(--grn)}
+.wdl{background:var(--c4);color:var(--tx3)!important;border:1px solid var(--bd2)}.wts{background:var(--ylw)}
+.tll{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px}
+.tlli{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--tx2)}
+.tlld{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+/* VAS + targets */
+.vg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px}
+.vc{border-radius:8px;padding:10px;text-align:center}
+.v0{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2)}
+.v1{background:rgba(250,204,21,.1);border:1px solid rgba(250,204,21,.2)}
+.v2{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2)}
+.vs{font-size:18px;font-weight:800}
+.v0 .vs{color:var(--grn)}.v1 .vs{color:var(--ylw)}.v2 .vs{color:var(--red)}
+.vl{font-size:10px;color:var(--tx2);margin-top:2px}.va{font-size:11px;font-weight:600;margin-top:3px}
+.v0 .va{color:var(--grn)}.v1 .va{color:var(--ylw)}.v2 .va{color:var(--red)}
+.tr2{display:flex;align-items:center;gap:7px;padding:8px 11px;background:var(--c2);border:1px solid var(--bd);border-radius:7px;margin-bottom:5px}
+.trn{font-size:13px;font-weight:600;flex:1}
+.trv{display:flex;gap:5px;align-items:center}
+.trb{font-size:11px;color:var(--tx3)}.tra{color:var(--acc);font-size:12px}.trg{font-size:13px;font-weight:800;color:var(--grn)}
+
+#sa::-webkit-scrollbar{width:3px}
+#sa::-webkit-scrollbar-thumb{background:var(--c4)}
+</style>
+</head>
+<body>
+<div id="app">
+<div id="hdr">
+  <span class="hb">VPS v5</span>
+  <span class="hb2">腰椎保护</span>
+  <span class="hb3">活动度+</span>
+  <div class="ht">弹跳训练</div>
+  <div class="hm">2天/周<br>活动度优先</div>
+</div>
+
+<div id="sa">
+
+<!-- ===== TODAY ===== -->
+<div class="pg on" id="pg-today">
+  <div class="slb">TODAY</div>
+  <div class="stl">今日训练</div>
+  <div class="ssb">选择中周期和训练日</div>
+
+  <div class="al a-d"><strong>⚠️ 训练前自查：</strong>日常弯腰疼痛是否比昨天加重？出现腿部麻木或放射痛请暂停训练。</div>
+
+  <div class="msp" id="msp">
+    <div class="mp on" id="ms1" onclick="setMeso(1)" style="background:var(--blue)">M1 积累</div>
+    <div class="mp" id="ms2" onclick="setMeso(2)">M2 转化</div>
+    <div class="mp" id="ms3" onclick="setMeso(3)">M3 实现</div>
+  </div>
+
+  <div class="ds">
+    <div class="dc" onclick="loadDay('A')">
+      <div class="dc-wk" style="color:var(--blue)">周一</div>
+      <div class="dc-day">Day A</div>
+      <div class="dc-name">力量+奥举+双腿</div>
+    </div>
+    <div class="dc" onclick="loadDay('B')">
+      <div class="dc-wk" style="color:var(--ylw)">周四</div>
+      <div class="dc-day">Day B</div>
+      <div class="dc-name">单侧+反应+旋转</div>
+    </div>
+  </div>
+  <div id="tc"><div class="al a-i">☝️ 选择上方中周期和训练日</div></div>
+</div>
+
+<!-- ===== MOBILITY ===== -->
+<div class="pg" id="pg-mob">
+  <div class="slb">MOBILITY SYSTEM</div>
+  <div class="stl">活动度训练</div>
+  <div class="ssb">每日独立执行 · 与训练日无关 · 髋关节&肩关节优先</div>
+
+  <div class="al a-p"><strong>测评数据解读（2024.9.24）：</strong>肩关节两侧均1/5分（全报告最低）· 踝背屈/髋屈曲/髋后群约3/5 · 腕背伸右2/左3 · 单腿稳定右2/左3。髋屈曲角度约25°/侧，正常值120-130°——这是导致深蹲骨盆眨眼和腰突的根本原因，不是技术问题。</div>
+
+  <!-- Assessment snapshot -->
+  <div class="assess-grid">
+    <div class="assess-card">
+      <div class="assess-name">肩关节（双侧）</div>
+      <div class="assess-val" style="color:var(--red)">1/5</div>
+      <div class="assess-bar"><div class="assess-fill" style="width:20%;background:var(--red)"></div></div>
+      <div class="assess-note">最优先解决 · 右肩摸背疼痛</div>
+    </div>
+    <div class="assess-card">
+      <div class="assess-name">髋屈曲角度</div>
+      <div class="assess-val" style="color:var(--red)">~25°/侧</div>
+      <div class="assess-bar"><div class="assess-fill" style="width:19%;background:var(--red)"></div></div>
+      <div class="assess-note">正常120-130° · 严重受限</div>
+    </div>
+    <div class="assess-card">
+      <div class="assess-name">踝背屈</div>
+      <div class="assess-val" style="color:var(--ylw)">3/5</div>
+      <div class="assess-bar"><div class="assess-fill" style="width:60%;background:var(--ylw)"></div></div>
+      <div class="assess-note">左&gt;右 · 需垫高才能深蹲</div>
+    </div>
+    <div class="assess-card">
+      <div class="assess-name">单腿稳定</div>
+      <div class="assess-val" style="color:var(--ylw)">右2/左3</div>
+      <div class="assess-bar"><div class="assess-fill" style="width:50%;background:var(--ylw)"></div></div>
+      <div class="assess-note">左腿RSI不对称根源之一</div>
+    </div>
+  </div>
+
+  <!-- DAILY ROUTINE -->
+  <div class="slb" style="margin-bottom:6px;color:var(--pink)">DAILY MOBILITY ROUTINE · 每日必做</div>
+  <div class="al a-p" style="margin-bottom:10px">以下动作<strong>每天执行，与训练日无关</strong>。早上起床后或睡前均可，分两段也行。总时长约20-25分钟。体力劳动后腰背酸痛时，先做热敷再做活动度。</div>
+
+  <!-- HIP MOBILITY -->
+  <div class="mob-area">
+    <div class="mob-area-hdr">
+      <div style="font-size:18px">🦴</div>
+      <div class="mob-area-title">髋关节活动度</div>
+      <span class="mob-score score-low">最高优先级</span>
+    </div>
+    <div class="mob-body">
+      <div class="mob-why">髋屈曲仅25°/侧（正常1/5），深蹲到平行位之前骨盆就已开始后倾。这是导致腰突的直接原因。每天做，12周内目标达到70°+，深蹲眨眼点降至平行位以下。</div>
+
+      <div class="mob-ex">
+        <div class="mob-ex-name">90/90 髋关节拉伸</div>
+        <div class="mob-ex-params">
+          <div class="mob-param"><span class="lbl">时长</span><span class="val">每侧 60-90s</span></div>
+          <div class="mob-param"><span class="lbl">每日组数</span><span class="val">3组/侧</span></div>
+          <div class="mob-param"><span class="lbl">重点</span><span class="val">前侧腿内旋+后侧腿外旋同步</span></div>
+        </div>
+        <div class="mob-cue">坐地，前腿膝90°、小腿垂直身体，后腿膝90°向后。身体直立，缓慢向前腿侧倾。感受前腿臀部和后腿髋屈肌拉伸。<br><br>进阶：前侧腿主动向地板压（内旋），保持3s；前后各做。这是改善髋关节内外旋最重要的动作。</div>
+        <div class="mob-prog">↗ M1: 60s保持 | M2: 加主动内旋收缩 | M3: 加上身前倾增加屈曲幅度</div>
+      </div>
+
+      <div class="mob-ex">
+        <div class="mob-ex-name">深蹲至站立（Squat to Stand）</div>
+        <div class="mob-ex-params">
+          <div class="mob-param"><span class="lbl">组×次</span><span class="val">3×10次</span></div>
+          <div class="mob-param"><span class="lbl">节奏</span><span class="val">慢速，感受为主</span></div>
+        </div>
+        <div class="mob-cue">站立，弯腰手抓大脚趾（膝可屈），缓慢伸直膝关节，感受腘绳肌拉伸，再慢慢蹲下至最低位，抬头，起立。每次循环都尝试蹲更深、脚跟不离地。这个动作同步改善踝背屈+髋屈曲+腘绳肌。</div>
+        <div class="mob-prog">↗ 第1周:可以垫高脚跟 → 第4周:尝试平地 → 第8周:全深度无代偿</div>
+      </div>
+
+      <div class="mob-ex">
+        <div class="mob-ex-name">跪姿髋屈肌拉伸（Couch Stretch变式）</div>
+        <div class="mob-ex-params">
+          <div class="mob-param"><span class="lbl">时长</span><span class="val">每侧 60s</span></div>
+          <div class="mob-param"><span class="lbl">每日</span><span class="val">2-3组/侧</span></div>
+        </div>
+        <div class="mob-cue">单腿跪地，后脚脚背紧贴地面（或靠墙），前腿呈90°，核心收紧使骨盆后倾（不允许腰椎前弓），身体缓慢向前移动直到感受到后腿髋屈肌和股四头肌牵拉。⚠️ 腰椎必须保持中立，不能靠前弓换取更大拉伸感。</div>
+        <div class="mob-prog">↗ M1:地面版 → M2:后脚靠墙 → M3:加手臂上举（整合肩髋）</div>
+      </div>
+
+      <div class="mob-ex">
+        <div class="mob-ex-name">髋后侧囊拉伸（Posterior Hip Capsule）</div>
+        <div class="mob-ex-params">
+          <div class="mob-param"><span class="lbl">时长</span><span class="val">每侧 45s</span></div>
+          <div class="mob-param"><span class="lbl">每日</span><span class="val">2组/侧</span></div>
+        </div>
+        <div class="mob-cue">仰卧，单腿屈髋屈膝约90°，对侧手抱膝，同侧手抱脚踝，轻轻向对侧肩膀方向拉。感受臀部深处牵拉。这针对髋关节后侧关节囊，是改善深蹲深度最直接的动作。</div>
+        <div class="mob-prog">↗ 逐周增加拉伸角度，不追求极限，持续感受</div>
+      </div>
+
+      <div class="mob-ex">
+        <div class="mob-ex-name">主动髋屈曲练习（Active Hip Flexion）</div>
+        <div class="mob-ex-params">
+          <div class="mob-param"><span class="lbl">组×次</span><span class="val">3×10/侧</span></div>
+          <div class="mob-param"><span class="lbl">类型</span><span class="val">主动活动度</span></div>
+        </div>
+        <div class="mob-cue">仰卧，单腿主动屈髋尽量贴胸，保持最高位2s，缓慢放下。不用手辅助，纯主动收缩。主动活动度比被动拉伸更能转化为深蹲实际能力。左右都需要做，感受两侧差异。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOULDER MOBILITY -->
+  <div class="mob-area">
+    <div class="mob-area-hdr">
+      <div style="font-size:18px">🙆</div>
+      <div class="mob-area-title">肩关节活动度</div>
+      <span class="mob-score score-low">评分1/5 · 高优先</span>
+    </div>
+    <div class="mob-body">
+      <div class="mob-why">肩关节1/5是全报告最低分，直接影响高翻接杠（只能用指尖）、过头举（腰椎代偿前弓）和日常体力劳动负荷。右肩摸背疼痛需要轻柔处理，不可强行拉伸。</div>
+
+      <div class="al a-d" style="margin-bottom:10px">⚠️ <strong>右肩痛注意：</strong>以下动作如引发右肩锐痛（区别于拉伸感）立即停止该动作。肩袖问题强行拉伸会加重。建议先做左侧，以左侧感受校准右侧幅度。</div>
+
+      <div class="mob-ex">
+        <div class="mob-ex-name">胸椎旋转+肩关节同步（T-spine + Shoulder）</div>
+        <div class="mob-ex-params">
+          <div class="mob-param"><span class="lbl">组×次</span><span class="val">2×10/侧</span></div>
+          <div class="mob-param"><span class="lbl">每日</span><span class="val">必做</span></div>
+        </div>
+        <div class="mob-cue">侧卧，膝屈约90°，双手合十向前伸，上臂随胸椎旋转缓慢打开至地板方向，眼跟手。肩关节活动度问题通常从胸椎僵硬开始——先松胸椎，肩才能跟上。⚠️ 髋保持固定，只转胸椎。</div>
+      </div>
+
+      <div class="mob-ex">
+        <div class="mob-ex-name">肩袖内/外旋强化（弹力带）</div>
+        <div class="mob-ex-params">
+          <div class="mob-param"><span class="lbl">组×次</span><span class="val">2×15/侧</span></div>
+          <div class="mob-param"><span class="lbl">强度</span><span class="val">迷你弹力带·轻阻</span></div>
+        </div>
+        <div class="mob-cue">肘屈90°贴体，弹力带绕腕，外旋（手向外）15次 + 内旋（手向内）15次。维持肩袖肌群力量是防止右肩进一步受伤的关键。无痛范围内执行，右侧减小幅度。</div>
+        <div class="mob-prog">↗ M1:迷你带 → M2:35磅带轻阻 → M3:增加幅度</div>
+      </div>
+
+      <div class="mob-ex">
+        <div class="mob-ex-name">门框肩前侧拉伸（Doorway Stretch）</div>
+        <div class="mob-ex-params">
+          <div class="mob-param"><span class="lbl">时长</span><span class="val">30s/侧</span></div>
+          <div class="mob-param"><span class="lbl">每日</span><span class="val">2次</span></div>
+        </div>
+        <div class="mob-cue">站于门框，前臂贴门框，身体缓慢向前压，感受胸肌和肩前侧拉伸。体力劳动中大量搬运会持续收紧胸小肌，限制肩关节前屈和外旋。右侧减小角度，以无痛为前提。</div>
+      </div>
+
+      <div class="mob-ex">
+        <div class="mob-ex-name">墙壁天使（Wall Angel）</div>
+        <div class="mob-ex-params">
+          <div class="mob-param"><span class="lbl">组×次</span><span class="val">3×10</span></div>
+          <div class="mob-param"><span class="lbl">重点</span><span class="val">整合肩胸</span></div>
+        </div>
+        <div class="mob-cue">背贴墙，腰椎压墙（不允许拱腰），手臂贴墙呈W形，缓慢向上滑动成Y形，再回到W。全程手臂和背部贴墙。这个动作直接改善高翻接杠时无法握住杠铃的问题——根本在于背阔肌+胸椎限制了外旋。</div>
+        <div class="mob-prog">↗ 能完成无代偿10次后，加哑铃0.5-1kg</div>
+      </div>
+
+      <div class="mob-ex">
+        <div class="mob-ex-name">腕关节背伸活动（Wrist Extension）</div>
+        <div class="mob-ex-params">
+          <div class="mob-param"><span class="lbl">组×次</span><span class="val">2×15/侧</span></div>
+          <div class="mob-param"><span class="lbl">重点</span><span class="val">右侧优先</span></div>
+        </div>
+        <div class="mob-cue">四点跪姿，手掌平放地面，手指向后（逆向），缓慢向后倾斜体重压腕关节，感受腕背伸拉伸。右腕背伸右2/5是高翻接杠无法握杠的直接原因之一。每组保持5-10s。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANKLE MOBILITY -->
+  <div class="mob-area">
+    <div class="mob-area-hdr">
+      <div style="font-size:18px">🦶</div>
+      <div class="mob-area-title">踝关节背屈</div>
+      <span class="mob-score score-mid">评分3/5 · 中优先</span>
+    </div>
+    <div class="mob-body">
+      <div class="mob-why">踝背屈限制叠加髋屈曲限制，深蹲时双重代偿全落到腰椎。右踝比左踝更紧。解决踝背屈可以让深蹲时躯干更直立，直接减少腰椎负荷。</div>
+      <div class="mob-ex">
+        <div class="mob-ex-name">跪姿踝背屈活动（Kneeling Ankle Mob）</div>
+        <div class="mob-ex-params">
+          <div class="mob-param"><span class="lbl">组×次</span><span class="val">2×10/侧</span></div>
+          <div class="mob-param"><span class="lbl">重点</span><span class="val">右踝优先</span></div>
+        </div>
+        <div class="mob-cue">单腿跪姿，前脚距墙10cm，膝关节缓慢向前超过脚尖压至墙，脚跟不离地，保持1s。每次尝试脚距墙更远（12cm→15cm）。右脚多2-3次。</div>
+      </div>
+      <div class="mob-ex">
+        <div class="mob-ex-name">小腿拉伸（腓肠肌+比目鱼肌）</div>
+        <div class="mob-ex-params">
+          <div class="mob-param"><span class="lbl">时长</span><span class="val">各45s/侧</span></div>
+          <div class="mob-param"><span class="lbl">每日</span><span class="val">睡前必做</span></div>
+        </div>
+        <div class="mob-cue">靠墙：膝伸直拉腓肠肌，膝微屈拉比目鱼肌。体力劳动长时间站立会持续收紧小腿，睡前拉伸效果最佳。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHEN TO DO -->
+  <div class="slb" style="margin-bottom:6px;color:var(--pink)">每日安排建议</div>
+  <div class="sched-row">
+    <div class="sched-time">早晨</div>
+    <div class="sched-content">
+      <div class="sched-title">髋关节组（10min）</div>
+      <div class="sched-detail">90/90拉伸 + 主动髋屈曲 + Squat to Stand<br>起床后做，改善一天的髋关节状态</div>
+    </div>
+  </div>
+  <div class="sched-row">
+    <div class="sched-time">晚上</div>
+    <div class="sched-content">
+      <div class="sched-title">肩关节+踝关节（12min）</div>
+      <div class="sched-detail">胸椎旋转 + 墙壁天使 + 肩袖弹力带 + 小腿拉伸<br>体力劳动后肌肉疲劳时，先热敷5min再做</div>
+    </div>
+  </div>
+  <div class="sched-row">
+    <div class="sched-time">训练前</div>
+    <div class="sched-content">
+      <div class="sched-title">训练日热身整合（额外5min）</div>
+      <div class="sched-detail">在标准热身Phase 3前加入：髋屈肌拉伸+踝背屈+胸椎旋转各1组。让训练前的活动度更充分。</div>
+    </div>
+  </div>
+
+  <!-- SQUAT DEPTH PROGRESSION -->
+  <div class="slb" style="margin-bottom:6px;margin-top:4px;color:var(--pink)">深蹲深度进阶里程碑</div>
+  <div class="al a-p">跟踪你的深蹲眨眼点位置，每4周对比一次。目标是眨眼点逐步下移，不是追求无眨眼。完全消除眨眼可能需要6-12个月的持续工作。</div>
+  <div style="background:var(--c2);border:1px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:0">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="background:var(--red);color:#000;border-radius:5px;padding:3px 8px;font-size:10px;font-weight:700;flex-shrink:0">现在</div>
+        <div style="font-size:13px;color:var(--tx2)">平行位以上开始眨眼（约大腿水平以上）</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="background:var(--ylw);color:#000;border-radius:5px;padding:3px 8px;font-size:10px;font-weight:700;flex-shrink:0">W8</div>
+        <div style="font-size:13px;color:var(--tx2)">眨眼点降至大腿平行位附近</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="background:var(--blue);color:#000;border-radius:5px;padding:3px 8px;font-size:10px;font-weight:700;flex-shrink:0">W16</div>
+        <div style="font-size:13px;color:var(--tx2)">眨眼点降至平行位以下</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="background:var(--grn);color:#000;border-radius:5px;padding:3px 8px;font-size:10px;font-weight:700;flex-shrink:0">W24</div>
+        <div style="font-size:13px;color:var(--tx2)">全深度深蹲仅轻微或无眨眼</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WARMUP ===== -->
+<div class="pg" id="pg-wu">
+  <div class="slb">WARM-UP</div>
+  <div class="stl">热身系统</div>
+  <div class="ssb">四阶段 · 22-25分钟（活动度整合版）· 每次必须完整</div>
+
+  <div class="al a-d">⚠️ <strong>腰椎激活是第3阶段，绝对不可跳过。</strong>只有深层稳定肌激活、腔内压建立之后，才能进行任何负重动作。</div>
+
+  <div class="wp op" id="wu1" onclick="tWu(this)">
+    <div class="wph"><div class="wpn">1</div><div class="wpi"><div class="wpt">组织准备</div><div class="wps">泡沫轴+腹式呼吸 · 5-6min</div></div><span class="chv">▼</span></div>
+    <div class="wpb">
+      <div class="wi"><div><div class="win">股四头肌</div><div class="win2">重点压痛点，跳深日延长90s</div></div><div class="wir">60s/侧</div></div>
+      <div class="wi"><div><div class="win">髂胫束+臀外侧</div><div class="win2">膝外上方向上滚</div></div><div class="wir">60s/侧</div></div>
+      <div class="wi"><div><div class="win">胸椎泡沫轴</div><div class="win2">横置后伸，每节段停留。Day A必做</div></div><div class="wir">90s</div></div>
+      <div class="wi"><div><div class="win">小腿三头肌</div><div class="win2">腓肠肌+比目鱼肌</div></div><div class="wir">45s/侧</div></div>
+      <div class="wi"><div><div class="win">腹式呼吸IAP建立</div><div class="win2">仰卧，吸气腹隆起，呼气慢</div></div><div class="wir">5次深呼吸</div></div>
+    </div>
+  </div>
+
+  <div class="wp" id="wu2" onclick="tWu(this)">
+    <div class="wph"><div class="wpn">2</div><div class="wpi"><div class="wpt">活动度整合</div><div class="wps">髋+踝+胸椎 · 7-8min（活动度训练嵌入）</div></div><span class="chv">▼</span></div>
+    <div class="wpb">
+      <div class="wi"><div><div class="win">踝背屈（脚趾触墙）</div><div class="win2">右侧多2次</div></div><div class="wir">2×10/侧</div></div>
+      <div class="wi"><div><div class="win">深蹲至站立（Squat to Stand）</div><div class="win2">缓慢，感受髋踝同步活动</div></div><div class="wir">2×8</div></div>
+      <div class="wi"><div><div class="win">90/90髋关节拉伸</div><div class="win2">活动度训练日常动作嵌入热身</div></div><div class="wir">45s/侧</div></div>
+      <div class="wi"><div><div class="win">跪姿髋屈肌拉伸+胸椎旋转</div><div class="win2">髋伸展位加旋转</div></div><div class="wir">2×8/侧</div></div>
+      <div class="wi"><div><div class="win">侧卧胸椎旋转</div><div class="win2">Day A重点，松胸椎为接杠做准备</div></div><div class="wir">2×8/侧</div></div>
+      <div class="wi"><div><div class="win">墙壁天使</div><div class="win2">肩关节准备，改善接杠位置</div></div><div class="wir">2×8</div></div>
+      <div class="al a-w" style="margin-top:8px;margin-bottom:0;font-size:12px">⚠️ Day A专属：Phase 2末嵌入腿举机等长5×45s，完成后等5min再开始深蹲热身组。</div>
+    </div>
+  </div>
+
+  <div class="wp" id="wu3" onclick="tWu(this)">
+    <div class="wph"><div class="wpn" style="background:var(--red)">3</div><div class="wpi"><div class="wpt">腰椎激活（关键）</div><div class="wps">深层稳定肌 · 5-6min · 不可跳过</div></div><span class="chv">▼</span></div>
+    <div class="wpb">
+      <div class="wi"><div><div class="win">腹式呼吸+腔内压强化</div><div class="win2">深吸气撑开腹腔，呼气保持腰椎中立</div></div><div class="wir">3×5次</div></div>
+      <div class="wi"><div><div class="win">Dead Bug</div><div class="win2">腰椎全程压地，对侧手脚停2s</div></div><div class="wir">2×8/侧</div></div>
+      <div class="wi"><div><div class="win">Bird Dog</div><div class="win2">骨盆水平，顶部保持3s</div></div><div class="wir">2×10/侧</div></div>
+      <div class="wi"><div><div class="win">弹力带蚌式开合</div><div class="win2">迷你带，臀中肌激活</div></div><div class="wir">2×15/侧</div></div>
+      <div class="wi"><div><div class="win">单腿臀桥</div><div class="win2">骨盆水平，顶部保持2s</div></div><div class="wir">2×12/侧</div></div>
+    </div>
+  </div>
+
+  <div class="wp" id="wu4" onclick="tWu(this)">
+    <div class="wph"><div class="wpn">4</div><div class="wpi"><div class="wpt">神经启动</div><div class="wps">Sub-Max跳跃 · 3-4min</div></div><span class="chv">▼</span></div>
+    <div class="wpb">
+      <div class="wi"><div><div class="win">双脚踝跳</div><div class="win2">最小膝屈，踝反射启动</div></div><div class="wir">2×10s</div></div>
+      <div class="wi"><div><div class="win">髋铰链跳（70%）</div><div class="win2">标准CMJ，非全力</div></div><div class="wir">3×3</div></div>
+      <div class="wi"><div><div class="win">高脚杯深蹲（20kg哑铃）</div><div class="win2">全深度，检查膝踝对齐</div></div><div class="wir">2×6</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PLAN ===== -->
+<div class="pg" id="pg-plan">
+  <div class="slb">24-WEEK PLAN</div>
+  <div class="stl">周期计划</div>
+  <div class="ssb">2天/周 · 活动度每日独立执行 · RDL已移除→雪橇推拉</div>
+
+  <div class="tl">
+    <div style="font-size:10px;color:var(--tx2);margin-bottom:7px;font-weight:600">时间轴（左右滑动）</div>
+    <div class="tlg">
+      <div class="wk wm1">1</div><div class="wk wm1">2</div><div class="wk wm1">3</div><div class="wk wdl">减</div>
+      <div class="wk wm1">5</div><div class="wk wm1">6</div><div class="wk wm1">7</div><div class="wk wts">测</div>
+      <div class="wk wm2">9</div><div class="wk wm2">10</div><div class="wk wm2">11</div><div class="wk wdl">减</div>
+      <div class="wk wm2">13</div><div class="wk wm2">14</div><div class="wk wm2">15</div><div class="wk wts">测</div>
+      <div class="wk wm3">17</div><div class="wk wm3">18</div><div class="wk wm3">19</div><div class="wk wdl">减</div>
+      <div class="wk wm3">21</div><div class="wk wm3">22</div><div class="wk wm3">23</div><div class="wk wts">测</div>
+    </div>
+    <div class="tll">
+      <div class="tlli"><div class="tlld" style="background:var(--blue)"></div>M1 积累</div>
+      <div class="tlli"><div class="tlld" style="background:var(--acc)"></div>M2 转化</div>
+      <div class="tlli"><div class="tlld" style="background:var(--grn)"></div>M3 实现</div>
+      <div class="tlli"><div class="tlld" style="background:var(--c4);border:1px solid var(--bd2)"></div>减量</div>
+      <div class="tlli"><div class="tlld" style="background:var(--ylw)"></div>测试</div>
+    </div>
+  </div>
+
+  <div class="mh bl">
+    <div class="mhg">M1 | W1-8</div><div class="mhti">积累期</div>
+    <div class="mhps">
+      <span class="mhp">深蹲 <strong>80-90%</strong></span>
+      <span class="mhp">跳箱 <strong>40-50cm</strong></span>
+      <span class="mhp">活动度 <strong>每日建立基础</strong></span>
+      <span class="mhp">深蹲垫高 <strong>1-2cm脚跟</strong></span>
+    </div>
+  </div>
+  <div class="psc">
+    <table class="ptb">
+      <tr><th>动作</th><th>W1</th><th>W2</th><th>W3</th><th>W4减</th><th>W5</th><th>W6</th><th>W7</th><th>W8测</th></tr>
+      <tr><td>后深蹲（垫高过渡）</td><td class="lo">124kg</td><td>128kg</td><td class="hi">132kg</td><td class="dm">100kg</td><td class="lo">132kg</td><td>136kg</td><td class="hi">140kg</td><td style="color:var(--ylw)">测</td></tr>
+      <tr><td>高翻</td><td class="lo">64kg</td><td>66kg</td><td class="hi">68kg</td><td class="dm">55kg</td><td class="lo">68kg</td><td>70kg</td><td class="hi">72kg</td><td style="color:var(--ylw)">测</td></tr>
+      <tr><td>雪橇推（后链替代RDL）</td><td class="lo">3×20m</td><td>3×25m</td><td class="hi">4×20m</td><td class="dm">2×15m</td><td class="lo">4×20m</td><td>4×25m</td><td class="hi">5×20m</td><td style="color:var(--ylw)">维持</td></tr>
+      <tr><td>保加利亚蹲</td><td class="lo">20kg×2</td><td>22kg×2</td><td class="hi">24kg×2</td><td class="dm">14kg×2</td><td class="lo">24kg×2</td><td>28kg×2</td><td class="hi">30kg×2</td><td style="color:var(--ylw)">维持</td></tr>
+    </table>
+  </div>
+  <div class="al a-p" style="margin-bottom:12px">🦴 <strong>M1深蹲活动度策略：</strong>W1-4脚跟垫高1-2cm（任何稳定物），允许更深蹲姿并观察眨眼点位置。W5起逐步减少垫高，以活动度改善进度为准，不强行平地深蹲。</div>
+
+  <div class="mh">
+    <div class="mhg">M2 | W9-16</div><div class="mhti">转化期</div>
+    <div class="mhps">
+      <span class="mhp">PAP <strong>深蹲后4min</strong></span>
+      <span class="mhp">跳深 <strong>30-40cm</strong></span>
+      <span class="mhp">深蹲 <strong>尝试减少垫高</strong></span>
+    </div>
+  </div>
+  <div class="psc">
+    <table class="ptb">
+      <tr><th>动作</th><th>W9</th><th>W10</th><th>W11</th><th>W12减</th><th>W13</th><th>W14</th><th>W15</th><th>W16测</th></tr>
+      <tr><td>后深蹲</td><td class="lo">132kg</td><td>136kg</td><td class="hi">140kg</td><td class="dm">112kg</td><td class="lo">136kg</td><td>140kg</td><td class="hi">143kg</td><td style="color:var(--ylw)">CMJ</td></tr>
+      <tr><td>高翻</td><td class="lo">70kg</td><td>72kg</td><td class="hi">74kg</td><td class="dm">60kg</td><td class="lo">72kg</td><td>74kg</td><td class="hi">76kg</td><td style="color:var(--ylw)">测</td></tr>
+      <tr><td>跳深（跳箱）</td><td class="lo">30cm</td><td>30cm</td><td>35cm</td><td class="dm">停</td><td class="lo">35cm</td><td>40cm</td><td class="hi">40cm</td><td style="color:var(--ylw)">RSI</td></tr>
+    </table>
+  </div>
+
+  <div class="mh gr">
+    <div class="mhg">M3 | W17-24</div><div class="mhti">实现期</div>
+    <div class="mhps">
+      <span class="mhp">深蹲 <strong>90-95% 低量</strong></span>
+      <span class="mhp">跳深 <strong>40-50cm</strong></span>
+      <span class="mhp">平地深蹲 <strong>目标</strong></span>
+    </div>
+  </div>
+  <div class="psc">
+    <table class="ptb">
+      <tr><th>动作</th><th>W17</th><th>W18</th><th>W19</th><th>W20减</th><th>W21</th><th>W22</th><th>W23</th><th>W24测</th></tr>
+      <tr><td>深蹲(3×3)</td><td class="lo">140kg</td><td>143kg</td><td class="hi">147kg</td><td class="dm">116kg</td><td class="lo">140kg</td><td>143kg</td><td class="hi">147kg</td><td style="color:var(--ylw)">最终</td></tr>
+      <tr><td>高翻(4×2)</td><td class="lo">72kg</td><td>74kg</td><td class="hi">76kg</td><td class="dm">60kg</td><td class="lo">76kg</td><td>78kg</td><td class="hi">80kg</td><td style="color:var(--ylw)">1RM</td></tr>
+      <tr><td>跳深</td><td class="lo">40cm</td><td>45cm</td><td class="hi">50cm</td><td class="dm">停</td><td class="lo">45cm</td><td>50cm</td><td class="hi">50cm</td><td style="color:var(--ylw)">DJ测</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== HEALTH ===== -->
+<div class="pg" id="pg-hlth">
+  <div class="slb">HEALTH + TARGETS</div>
+  <div class="stl">伤病管理</div>
+
+  <div class="al a-d"><strong>⚠️ 强烈建议：</strong>日常弯腰疼痛、高强度体力劳动叠加训练——这个组合需要MRI明确膨出程度。下肢麻木、放射痛或肌力下降请立即停止训练就医。</div>
+
+  <div style="font-size:12px;font-weight:700;color:var(--tx2);letter-spacing:1px;margin-bottom:8px">髌腱 VAS</div>
+  <div class="vg">
+    <div class="vc v0"><div class="vs">0-3</div><div class="vl">轻/无痛</div><div class="va">正常训练</div></div>
+    <div class="vc v1"><div class="vs">4-5</div><div class="vl">中度</div><div class="va">跳跃减50%</div></div>
+    <div class="vc v2"><div class="vs">6+</div><div class="vl">明显痛</div><div class="va">取消跳跃</div></div>
+  </div>
+
+  <div class="eb op">
+    <div class="eh" onclick="tEx(this)"><span class="et">髌腱等长协议（W1-4）</span><span class="etg treh">ISOMETRIC</span><span class="chv">▼</span></div>
+    <div class="eb-body">
+      <div class="ec">
+        <div class="en">腿举机等长保持（膝70°）</div>
+        <div class="ep">
+          <div class="epp"><div class="epl">组×时间</div><div class="epv">5×45s</div></div>
+          <div class="epp"><div class="epl">负荷</div><div class="epv bl">~98kg</div></div>
+          <div class="epp epw"><div class="epl">位置</div><div class="epv sm" style="color:var(--tx2)">热身Phase 2末，完成后等5min再开始深蹲热身</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="eb">
+    <div class="eh" onclick="tEx(this)"><span class="et">腰椎硬性规则</span><span class="etg treh">LUMBAR</span><span class="chv">▼</span></div>
+    <div class="eb-body">
+      <div class="al a-g" style="margin-top:8px">✅ 高杠深蹲躯干直立 · 热身必须完整 · 雪橇替代RDL · 每日活动度训练改善根本问题</div>
+      <div class="al a-d">❌ 禁止腰椎圆弓状态负重 · 深蹲疲劳后务必降重 · 出现腿部放射痛立即停止就医</div>
+    </div>
+  </div>
+
+  <div style="font-size:12px;font-weight:700;color:var(--tx2);letter-spacing:1px;margin:14px 0 8px">24周目标</div>
+  <div class="tr2"><span class="trn">CMJ 摆臂</span><div class="trv"><span class="trb">65.2cm</span><span class="tra">→</span><span class="trg">72+cm</span></div></div>
+  <div class="tr2"><span class="trn">双腿 DJ RSI</span><div class="trv"><span class="trb">1.30</span><span class="tra">→</span><span class="trg">1.70+</span></div></div>
+  <div class="tr2"><span class="trn">左腿 RSI</span><div class="trv"><span class="trb">0.45</span><span class="tra">→</span><span class="trg">0.62+</span></div></div>
+  <div class="tr2"><span class="trn">髋屈曲角度（活动度）</span><div class="trv"><span class="trb">~25°/侧</span><span class="tra">→</span><span class="trg">70°+/侧</span></div></div>
+  <div class="tr2"><span class="trn">深蹲眨眼点</span><div class="trv"><span class="trb">平行位以上</span><span class="tra">→</span><span class="trg">平行位以下</span></div></div>
+  <div class="tr2"><span class="trn">肩关节（活动度评分）</span><div class="trv"><span class="trb">1/5</span><span class="tra">→</span><span class="trg">3+/5</span></div></div>
+  <div class="tr2"><span class="trn">高翻接杠握力</span><div class="trv"><span class="trb">仅指尖</span><span class="tra">→</span><span class="trg">全手掌握杠</span></div></div>
+  <div class="tr2"><span class="trn">一步助跑摸高</span><div class="trv"><span class="trb">3.17m</span><span class="tra">→</span><span class="trg">3.30+m</span></div></div>
+</div>
+
+</div><!-- end sa -->
+
+<nav id="nav">
+  <button class="ni on" onclick="sw('today',this)"><span class="ni-ic">⚡</span><span class="ni-lb">今日训练</span></button>
+  <button class="ni" onclick="sw('mob',this)"><span class="ni-ic">🦴</span><span class="ni-lb">活动度</span></button>
+  <button class="ni" onclick="sw('wu',this)"><span class="ni-ic">🔥</span><span class="ni-lb">热身</span></button>
+  <button class="ni" onclick="sw('plan',this)"><span class="ni-ic">📅</span><span class="ni-lb">周期</span></button>
+  <button class="ni" onclick="sw('hlth',this)"><span class="ni-ic">🩺</span><span class="ni-lb">伤病</span></button>
+</nav>
+</div>
+
+<script>
+function sw(id,btn){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pg-'+id).classList.add('on');
+  btn.classList.add('on');
+  document.getElementById('sa').scrollTop=0;
+}
+function tEx(h){h.closest('.eb').classList.toggle('op')}
+function tWu(el){el.classList.toggle('op')}
+
+var cm=1,cd=null;
+function setMeso(n){
+  cm=n;
+  var cols={1:'var(--blue)',2:'var(--acc)',3:'var(--grn)'};
+  [1,2,3].forEach(i=>{
+    var el=document.getElementById('ms'+i);
+    if(i===n){el.style.background=cols[i];el.style.color='#000';el.style.border='none';el.classList.add('on')}
+    else{el.style.background='var(--c3)';el.style.color='var(--tx2)';el.style.border='1px solid var(--bd)';el.classList.remove('on')}
+  });
+  render();
+}
+function loadDay(d){cd=d;render();}
+
+var D={
+  M1:{
+    A:[
+      {g:'核心A — 抗屈伸',tag:'CORE',tc:'tcor',items:[
+        {n:'Dead Bug进阶',s:'3×8/侧',l:'体重→M3哑铃4kg',r:'—',cue:'腰椎全程压地，对侧手脚延伸停2s'},
+        {n:'前平板支撑',s:'3×30s',l:'体重',r:'—',cue:'骨盆不上翘，腰椎不下塌'},
+        {n:'侧平板支撑',s:'3×25s/侧',l:'体重',r:'—',cue:'左侧多10s'}
+      ]},
+      {g:'A — 腿举机等长（热身内）',tag:'REHAB',tc:'treh',items:[
+        {n:'腿举机等长保持（膝70°）',s:'5×45s',l:'~98kg (1.25×BW)',r:'2min',cue:'VAS≥5降至1×BW。热身Phase 2末执行，完成后等5min。'}
+      ]},
+      {g:'B — 后深蹲',tag:'STRENGTH',tc:'tstr',items:[
+        {n:'后深蹲 High Bar（脚跟垫高过渡）',s:'4×5',l:'W1:124kg · W2:128kg · W3:132kg',r:'3min',tempo:'3-1-X-0',cue:'M1阶段脚跟垫高1-2cm，随活动度改善逐步减少垫高。W5起PAP窗口接箱跳。高杠位，躯干直立。',lum:'腰椎：高杠位躯干全程直立，骨盆不允许后倾，若感觉眨眼立即停止该组，这一次不管重量。'}
+      ]},
+      {g:'C — 高翻',tag:'OLYMPIC',tc:'toli',items:[
+        {n:'高翻 Power Clean',s:'5×3',l:'W1:64kg · W2:66kg · W3:68kg',r:'3min',cue:'W1-4技术优先。落地膝屈缓冲。关注接杠时握力——逐步改善腕背伸后接杠质量会提升。',lum:'腰椎：第一拉脊柱中立，背部平板。疲劳后重量必须降低，圆背奥举绝对禁止。'}
+      ]},
+      {g:'D — 箱式跳（W5 PAP）',tag:'POWER',tc:'tpow',items:[
+        {n:'箱式跳 落地静止',s:'4×4',l:'W1-4:40cm · W5-8:50cm',r:'90s',cue:'最大意图，落地稳定2s。W5起在深蹲PAP 4min窗口内执行'}
+      ]},
+      {g:'E — 雪橇推拉（替代RDL）',tag:'SLED',tc:'tsld',items:[
+        {n:'雪橇正向推',s:'3×20m',l:'W1-3:空载或轻负重',r:'60s走回',cue:'躯干前倾45°，核心收紧，大步蹬地。零腰椎屈曲压力'},
+        {n:'雪橇后退拉',s:'3×20m',l:'W1-3:空载或轻负重',r:'60s',cue:'面对雪橇向后走，髋铰链主导'},
+        {n:'小腿提踵 HSR',s:'3×15',l:'双腿+哑铃20kg',r:'90s',tempo:'3-1-3-1',cue:'W5起单腿'}
+      ]},
+      {g:'F — CMJ技术精练',tag:'POWER',tc:'tpow',items:[
+        {n:'CMJ摆臂（技术焦点）',s:'3×3',l:'体重',r:'2min',cue:'①预蹲深度一致 ②摆臂与预蹲同步 ③起跳时踝膝髋完全伸展'}
+      ]}
+    ],
+    B:[
+      {g:'核心B — 弹力带抗旋转',tag:'CORE',tc:'tcor',items:[
+        {n:'弹力带Pallof Press（35磅带）',s:'3×10/侧',l:'35磅弹力带',r:'90s',cue:'侧对固定点，推出收回，全程躯干不旋转'},
+        {n:'Bird Dog进阶',s:'3×10/侧',l:'体重',r:'—',cue:'骨盆水平，顶部保持3s'}
+      ]},
+      {g:'核心C — 地雷式旋转',tag:'ROTATION',tc:'tcor',items:[
+        {n:'地雷式高→低旋转 CW顺时针（弱侧）',s:'4×6',l:'轻重量建立技术，RPE 6-7',r:'90s',cue:'杠铃末端固定于深蹲架角落。核心先收紧再旋转，顺时针额外1组。',lum:'旋转时腰椎中立，任何腰部不适立即停止。幅度从小到大。'},
+        {n:'地雷式旋转 CCW逆时针',s:'3×6',l:'相同负荷',r:'90s',cue:''}
+      ]},
+      {g:'A — 保加利亚深蹲（左腿优先）',tag:'UNILATERAL',tc:'tuni',items:[
+        {n:'保加利亚深蹲',s:'左5×6 / 右4×6',l:'W1:哑铃20×2 · W2:22×2 · W3:24×2',r:'2min',tempo:'3-0-X-0',cue:'前腿垂直支撑，膝不内扣，躯干直立。左腿多1组'}
+      ]},
+      {g:'B — 单腿箱跳（左腿优先）',tag:'POWER',tc:'tpow',items:[
+        {n:'单腿跳台',s:'左4×3 / 右3×3',l:'W1-4:20cm · W5-8:30cm',r:'2min',cue:'落地单腿稳定3s，监控左腿膝关节稳定性'}
+      ]},
+      {g:'C — 悬挂高翻',tag:'OLYMPIC',tc:'toli',items:[
+        {n:'Hang Power Clean',s:'3×4',l:'W1:60kg · W2:62kg · W3:64kg',r:'2.5min',cue:'强化延伸阶段。随着腕背伸改善，接杠质量会逐步提升',lum:'悬挂位置脊柱中立，下背不圆弓。'}
+      ]},
+      {g:'D — 侧向跨跳+踝刚度',tag:'REACTIVE',tc:'trea',items:[
+        {n:'侧向单腿跨跳→落地静止',s:'左4×3 / 右3×3',l:'W1-4:80cm · W5-8:100cm',r:'2min',cue:''},
+        {n:'左腿单腿踝跳',s:'左3×8 / 右2×8',l:'体重',r:'90s',cue:'左腿多1组'},
+        {n:'北欧腿弯举（纯离心）',s:'3×5',l:'体重',r:'2min',tempo:'5s缓慢下降',cue:'仅离心'}
+      ]}
+    ]
+  },
+  M2:{
+    A:[
+      {g:'PAP A1/A2 — 深蹲+CMJ',tag:'PAP',tc:'tpow',pap:true,items:[
+        {n:'A1 — 后深蹲',s:'4×4',l:'W9:132kg · W10:136kg · W11:140kg',r:'→ PAP等4min',tempo:'3-1-X-0',cue:'最后一次起立计时4min',lum:'M2强度更高，疲劳时腰椎控制更难。最后1-2组感觉控制下降立即降重5-10kg。'},
+        {n:'A2 — CMJ最大力（PAP窗口）',s:'3×3',l:'体重',r:'2min→返回A1',cue:'全力跳，感受PAP增强效应'}
+      ]},
+      {g:'PAP B1/B2 — 雪橇冲刺+跳深',tag:'PAP',tc:'tsld',pap:true,items:[
+        {n:'B1 — 雪橇爆发冲刺',s:'3×15m',l:'W9:+20kg · W10:+25kg · W11:+30kg',r:'→ PAP 4min',cue:'最大速度冲刺，完成后计时4min'},
+        {n:'B2 — 跳深→CMJ',s:'3×5',l:'W9-11:30cm · W13-15:35-40cm',r:'3min→返回B1',cue:'目标触地<400ms，超过450ms降台高'}
+      ]},
+      {g:'C — 高翻进阶',tag:'OLYMPIC',tc:'toli',items:[
+        {n:'高翻',s:'4×3',l:'W9:70kg · W10:72kg · W11:74kg',r:'3min',cue:'更高强度，更需要完全恢复',lum:'M2高翻强度更高。第一拉脊柱中立绝对优先于重量。'}
+      ]},
+      {g:'D — 雪橇+史密斯机跳',tag:'POWER',tc:'tpow',items:[
+        {n:'雪橇正向推',s:'4×20m',l:'+20-40kg',r:'60s',cue:'M2增加负重'},
+        {n:'史密斯机深蹲跳',s:'3×5',l:'47kg RPE 8-9',r:'3min',cue:'每次100%速度意图'}
+      ]}
+    ],
+    B:[
+      {g:'核心B+C — 弹力带+地雷进阶',tag:'CORE',tc:'tcor',items:[
+        {n:'弹力带Pallof Press',s:'3×10/侧',l:'35磅带',r:'90s',cue:''},
+        {n:'地雷式旋转 CW（弱侧）',s:'4×6',l:'M1基础+10-15%',r:'90s',cue:'监测CW负荷接近CCW',lum:'进阶负荷时旋转幅度增大，更需核心先收紧。'},
+        {n:'地雷式旋转 CCW',s:'3×6',l:'相同',r:'90s',cue:''},
+        {n:'爆发性CW旋转（M2新增）',s:'3×5',l:'中等负荷，最大速度',r:'90s',cue:''}
+      ]},
+      {g:'PAP A1/A2 — 保加利亚+单腿跳深',tag:'PAP',tc:'tuni',pap:true,items:[
+        {n:'A1 — 保加利亚深蹲（左优先）',s:'左5×5 / 右4×5',l:'W9:28×2 · W10:30×2 · W11:32×2',r:'→ PAP 4min',cue:''},
+        {n:'A2 — 单腿跳深→垂直（左优先）',s:'左4×3 / 右3×3',l:'30cm→35cm(W13)',r:'2.5min→返回',cue:'左腿多1组，目标触地<500ms'}
+      ]},
+      {g:'B — 悬挂高抓',tag:'OLYMPIC',tc:'toli',items:[
+        {n:'Hang Power Snatch',s:'3×3',l:'W9:49kg · W10:52kg · W11:54kg',r:'3min',cue:'速度优先',lum:'高抓对胸椎活动度要求更高，随肩关节改善接杠会更顺畅。'}
+      ]},
+      {g:'C — 单腿三级跳+踝刚度',tag:'REACTIVE',tc:'trea',items:[
+        {n:'单腿三级跳远（不对称监控）',s:'左3×3 / 右3×3',l:'体重',r:'3min',cue:'记录左右距离差'},
+        {n:'侧向单腿跳→立即垂直跳',s:'3×4/侧',l:'体重',r:'2min',cue:'落地不停顿立即起跳'},
+        {n:'北欧腿弯举（离心）',s:'3×5',l:'体重',r:'2min',cue:'5s下降'}
+      ]}
+    ]
+  },
+  M3:{
+    A:[
+      {g:'A — 深蹲（高强度低量）',tag:'STRENGTH',tc:'tstr',items:[
+        {n:'后深蹲',s:'3×3',l:'W17:140kg · W18:143kg · W19:147kg',r:'4min',tempo:'2-1-X-0',cue:'高强度低量维持。M3评估深蹲眨眼点是否已降至平行位以下（活动度进步验证）',lum:'M3接近极限负荷，腰椎疲劳风险最高。当日弯腰疼痛加重则主动降重5-10kg。'}
+      ]},
+      {g:'B — PAP跳深峰值',tag:'DEPTH JUMP',tc:'trea',pap:true,items:[
+        {n:'跳深→CMJ（PAP窗口）',s:'4×4',l:'W17:40cm · W18:45cm · W19:50cm',r:'3min',cue:'触地目标<320ms，超过360ms停组'}
+      ]},
+      {g:'C — 高翻峰值',tag:'OLYMPIC PEAK',tc:'toli',items:[
+        {n:'高翻',s:'4×2',l:'W17:72kg · W19:76kg · W23:80kg',r:'4min',cue:'每次100%全力。接杠质量随肩腕活动度改善应有明显提升',lum:'M3高翻接近90%以上，每次起重前重新建立腹内压。'}
+      ]},
+      {g:'D — 一步助跑+雪橇冲刺',tag:'SPORT',tc:'tpow',items:[
+        {n:'一步助跑起跳（最大高度）',s:'4×3',l:'体重',r:'3min',cue:'左脚刚度触地，目标超越3.17m'},
+        {n:'雪橇爆发冲刺',s:'5×20m',l:'+40-60kg',r:'90s',cue:'M3最高负重'},
+        {n:'史密斯机深蹲跳',s:'3×5',l:'47kg RPE 9',r:'3min',cue:'比M1感觉更有爆发力'}
+      ]}
+    ],
+    B:[
+      {g:'核心C — 地雷旋转峰值',tag:'ROTATION PEAK',tc:'tcor',items:[
+        {n:'地雷式旋转 CW（弱侧峰值）',s:'4×5',l:'M1基础+20-30% RPE 8-9',r:'90s',cue:'目标CW负荷接近CCW',lum:'峰值负荷：腰椎中立绝对优先，不用弓腰换旋转幅度。'},
+        {n:'双向交替爆发旋转',s:'3×(3CW+3CCW)',l:'85% RPE',r:'2min',cue:'CW→CCW快速切换'}
+      ]},
+      {g:'A — 弹力带辅助单腿蹲',tag:'UNILATERAL PEAK',tc:'tuni',items:[
+        {n:'弹力带辅助单腿蹲',s:'左4×5 / 右3×5',l:'W17:厚带 · W19:薄带',r:'2.5min',cue:'弹力带固定深蹲架横杆，每周减少辅助'}
+      ]},
+      {g:'B — 单腿跳深峰值',tag:'SL DEPTH JUMP',tc:'trea',items:[
+        {n:'单腿跳深→垂直',s:'左5×3 / 右3×3',l:'W17-19:35-40cm',r:'3min',cue:'左腿多2组，W24目标左RSI≥0.60'}
+      ]},
+      {g:'C — 一步助跑分解+悬挂高抓',tag:'PATTERN',tc:'tpow',items:[
+        {n:'慢速一步助跑（技术）',s:'3×4',l:'体重',r:'2min',cue:'50-60%速感受分解'},
+        {n:'全速一步助跑（最大）',s:'4×2',l:'体重',r:'3min',cue:'每次测量，目标超越3.17m'},
+        {n:'悬挂高抓',s:'3×2',l:'W17:52kg · W23:56kg',r:'3.5min',cue:'',lum:'M3高抓强度最高，腰背任何圆弓立即停止。'}
+      ]},
+      {g:'D — 左腿收尾+北欧',tag:'FINISH',tc:'trea',items:[
+        {n:'左腿踝跳（最快频率）',s:'左3×15s / 右2×12s',l:'体重',r:'90s',cue:''},
+        {n:'北欧腿弯举（离心）',s:'3×5',l:'体重',r:'2min',cue:'5s下降'}
+      ]}
+    ]
+  }
+};
+
+function render(){
+  var el=document.getElementById('tc');
+  if(!cd){el.innerHTML='<div class="al a-i">☝️ 选择中周期（上方）和训练日（蓝/黄卡片）</div>';return;}
+  var key='M'+cm;
+  var dd=D[key]&&D[key][cd];
+  if(!dd){el.innerHTML='<div class="al a-w">暂无数据</div>';return;}
+  var dn={A:'力量+奥举+双腿爆发',B:'单侧+反应+旋转'};
+  var dc={A:'var(--blue)',B:'var(--ylw)'};
+  var mn={1:'M1 积累期',2:'M2 转化期',3:'M3 实现期'};
+  var h='<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">';
+  h+='<div style="background:'+dc[cd]+';color:#000;border-radius:7px;padding:6px 13px;font-weight:800;font-size:15px">Day '+cd+'</div>';
+  h+='<div><div style="font-size:13px;font-weight:700">'+dn[cd]+'</div><div style="font-size:11px;color:var(--tx3)">'+mn[cm]+'</div></div></div>';
+  if(cd==='A'){
+    h+='<div class="al a-i" style="font-size:12px">⏱️ 热身22min（含腿举机等长）→ 核心A → 深蹲 → 高翻 → 跳跃 → 雪橇</div>';
+  } else {
+    h+='<div class="al a-i" style="font-size:12px">💡 热身22min → 核心B+地雷旋转 → 保加利亚蹲 → 单腿跳 → 悬挂举</div>';
+    h+='<div class="al a-w" style="font-size:12px">⬅️ 左腿先做，左腿比右腿多1-2组</div>';
+  }
+  dd.forEach(function(g){
+    h+='<div class="eb op"><div class="eh" onclick="tEx(this)">';
+    if(g.pap) h+='<span class="pap-tag" style="margin-right:4px">PAP 4min</span>';
+    h+='<span class="et">'+g.g+'</span><span class="etg '+g.tc+'">'+g.tag+'</span><span class="chv">▼</span></div>';
+    h+='<div class="eb-body">';
+    g.items.forEach(function(ex){
+      h+='<div class="ec"><div class="en">'+ex.n+'</div>';
+      h+='<div class="ep">';
+      h+='<div class="epp"><div class="epl">组×次</div><div class="epv">'+ex.s+'</div></div>';
+      h+='<div class="epp"><div class="epl">间歇</div><div class="epv gr sm">'+ex.r+'</div></div>';
+      if(ex.tempo){
+        h+='<div class="epp"><div class="epl">节奏</div><div class="epv sm" style="color:var(--tx2)">'+ex.tempo+'</div></div>';
+        h+='<div class="epp"><div class="epl">负荷</div><div class="epv bl sm">'+ex.l+'</div></div>';
+      } else {
+        h+='<div class="epp epw"><div class="epl">负荷</div><div class="epv bl sm">'+ex.l+'</div></div>';
+      }
+      h+='</div>';
+      if(ex.cue) h+='<div class="ecue">'+ex.cue+'</div>';
+      if(ex.lum) h+='<div class="lw">⚠️ <strong>腰椎注意：</strong>'+ex.lum+'</div>';
+      h+='</div>';
+    });
+    h+='</div></div>';
+  });
+  el.innerHTML=h;
+}
+setMeso(1);
+</script>
+</body>
+</html>
